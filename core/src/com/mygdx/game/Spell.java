@@ -3,18 +3,17 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Spell extends DataHandling{
-    float manaCost = Float.parseFloat(getdata(17,2));
-    float damage = Float.parseFloat(getdata(16,2));
+    float manaCost = Float.parseFloat(getdata(17));
+    float damage = Float.parseFloat(getdata(16));
     float maxDuration;
     float duration;
     Texture circleAOE;
     float stateTime;
-    float maxCooldown = Float.parseFloat(getdata(18,2));
+    float maxCooldown = Float.parseFloat(getdata(18));
     float cooldown = maxCooldown;
     BitmapFontCache font;
 

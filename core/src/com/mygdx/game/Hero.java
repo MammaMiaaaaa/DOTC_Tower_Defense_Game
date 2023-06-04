@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 
@@ -19,8 +18,8 @@ public class Hero extends DataHandling{
         DEATH
     }
 
-    int damage = Integer.parseInt(getdata(14,2));
-    float attackCooldownAwal = Float.parseFloat(getdata(15,2));
+    int damage = Integer.parseInt(getdata(14));
+    float attackCooldownAwal = Float.parseFloat(getdata(15));
     float attackCooldown = attackCooldownAwal;
 
     float stateTime;
@@ -45,13 +44,13 @@ public class Hero extends DataHandling{
 
 
         TextureRegion[] frames = MyGdxGame.CreateAnimationFrames(heroAttacking, 500, 500, 10, false, false);
-        heroAttackingAnimation = new Animation<TextureRegion>(0.07f, frames);
+        heroAttackingAnimation = new Animation<>(0.07f, frames);
 
         frames = MyGdxGame.CreateAnimationFrames(heroIdling, 500, 500, 10, false, false);
-        heroIdlingAnimation = new Animation<TextureRegion>(0.07f, frames);
+        heroIdlingAnimation = new Animation<>(0.07f, frames);
 
         frames = MyGdxGame.CreateAnimationFrames(heroDying, 500, 500, 10, false, false);
-        heroDyingAnimation = new Animation<TextureRegion>(0.07f, frames);
+        heroDyingAnimation = new Animation<>(0.07f, frames);
     }
     public void draw(SpriteBatch batch) {
         TextureRegion currentFrame = null;

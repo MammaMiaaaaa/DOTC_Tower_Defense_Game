@@ -85,8 +85,6 @@ public class WaveEnemy {
         }
     }
     public void addToArray(ArrayList<Enemy> listEnemy){
-        for (Enemy e: listEnemyWave) {
-            listEnemy.add(e);
-        }
+        listEnemy.addAll(listEnemyWave);
     }
 }

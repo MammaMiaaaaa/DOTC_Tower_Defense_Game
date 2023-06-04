@@ -5,7 +5,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -15,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -30,7 +28,7 @@ public class PowerUpScreenSpell extends DataHandling  implements Screen, InputPr
     AssetManager assetManager;
 
     private Viewport viewport;
-    private OrthographicCamera camera, stageCamera;
+    private OrthographicCamera camera;
     SpriteBatch batch;
     int game_awal=20;
     int game_awal2=20;
@@ -59,12 +57,9 @@ public class PowerUpScreenSpell extends DataHandling  implements Screen, InputPr
 
     public PowerUpScreenSpell(Game parent) {
         parentGame = parent;
-        if(data_upgrade3.size()!=0) {
-            data_upgrade3.clear();
-        }
         Path path = Paths.get("data_save/dataUpgrade.txt");
         boolean path_exits = Files.notExists(path);
-        if (path_exits == false) {
+        if (!path_exits) {
             readFile(data_upgrade3,2);
         }
         this.Initialize();
@@ -79,7 +74,7 @@ public class PowerUpScreenSpell extends DataHandling  implements Screen, InputPr
         viewport = new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, camera);
         batch = new SpriteBatch();
 
-        stageCamera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
+        OrthographicCamera stageCamera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         stageCamera.setToOrtho(false, MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         stage = new Stage(new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, stageCamera));
 
@@ -103,23 +98,23 @@ public class PowerUpScreenSpell extends DataHandling  implements Screen, InputPr
 
         fontCache = new BitmapFontCache(MyGdxGame.font);
         fontCache.setColor(Color.BLACK);
-        fontCache.setText(""+coin, 1450, 1050);
+        fontCache.setText(String.valueOf(coin), 1450, 1050);
 
         fontCache1 = new BitmapFontCache(MyGdxGame.font);
         fontCache1.setColor(Color.BLACK);
-        fontCache1.setText(""+diamond, 1700, 1050);
+        fontCache1.setText(String.valueOf(diamond), 1700, 1050);
 
         fontCache2 = new BitmapFontCache(MyGdxGame.font);
         fontCache2.setColor(Color.BLACK);
-        fontCache2.setText(""+diamond1, 1420, 815);
+        fontCache2.setText(String.valueOf(diamond1), 1420, 815);
 
         fontCache3 = new BitmapFontCache(MyGdxGame.font);
         fontCache3.setColor(Color.BLACK);
-        fontCache3.setText(""+diamond2, 1420, 560);
+        fontCache3.setText(String.valueOf(diamond2), 1420, 560);
 
         fontCache4 = new BitmapFontCache(MyGdxGame.font);
         fontCache4.setColor(Color.BLACK);
-        fontCache4.setText(""+diamond3, 1420, 305);
+        fontCache4.setText(String.valueOf(diamond3), 1420, 305);
 
         fontCache5 = new BitmapFontCache(MyGdxGame.font2);
         fontCache5.setColor(Color.BLACK);
@@ -222,9 +217,9 @@ public class PowerUpScreenSpell extends DataHandling  implements Screen, InputPr
                         fontCache5.setText("Meningkatkan damage serangan spell menjadi "+kekuatan_spell , 665, 725);
                         game_awal += 10;
                         diamond -= diamond1;
-                        fontCache1.setText("" + diamond, 1725, 1050);
+                        fontCache1.setText(String.valueOf(diamond), 1725, 1050);
                         diamond1 += 5;
-                        fontCache2.setText("" + diamond1, 1420, 815);
+                        fontCache2.setText(String.valueOf(diamond1), 1420, 815);
                     }
                     if (game_awal >= 60) {
                         fontCache5.setText("Tingkat kekuatan serangan spell maksimal" , 665, 725);
@@ -261,9 +256,9 @@ public class PowerUpScreenSpell extends DataHandling  implements Screen, InputPr
                         fontCache6.setText("Mengurangi mana cost menjadi "+manaCost, 665, 470);
                         game_awal2 += 10;
                         diamond -= diamond2;
-                        fontCache1.setText("" + diamond, 1725, 1050);
+                        fontCache1.setText(String.valueOf(diamond), 1725, 1050);
                         diamond2 += 5;
-                        fontCache3.setText("" + diamond2, 1420, 560);
+                        fontCache3.setText(String.valueOf(diamond2), 1420, 560);
                     }
                     if (game_awal2 >= 60) {
                         fontCache6.setText("Tingkat maximal mana cost sudah maksimal ", 665, 470);
@@ -300,9 +295,9 @@ public class PowerUpScreenSpell extends DataHandling  implements Screen, InputPr
                         fontCache7.setText("Mengurangi cooldown spell menjadi "+ spell_Cooldown+ " detik ", 665, 214);
                         game_awal3 += 10;
                         diamond -= diamond3;
-                        fontCache1.setText("" + diamond, 1725, 1050);
+                        fontCache1.setText(String.valueOf(diamond), 1725, 1050);
                         diamond3 += 5;
-                        fontCache4.setText("" + diamond3, 1420, 305);
+                        fontCache4.setText(String.valueOf(diamond3), 1420, 305);
                     }
                     if (game_awal3 >= 60) {
                         fontCache7.setText("Tingkat durasi cooldown spell maksimal", 665, 214);

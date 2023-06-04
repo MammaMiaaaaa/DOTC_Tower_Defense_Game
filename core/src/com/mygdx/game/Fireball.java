@@ -26,7 +26,7 @@ public class Fireball extends Spell{
         Texture fireBall = assetManager.get("FireBallAnimation.png",Texture.class);
 
         TextureRegion[] frames = MyGdxGame.CreateAnimationFrames(fireBall, 300, 300, 10, true, false);
-        fireballAnimation = new Animation<TextureRegion>(0.05f, frames);
+        fireballAnimation = new Animation<>(0.05f, frames);
     }
 
     public void draw(SpriteBatch batch,float x,float y) {

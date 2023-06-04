@@ -5,7 +5,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -15,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -30,7 +28,7 @@ public class PowerUpScreenCastle extends DataHandling  implements Screen, InputP
     AssetManager assetManager;
 
     private Viewport viewport;
-    private OrthographicCamera camera, stageCamera;
+    private OrthographicCamera camera;
     SpriteBatch batch;
     BitmapFontCache fontCache,fontCache1,fontCache2,fontCache3,fontCache4;
     int game_awal=20;
@@ -54,12 +52,9 @@ public class PowerUpScreenCastle extends DataHandling  implements Screen, InputP
 
     public PowerUpScreenCastle(Game parent) {
         parentGame = parent;
-        if(data_upgrade2.size()!=0) {
-            data_upgrade2.clear();
-        }
         Path path = Paths.get("data_save/dataUpgrade.txt");
         boolean path_exits = Files.notExists(path);
-        if (path_exits == false) {
+        if (!path_exits) {
             readFile(data_upgrade2,2);
         }
         this.Initialize();
@@ -74,7 +69,7 @@ public class PowerUpScreenCastle extends DataHandling  implements Screen, InputP
         viewport = new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, camera);
         batch = new SpriteBatch();
 
-        stageCamera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
+        OrthographicCamera stageCamera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         stageCamera.setToOrtho(false, MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         stage = new Stage(new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, stageCamera));
 
@@ -90,15 +85,15 @@ public class PowerUpScreenCastle extends DataHandling  implements Screen, InputP
         max_hp_castle=Integer.parseInt(data_upgrade2.get(19));
         fontCache = new BitmapFontCache(MyGdxGame.font);
         fontCache.setColor(Color.BLACK);
-        fontCache.setText(""+coin, 1450, 1050);
+        fontCache.setText(String.valueOf(coin), 1450, 1050);
 
         fontCache1 = new BitmapFontCache(MyGdxGame.font);
         fontCache1.setColor(Color.BLACK);
-        fontCache1.setText(""+coin2, 1610, 770);
+        fontCache1.setText(String.valueOf(coin2), 1610, 770);
 
         fontCache2=new BitmapFontCache(MyGdxGame.font);
         fontCache2.setColor(Color.BLACK);
-        fontCache2.setText(""+diamond, 1700, 1050);
+        fontCache2.setText(String.valueOf(diamond), 1700, 1050);
 
         fontCache3=new BitmapFontCache(MyGdxGame.font2);
         fontCache3.setColor(Color.BLACK);
@@ -203,9 +198,9 @@ public class PowerUpScreenCastle extends DataHandling  implements Screen, InputP
                         fontCache3.setText("Meningkatkan maximal HP castle menjadi "+max_hp_castle, 725, 671);
                         game_awal += 10;
                         coin -= coin2;
-                        fontCache.setText("" + coin, 1450, 1050);
+                        fontCache.setText(String.valueOf(coin), 1450, 1050);
                         coin2 += 200;
-                        fontCache1.setText("" + coin2, 1610, 770);
+                        fontCache1.setText(String.valueOf(coin2), 1610, 770);
                     }
                     if (game_awal >= 60) {
                         fontCache3.setText("Tingkat maximal HP castle sudah maksimal ", 725, 671);

@@ -26,7 +26,7 @@ public class MenuScreen extends DataHandling implements Screen, InputProcessor {
     AssetManager assetManager;
 
     private Viewport viewport;
-    private OrthographicCamera camera, stageCamera;
+    private OrthographicCamera camera;
     SpriteBatch batch;
 
     int game_awal=20;
@@ -79,7 +79,7 @@ public class MenuScreen extends DataHandling implements Screen, InputProcessor {
         viewport = new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, camera);
         batch = new SpriteBatch();
 
-        stageCamera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
+        OrthographicCamera stageCamera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         stageCamera.setToOrtho(false, MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         stage = new Stage(new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, stageCamera));
 

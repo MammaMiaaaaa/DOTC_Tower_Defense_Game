@@ -57,7 +57,7 @@ public class Arrows extends Spell{
                         else if (i== 2){
                             arrow.Y = 240;
                         }
-                        else if (i== 3){
+                        else {
                             arrow.Y = 90;
                         }
                         listArrow.add(arrow);

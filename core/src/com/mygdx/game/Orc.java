@@ -37,19 +37,19 @@ public class Orc extends Enemy{
         Texture frozenOrc = assetManager.get("FrozenOrc.png",Texture.class);
 
         TextureRegion[] frames = MyGdxGame.CreateAnimationFrames(orcRunning, 300, 300, 12, true, false);
-        orcRunningAnimation = new Animation<TextureRegion>(0.05f, frames);
+        orcRunningAnimation = new Animation<>(0.05f, frames);
 
         frames = MyGdxGame.CreateAnimationFrames(orcAttacking, 300, 300, 12, true, false);
-        orcAttackingAnimation = new Animation<TextureRegion>(0.05f, frames);
+        orcAttackingAnimation = new Animation<>(0.05f, frames);
 
         frames = MyGdxGame.CreateAnimationFrames(orcDying, 300, 300, 15, true, false);
-        orcDyingAnimation = new Animation<TextureRegion>(0.05f, frames);
+        orcDyingAnimation = new Animation<>(0.05f, frames);
 
         frames = MyGdxGame.CreateAnimationFrames(orcIdling, 300, 300, 18, true, false);
-        orcIdlingAnimation = new Animation<TextureRegion>(0.05f, frames);
+        orcIdlingAnimation = new Animation<>(0.05f, frames);
 
         frames = MyGdxGame.CreateAnimationFrames(frozenOrc, 300, 300, 1, true, false);
-        frozenOrcAnimation = new Animation<TextureRegion>(0.05f, frames);
+        frozenOrcAnimation = new Animation<>(0.05f, frames);
     }
 
     @Override

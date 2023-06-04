@@ -7,10 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 public class Ogre extends Orc {
 
     int HP_Regen = 10;
@@ -45,19 +41,19 @@ public class Ogre extends Orc {
         Texture frozenOgre = assetManager.get("FrozenOgre.png",Texture.class);
 
         TextureRegion[] frames = MyGdxGame.CreateAnimationFrames(ogreRunning, 300, 300, 12, true, false);
-        ogreRunningAnimation = new Animation<TextureRegion>(0.05f, frames);
+        ogreRunningAnimation = new Animation<>(0.05f, frames);
 
         frames = MyGdxGame.CreateAnimationFrames(ogreAttacking, 300, 300, 11, true, false);
-        ogreAttackingAnimation = new Animation<TextureRegion>(0.05f, frames);
+        ogreAttackingAnimation = new Animation<>(0.05f, frames);
 
         frames = MyGdxGame.CreateAnimationFrames(ogreDying, 300, 300, 15, true, false);
-        ogreDyingAnimation = new Animation<TextureRegion>(0.05f, frames);
+        ogreDyingAnimation = new Animation<>(0.05f, frames);
 
         frames = MyGdxGame.CreateAnimationFrames(ogreIdling, 300, 300, 18, true, false);
-        ogreIdlingAnimation = new Animation<TextureRegion>(0.05f, frames);
+        ogreIdlingAnimation = new Animation<>(0.05f, frames);
 
         frames = MyGdxGame.CreateAnimationFrames(frozenOgre, 300, 300, 1, true, false);
-        ogreFrozenAnimation = new Animation<TextureRegion>(0.05f, frames);
+        ogreFrozenAnimation = new Animation<>(0.05f, frames);
     }
 
     @Override

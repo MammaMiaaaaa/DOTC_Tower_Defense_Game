@@ -37,19 +37,19 @@ public class Goblin extends Orc{
         Texture frozenGoblin = assetManager.get("FrozenGoblin.png",Texture.class);
 
         TextureRegion[] frames = MyGdxGame.CreateAnimationFrames(goblinRunning, 300, 300, 12, true, false);
-        goblinRunningAnimation = new Animation<TextureRegion>(0.05f, frames);
+        goblinRunningAnimation = new Animation<>(0.05f, frames);
 
         frames = MyGdxGame.CreateAnimationFrames(goblinAttacking, 300, 300, 12, true, false);
-        goblinAtttackingAnimation = new Animation<TextureRegion>(0.05f, frames);
+        goblinAtttackingAnimation = new Animation<>(0.05f, frames);
 
         frames = MyGdxGame.CreateAnimationFrames(goblinDying, 300, 300, 15, true, false);
-        goblinDyingAnimation = new Animation<TextureRegion>(0.05f, frames);
+        goblinDyingAnimation = new Animation<>(0.05f, frames);
 
         frames = MyGdxGame.CreateAnimationFrames(goblinIdling, 300, 300, 18, true, false);
-        orcIdlingAnimation = new Animation<TextureRegion>(0.05f, frames);
+        orcIdlingAnimation = new Animation<>(0.05f, frames);
 
         frames = MyGdxGame.CreateAnimationFrames(frozenGoblin, 300, 300, 1, true, false);
-        frozenGoblinAnimation = new Animation<TextureRegion>(0.05f, frames);
+        frozenGoblinAnimation = new Animation<>(0.05f, frames);
     }
 
     @Override

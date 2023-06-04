@@ -30,8 +30,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
     Game parentGame;
     AssetManager assetManager;
 
-    private Viewport viewport;
-    private OrthographicCamera camera, stageCamera;
+    private OrthographicCamera camera;
     SpriteBatch batch;
 
     Stages stages;
@@ -87,16 +86,16 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         stageHighScore.add(String.valueOf(highscore1));
         Path path = Paths.get("data_save/dataHighscore.txt");
         boolean path_exits = Files.notExists(path);
-        if (path_exits == true) {
+        if (path_exits) {
             writeFile(stageHighScore,1);
         }
 
         camera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         camera.setToOrtho(false, MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
-        viewport = new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, camera);
+        Viewport viewport = new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, camera);
         batch = new SpriteBatch();
 
-        stageCamera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
+        OrthographicCamera stageCamera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         stageCamera.setToOrtho(false, MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         stage = new Stage(new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, stageCamera));
 

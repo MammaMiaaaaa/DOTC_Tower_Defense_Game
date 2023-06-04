@@ -1,14 +1,12 @@
 package com.mygdx.game;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class DataHandling {
 
@@ -28,8 +26,8 @@ public class DataHandling {
                         StandardCharsets.ISO_8859_1,
                         StandardOpenOption.CREATE,
                         StandardOpenOption.APPEND);
-                for (int i = 0; i < data_upgrade.size(); i++) {
-                    bw.write(data_upgrade.get(i));
+                for (String s : data_upgrade) {
+                    bw.write(s);
                     bw.newLine();
                 }
                 bw.close();
@@ -48,11 +46,11 @@ public class DataHandling {
         }else {
             path = Paths.get("data_save/dataUpgrade.txt");
         }
-        String line = "";
+        String line;
 //        Path path = Paths.get("data_save/dataHighscore.txt");
 
         try {
-            BufferedReader fileInput = Files.newBufferedReader(path, Charset.forName("ISO-8859-1"));
+            BufferedReader fileInput = Files.newBufferedReader(path, StandardCharsets.ISO_8859_1);
 
             line = fileInput.readLine();
             while (line != null) {
@@ -69,19 +67,15 @@ public class DataHandling {
             System.out.println("Error reading file");
         }
     }
-    static String getdata(int baris,int x) {
+    static String getdata(int baris) {
         Path path;
         int i=0;
-        if (x == 1){
-            path = Paths.get("data_save/dataHighscore.txt");
-        }else {
-            path = Paths.get("data_save/dataUpgrade.txt");
-        }
-        String line = "";
+        path = Paths.get("data_save/dataUpgrade.txt");
+        String line;
 //        Path path = Paths.get("data_save/dataHighscore.txt");
 
         try {
-            BufferedReader fileInput = Files.newBufferedReader(path, Charset.forName("ISO-8859-1"));
+            BufferedReader fileInput = Files.newBufferedReader(path, StandardCharsets.ISO_8859_1);
 
             line = fileInput.readLine();
             while (line != null) {
@@ -115,11 +109,11 @@ public class DataHandling {
 //        Path path = Paths.get("data_save/dataHighscore.txt");
         try {
             BufferedWriter bw = Files.newBufferedWriter(path,
-                    Charset.forName("ISO-8859-1"),
+                    StandardCharsets.ISO_8859_1,
                     StandardOpenOption.CREATE,
                     StandardOpenOption.WRITE);
-            for (int x = 0; x < listTulisan.size(); x++) {
-                bw.write(listTulisan.get(x));
+            for (String s : listTulisan) {
+                bw.write(s);
                 bw.newLine();
             }
             bw.close();
@@ -142,11 +136,11 @@ public class DataHandling {
 //        Path path = Paths.get("data_save/dataHighscore.txt");
         try {
             BufferedWriter bw = Files.newBufferedWriter(path,
-                    Charset.forName("ISO-8859-1"),
+                    StandardCharsets.ISO_8859_1,
                     StandardOpenOption.CREATE,
                     StandardOpenOption.WRITE);
-            for (int x = 0; x < listTulisan.size(); x++) {
-                bw.write(listTulisan.get(x));
+            for (String s : listTulisan) {
+                bw.write(s);
                 bw.newLine();
             }
             bw.close();

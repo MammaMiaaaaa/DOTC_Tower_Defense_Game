@@ -2,7 +2,6 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,12 +19,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.awt.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 public class GameScreen extends DataHandling implements Screen, InputProcessor {
@@ -34,8 +28,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
     TextButton pauseButton, resumeButton, restartButton, exitButton,playAgainButton,backToMenuButton,fireBallButton,arrowsButton,freezeButton;
     Stage stg;
-
-    private OrthographicCamera stageCamera;
 
     InputListener inputListener;
 
@@ -209,7 +201,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         viewport = new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, camera);
         batch = new SpriteBatch();
 
-        stageCamera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
+        OrthographicCamera stageCamera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         stageCamera.setToOrtho(false, MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         stg = new Stage(new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, stageCamera));
 
@@ -227,10 +219,10 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
         castleHPNumber = new BitmapFontCache(MyGdxGame.font);
         castleHPNumber.setColor(Color.RED);
-        castleHPNumber.setText("HP : "+String.valueOf((int)castle.HP),300,50);
+        castleHPNumber.setText("HP : "+ (int) castle.HP,300,50);
         castleManaNumber = new BitmapFontCache(MyGdxGame.font);
         castleManaNumber.setColor(Color.BLUE);
-        castleManaNumber.setText("Mana : "+String.valueOf((int)castle.mana),600,50);
+        castleManaNumber.setText("Mana : "+ (int) castle.mana,600,50);
 
 //        healtbar = new Rectangle(100, 100, 500, 100);
 
@@ -730,10 +722,10 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
 //        w1.drawWaveEnemy(gameTime);
 
-        for (int i = 0; i < listEnemy.size(); i++) {
-            if (listEnemy.get(i).spawnTime <= timer.second + timer.minute * 60) {
-                listEnemy.get(i).DX = -1;
-                listEnemy.get(i).draw(batch);
+        for (Enemy enemy : listEnemy) {
+            if (enemy.spawnTime <= timer.second + timer.minute * 60) {
+                enemy.DX = -1;
+                enemy.draw(batch);
 
             }
         }
@@ -775,11 +767,12 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         boolean end = true;
         for (Enemy e :listEnemy
              ) {
-            if (e.state != Enemy.State.DEATH){
+            if (e.state != Enemy.State.DEATH) {
                 end = false;
+                break;
             }
         }
-        if (end == true){
+        if (end){
             for (Enemy e :listEnemy
             ) {
                 if (e.state == Enemy.State.DEATH){
@@ -880,7 +873,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         }
         for (Enemy e : listEnemy) {
             e.update();
-            if (e.CanAttack()== true){
+            if (e.CanAttack()){
                 castle.takeDamage(e);
                 e.attackCooldown = 3;
             }
@@ -898,13 +891,13 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
             }
             for (Arrow a : hero.listArrow) {
-                if (a.CanAttack(e) == true && a.state == Arrow.State.ACTIVE) {
+                if (a.CanAttack(e) && a.state == Arrow.State.ACTIVE) {
                     e.Attacked(a);
                     a.state = Arrow.State.INACTIVE;
                 }
             }
             for (Arrow a : arrows.listArrow) {
-                if (a.CanAttack(e) == true && a.state == Arrow.State.ACTIVE) {
+                if (a.CanAttack(e) && a.state == Arrow.State.ACTIVE) {
                     e.Attacked(a);
                     a.state = Arrow.State.INACTIVE;
                 }
@@ -918,10 +911,8 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         castle.update();
         hero.update();
 
-        if (fireball.state != Spell.State.PREPARE)
-        fireball.update();
-        if (freeze.state != Spell.State.PREPARE)
-        freeze.update();
+        if (fireball.state != Spell.State.PREPARE) fireball.update();
+        if (freeze.state != Spell.State.PREPARE) freeze.update();
 //        if (castle.HP <= 0){
 //            hero.state = Hero.State.DYING;
 //        }
@@ -968,8 +959,8 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         if (freeze.state == Spell.State.ACTIVE){
             freeze.duration -= Gdx.graphics.getDeltaTime();
         }
-        castleHPNumber.setText("HP : "+String.valueOf((int)castle.HP),300,50);
-        castleManaNumber.setText("Mana : " + String.valueOf((int)castle.mana),600,50);
+        castleHPNumber.setText("HP : "+ (int) castle.HP,300,50);
+        castleManaNumber.setText("Mana : " + (int) castle.mana,600,50);
     }
 
     public void setStageNumber(int stg) {
@@ -996,8 +987,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     }
     public int calculateScore(Stages stages){
         stages.life = (int) castle.HP;
-        int hasil = stages.calculateKill(listEnemy) * 10 + stages.life*10;
-        return hasil;
+        return stages.calculateKill(listEnemy) * 10 + stages.life*10;
     }
 
     @Override

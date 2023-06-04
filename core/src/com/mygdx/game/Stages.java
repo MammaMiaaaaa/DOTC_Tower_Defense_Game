@@ -48,9 +48,7 @@ public class Stages {
     }
 
     public void addToArray(ArrayList<Enemy> listEnemy){
-        for (Enemy e: listStageEnemy) {
-            listEnemy.add(e);
-        }
+        listEnemy.addAll(listStageEnemy);
     }
 
     public void addWave(Enemy.Type type, int jumlah, float spawnTime, float spawnInterval,int lane){

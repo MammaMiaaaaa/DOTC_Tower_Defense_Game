@@ -8,8 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
@@ -28,7 +26,7 @@ public class StageSuccess extends DataHandling implements Screen, InputProcessor
     int life;
     int score;
     private Viewport viewport;
-    private OrthographicCamera camera, stageCamera;
+    private OrthographicCamera camera;
     SpriteBatch batch;
     BitmapFontCache fontCache1,fontCache2,fontCache3,fontCache4,fontCache5;
     Stage stage;
@@ -64,7 +62,7 @@ public class StageSuccess extends DataHandling implements Screen, InputProcessor
         viewport = new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, camera);
         batch = new SpriteBatch();
 
-        stageCamera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
+        OrthographicCamera stageCamera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         stageCamera.setToOrtho(false, MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         stage = new Stage(new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, stageCamera));
 
@@ -78,24 +76,24 @@ public class StageSuccess extends DataHandling implements Screen, InputProcessor
 
         fontCache1 = new BitmapFontCache(MyGdxGame.font);
         fontCache1.setColor(Color.BLACK);
-        fontCache1.setText(""+kill, 720, 730);
+        fontCache1.setText(String.valueOf(kill), 720, 730);
         System.out.println(kill);
 
         fontCache2 = new BitmapFontCache(MyGdxGame.font);
         fontCache2.setColor(Color.BLACK);
-        fontCache2.setText(""+life , 720, 630);
+        fontCache2.setText(String.valueOf(life), 720, 630);
 
         fontCache3 = new BitmapFontCache(MyGdxGame.font);
         fontCache3.setColor(Color.BLACK);
-        fontCache3.setText(""+ score, 720, 530);
+        fontCache3.setText(String.valueOf(score), 720, 530);
 
         fontCache4 = new BitmapFontCache(MyGdxGame.font);
         fontCache4.setColor(Color.WHITE);
-        fontCache4.setText(""+ coin_bonus_stage1, 750, 435);
+        fontCache4.setText(String.valueOf(coin_bonus_stage1), 750, 435);
 
         fontCache5 = new BitmapFontCache(MyGdxGame.font);
         fontCache5.setColor(Color.WHITE);
-        fontCache5.setText(""+ diamond_bonus_stage1, 1020, 435);
+        fontCache5.setText(String.valueOf(diamond_bonus_stage1), 1020, 435);
 
         titleLabel = new Label("STAGE SUCCESS", mySkin);
         Label.LabelStyle style = new Label.LabelStyle(titleLabel.getStyle());
@@ -151,8 +149,8 @@ public class StageSuccess extends DataHandling implements Screen, InputProcessor
         titleLabel.setAlignment(Align.center);
         titleLabel.setColor(Color.BLACK);
         stage.addActor(titleLabel);
-        coin = Integer.parseInt(getdata(0,2));
-        diamond = Integer.parseInt(getdata(4,2));
+        coin = Integer.parseInt(getdata(0));
+        diamond = Integer.parseInt(getdata(4));
         editFile(dataUpgrade,0,coin+coin_bonus_stage1,2);
         editFile(dataUpgrade,4,diamond+diamond_bonus_stage1,2);
     }

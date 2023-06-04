@@ -1,12 +1,7 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.Random;
 
@@ -136,10 +131,7 @@ public class Enemy extends Hero{
         }
     }
     public boolean CanAttack(){
-        if (attackCooldown <= 0 && state == State.ATTACK)
-            return true;
-        else
-            return false;
+        return attackCooldown <= 0 && state == State.ATTACK;
     }
 
 
@@ -150,12 +142,7 @@ public class Enemy extends Hero{
     }
     public boolean isFrozen(float duration){
 
-        if (duration>=0){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return duration >= 0;
     }
 
     public Enemy.State getState() {

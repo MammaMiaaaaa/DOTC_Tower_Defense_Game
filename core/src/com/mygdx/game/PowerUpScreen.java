@@ -5,19 +5,16 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -51,7 +48,7 @@ public class PowerUpScreen extends DataHandling implements Screen, InputProcesso
     DataHandling dataHandling;
     private Viewport viewport;
     BitmapFontCache fontCache,fontCache1,fontCache2,fontCache3,fontCache4,fontCache5,fontCache6;
-    private OrthographicCamera camera, stageCamera;
+    private OrthographicCamera camera;
     SpriteBatch batch;
 
     Stage stage;
@@ -67,12 +64,9 @@ public class PowerUpScreen extends DataHandling implements Screen, InputProcesso
 
     public PowerUpScreen(Game parent) {
         parentGame = parent;
-        if(data_upgrade.size()!=0) {
-            data_upgrade.clear();
-        }
         Path path = Paths.get("data_save/dataUpgrade.txt");
         boolean path_exits = Files.notExists(path);
-        if (path_exits == false) {
+        if (!path_exits) {
             readFile(data_upgrade,2);
         }
         this.Initialize();
@@ -87,7 +81,7 @@ public class PowerUpScreen extends DataHandling implements Screen, InputProcesso
         viewport = new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, camera);
         batch = new SpriteBatch();
 
-        stageCamera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
+        OrthographicCamera stageCamera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         stageCamera.setToOrtho(false, MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         stage = new Stage(new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, stageCamera));
 
@@ -132,19 +126,19 @@ public class PowerUpScreen extends DataHandling implements Screen, InputProcesso
 
         fontCache = new BitmapFontCache(MyGdxGame.font);
         fontCache.setColor(Color.BLACK);
-        fontCache.setText(""+coin, 1450, 1050);
+        fontCache.setText(String.valueOf(coin), 1450, 1050);
 
         fontCache1 = new BitmapFontCache(MyGdxGame.font);
         fontCache1.setColor(Color.BLACK);
-        fontCache1.setText(""+coin2, 1630, 680);
+        fontCache1.setText(String.valueOf(coin2), 1630, 680);
 
         fontCache2 = new BitmapFontCache(MyGdxGame.font);
         fontCache2.setColor(Color.BLACK);
-        fontCache2.setText(""+coin3, 1630, 345);
+        fontCache2.setText(String.valueOf(coin3), 1630, 345);
 
         fontCache3=new BitmapFontCache(MyGdxGame.font);
         fontCache3.setColor(Color.BLACK);
-        fontCache3.setText(""+diamond, 1700, 1050);
+        fontCache3.setText(String.valueOf(diamond), 1700, 1050);
 
         fontCache4=new BitmapFontCache(MyGdxGame.font2);
         fontCache4.setColor(Color.BLACK);
@@ -215,9 +209,9 @@ public class PowerUpScreen extends DataHandling implements Screen, InputProcesso
                         fontCache4.setText("Meningkatkan kekuatan serangan hero menjadi "+damage, 750, 570);
                         game_awal += 10;
                         coin -= coin2;
-                        fontCache.setText("" + coin, 1450, 1050);
+                        fontCache.setText(String.valueOf(coin), 1450, 1050);
                         coin2 += 200;
-                        fontCache1.setText("" + coin2, 1630, 680);
+                        fontCache1.setText(String.valueOf(coin2), 1630, 680);
                     }
                     if (game_awal >= 60) {
                         fontCache4.setText("Tingkat kekuatan serangan hero maksimal", 750, 570);
@@ -254,9 +248,9 @@ public class PowerUpScreen extends DataHandling implements Screen, InputProcesso
                         fontCache5.setText("Mengurangi cooldown serangan hero menjadi "+String.format("%.2f", speed), 750, 240);
                         game_awal2 += 10;
                         coin -= coin3;
-                        fontCache.setText("" + coin, 1450, 1050);
+                        fontCache.setText(String.valueOf(coin), 1450, 1050);
                         coin3 += 200;
-                        fontCache2.setText("" + coin3, 1630, 350);
+                        fontCache2.setText(String.valueOf(coin3), 1630, 350);
                     }
 
                     if (game_awal2 >= 60) {

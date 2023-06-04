@@ -20,7 +20,7 @@ public class Castle extends DataHandling {
         DESTROYED
     }
     Castle(){
-        maxHP = Float.parseFloat(getdata(19,2));
+        maxHP = Float.parseFloat(getdata(19));
         HP = maxHP;
         mana = 100;
         maxMana = 100;
