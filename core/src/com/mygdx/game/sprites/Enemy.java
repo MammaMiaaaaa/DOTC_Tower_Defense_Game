@@ -9,7 +9,7 @@ import com.mygdx.game.spell.Spell;
 import java.util.Random;
 
 
-public class Enemy extends Hero {
+public abstract class Enemy extends Hero {
     public enum Type
     {
         Orc,
@@ -42,7 +42,7 @@ public class Enemy extends Hero {
     protected float spawnTime;
     protected Random rdm = new Random();
     protected int x = rdm.nextInt(3);
-    protected float X = 2150, DX=0, DY=0, Speed=100;
+    protected float X, DX, DY, Speed;
     protected float Y;
 
     public State state = Enemy.State.RUN;
@@ -55,14 +55,16 @@ public class Enemy extends Hero {
     {
         this.InitializeAnimation();
 
-
+        // initialize default value
+        X = 2150;
+        DX = 0;
+        DY = 0;
+        Speed = 100;
     }
 
 
-
-    public void InitializeAnimation() {
-          }
-    public void draw(SpriteBatch batch){    }
+    public abstract void InitializeAnimation();
+    public abstract void draw(SpriteBatch batch);
     public void update()
     {
         float delta = Gdx.graphics.getDeltaTime();

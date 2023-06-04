@@ -23,7 +23,6 @@ public class Orc extends Enemy {
     Animation<TextureRegion> orcRunningAnimation,orcAttackingAnimation,orcDyingAnimation,orcIdlingAnimation,frozenOrcAnimation;
     @Override
     public void InitializeAnimation() {
-        super.InitializeAnimation();
         damage = 5;
         attackCooldown = 3;
         MyGdxGame parentGame = (MyGdxGame) Gdx.app.getApplicationListener();

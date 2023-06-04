@@ -94,40 +94,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
     public GameScreen(Game parent, int stage) {
         parentGame = parent;
-        if (stage == 1) {
-            stageNumber = stage;
-//            stages1.stageSuccesses = stage - 1;
-        }
-        else if (stage == 2) {
-
-            stageNumber = stage;
-//            stages2.stageSuccesses = stage - 1;
-        }
-        else if (stage == 3) {
-            stageNumber = stage;
-//            stages3.stageSuccesses = stage - 1;
-        }
-        else if (stage == 4) {
-            stageNumber = stage;
-//            stages4.stageSuccesses = stage - 1;
-        }
-        else if (stage == 5) {
-
-            stageNumber = stage;
-//            stages5.stageSuccesses = stage - 1;
-        }
-        else if (stage == 6) {
-            stageNumber = stage;
-//            stages6.stageSuccesses = stage - 1;
-        }
-        else if (stage == 7) {
-            stageNumber = stage;
-//            stages7.stageSuccesses = stage - 1;
-        }
-        else if (stage == 8) {
-            stageNumber = stage;
-//            stages8.stageSuccesses = stage - 1;
-        }
+        stageNumber = stage;
 
         this.Initialize();
     }
@@ -705,22 +672,22 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
     @Override
     public void render(float delta) {
+        // init
         ScreenUtils.clear(0, 0, 0, 1);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
+        // background game
         Texture background = assetManager.get("In Game.png", Texture.class);
-
+        batch.draw(background, 0, 0);
 
         gameTime = gameTime + Gdx.graphics.getDeltaTime();
 
-
-        batch.draw(background, 0, 0);
-
-
         castle.draw(batch);
         hero.draw(batch);
+
+        // for arrow
         for (Arrow a : hero.getListArrow()) {
             a.draw(batch);
         }
@@ -728,13 +695,17 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
 //        w1.drawWaveEnemy(gameTime);
 
+        // for drawing enemies
         for (Enemy enemy : listEnemy) {
+            // for deploying enemy on spawntimer
             if (enemy.getSpawnTime() <= timer.getSecond() + timer.getMinute() * 60) {
                 enemy.setDX(-1);
                 enemy.draw(batch);
-
             }
         }
+
+
+        // for drawing spells
         if (fireball.getState() == Spell.State.PREPARE && fireball.getCooldown() <= 0){
             fireball.drawAOE(batch,circleX,circleY);
         }
