@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -6,8 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.MyGdxGame;
 
-public class Orc extends Enemy{
+public class Orc extends Enemy {
 
     public Orc() {
         super();

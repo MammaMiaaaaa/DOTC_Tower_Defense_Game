@@ -4,14 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.sprites.Enemy;
 
 public class Arrow {
-    int damage = 100;
-    float X = 0, Y = 500, DX=1, DY=0, Speed=400;
-    float stateTime;
+    protected int damage = 100;
+    protected float X = 0, Y = 500, DX=1, DY=0, Speed=400;
+    protected float stateTime;
 
     //state dari arrow
-    enum State{
+    public enum State{
         ACTIVE,
         INACTIVE
     }
@@ -57,7 +58,7 @@ public class Arrow {
     }
     //cek arrow apakah mengenai enemy yang ada
     public boolean CanAttack(Enemy e){
-        if(e.getState() == Enemy.State.DEATH || e.getState() == Enemy.State.IDLE)
+        if(e.state == Enemy.State.DEATH || e.state == Enemy.State.IDLE)
             return false;
 
         float radius = 100;
@@ -66,5 +67,69 @@ public class Arrow {
         float d = dx*dx + dy*dy;
 
         return (Math.sqrt(d) <= radius);
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public float getX() {
+        return X;
+    }
+
+    public void setX(float x) {
+        X = x;
+    }
+
+    public float getY() {
+        return Y;
+    }
+
+    public void setY(float y) {
+        Y = y;
+    }
+
+    public float getDX() {
+        return DX;
+    }
+
+    public void setDX(float DX) {
+        this.DX = DX;
+    }
+
+    public float getDY() {
+        return DY;
+    }
+
+    public void setDY(float DY) {
+        this.DY = DY;
+    }
+
+    public float getSpeed() {
+        return Speed;
+    }
+
+    public void setSpeed(float speed) {
+        Speed = speed;
+    }
+
+    public float getStateTime() {
+        return stateTime;
+    }
+
+    public void setStateTime(float stateTime) {
+        this.stateTime = stateTime;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 }

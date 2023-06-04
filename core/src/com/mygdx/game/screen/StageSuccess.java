@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.screen;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.AssetManager;
@@ -14,21 +14,21 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.util.DataHandling;
+import com.mygdx.game.MyGdxGame;
 
 import java.util.ArrayList;
 
-public class StageFailed extends DataHandling implements Screen, InputProcessor {
+public class StageSuccess extends DataHandling implements Screen, InputProcessor {
     Game parentGame;
     AssetManager assetManager;
-    int coin_bonus_stage1=50;
-    int diamond_bonus_stage1=2;
+    int coin_bonus_stage1=500;
+    int diamond_bonus_stage1=5;
     int kill;
     int life;
     int score;
-    int coin;
-    int diamond;
     private Viewport viewport;
-    private OrthographicCamera camera, stageCamera;
+    private OrthographicCamera camera;
     SpriteBatch batch;
     BitmapFontCache fontCache1,fontCache2,fontCache3,fontCache4,fontCache5;
     Stage stage;
@@ -36,16 +36,18 @@ public class StageFailed extends DataHandling implements Screen, InputProcessor 
     TextButton playButton, optionButton;
     Window optionWindow;
     InputMultiplexer multiInput;
+    int coin;
+    int diamond;
 
     ArrayList<String> dataUpgrade = new ArrayList<>();
 
-    StageFailed thisScreen;
-    public StageFailed () {
+    StageSuccess thisScreen;
+    public StageSuccess () {
         parentGame = (Game) Gdx.app.getApplicationListener();
         this.Initialize();
     }
 
-    public StageFailed (Game parent,int kill, int life, int score) {
+    public StageSuccess (Game parent,int kill, int life, int score) {
         this.kill = kill;
         this.life = life;
         this.score = score;
@@ -62,7 +64,7 @@ public class StageFailed extends DataHandling implements Screen, InputProcessor 
         viewport = new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, camera);
         batch = new SpriteBatch();
 
-        stageCamera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
+        OrthographicCamera stageCamera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         stageCamera.setToOrtho(false, MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         stage = new Stage(new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, stageCamera));
 
@@ -95,7 +97,7 @@ public class StageFailed extends DataHandling implements Screen, InputProcessor 
         fontCache5.setColor(Color.WHITE);
         fontCache5.setText(String.valueOf(diamond_bonus_stage1), 1020, 435);
 
-        titleLabel = new Label("STAGE FAILED", mySkin);
+        titleLabel = new Label("STAGE SUCCESS", mySkin);
         Label.LabelStyle style = new Label.LabelStyle(titleLabel.getStyle());
         style.font = assetManager.get("bigfontui.ttf", BitmapFont.class);
         titleLabel.setStyle(style);
@@ -149,9 +151,8 @@ public class StageFailed extends DataHandling implements Screen, InputProcessor 
         titleLabel.setAlignment(Align.center);
         titleLabel.setColor(Color.BLACK);
         stage.addActor(titleLabel);
-
-        coin = Integer.parseInt(getdata(0));
-        diamond = Integer.parseInt(getdata(4));
+        coin = Integer.parseInt(getData(0));
+        diamond = Integer.parseInt(getData(4));
         editFile(dataUpgrade,0,coin+coin_bonus_stage1,2);
         editFile(dataUpgrade,4,diamond+diamond_bonus_stage1,2);
     }
@@ -179,12 +180,9 @@ public class StageFailed extends DataHandling implements Screen, InputProcessor 
         Texture diamond = assetManager.get("berlian.png", Texture.class);
 
         batch.draw(diamond, 1100, 390);
-        Texture monster = assetManager.get("monster2.png", Texture.class);
+        Texture monster = assetManager.get("monster.png", Texture.class);
 
         batch.draw(monster, 180, 20);
-        Texture failed = assetManager.get("failed.png", Texture.class);
-
-        batch.draw(failed, 1300, 350);
         fontCache1.draw(batch);
         fontCache2.draw(batch);
         fontCache3.draw(batch);

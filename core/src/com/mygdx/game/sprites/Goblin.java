@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -6,8 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.MyGdxGame;
 
-public class Goblin extends Orc{
+public class Goblin extends Orc {
     int bonusSpeed = 100;
     int maxSpeed = 175;
     Animation<TextureRegion> goblinRunningAnimation,goblinAtttackingAnimation,goblinDyingAnimation,goblinIdlingAnimation,frozenGoblinAnimation;

@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.util;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -39,7 +39,7 @@ public class DataHandling {
         }
     }
 
-    static void readFile(ArrayList<String> listTulisan, int x) {
+    protected static void readFile(ArrayList<String> listTulisan, int x) {
         Path path;
         if (x == 1){
             path = Paths.get("data_save/dataHighscore.txt");
@@ -67,7 +67,7 @@ public class DataHandling {
             System.out.println("Error reading file");
         }
     }
-    static String getdata(int baris) {
+    public static String getData(int baris) {
         Path path;
         int i=0;
         path = Paths.get("data_save/dataUpgrade.txt");

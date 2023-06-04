@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.screen;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.AssetManager;
@@ -20,6 +20,9 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.util.DataHandling;
+import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Stages;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

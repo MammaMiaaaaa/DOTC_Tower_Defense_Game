@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.spell;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -6,12 +6,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.spell.Spell;
 
 public class Earthquake extends Spell {
     Animation<TextureRegion> fireballAnimation;
     Texture circleAOE;
 
-    Earthquake() {
+    public Earthquake() {
         super();
         state = State.INACTIVE;
     }

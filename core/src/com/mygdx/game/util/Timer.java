@@ -1,16 +1,17 @@
-package com.mygdx.game;
+package com.mygdx.game.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.MyGdxGame;
 
 public class Timer {
-    float second;
-    float minute;
-    BitmapFontCache fontCache;
+    protected float second;
+    protected float minute;
+    protected BitmapFontCache fontCache;
 
-    Timer(){
+    public Timer(){
         second = 0;
         minute = 0;
         fontCache = new BitmapFontCache(MyGdxGame.font);
@@ -21,6 +22,31 @@ public class Timer {
     public void draw(SpriteBatch batch){
         fontCache.draw(batch);
     }
+
+    public float getSecond() {
+        return second;
+    }
+
+    public void setSecond(float second) {
+        this.second = second;
+    }
+
+    public float getMinute() {
+        return minute;
+    }
+
+    public void setMinute(float minute) {
+        this.minute = minute;
+    }
+
+    public BitmapFontCache getFontCache() {
+        return fontCache;
+    }
+
+    public void setFontCache(BitmapFontCache fontCache) {
+        this.fontCache = fontCache;
+    }
+
     public void update(){
         float delta = Gdx.graphics.getDeltaTime();
         second += delta;

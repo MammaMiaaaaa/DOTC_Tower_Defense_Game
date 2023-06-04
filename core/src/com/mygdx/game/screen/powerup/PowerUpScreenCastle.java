@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.screen.powerup;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.AssetManager;
@@ -17,13 +17,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.util.DataHandling;
+import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.screen.MenuScreen;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class PowerUpScreenCastle extends DataHandling  implements Screen, InputProcessor {
+public class PowerUpScreenCastle extends DataHandling implements Screen, InputProcessor {
     Game parentGame;
     AssetManager assetManager;
 

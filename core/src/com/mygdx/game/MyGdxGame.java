@@ -15,12 +15,13 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.mygdx.game.screen.LoadingScreen;
 
 public class MyGdxGame extends Game implements InputProcessor {
 	public static final int WORLD_WIDTH = 1920;
 	public static final int WORLD_HEIGHT = 1080;
 
-	static BitmapFont font,font2,font3;
+	public static BitmapFont font,font2,font3;
 	BitmapFontCache fontCache;
 
 	AssetManager assetManager;

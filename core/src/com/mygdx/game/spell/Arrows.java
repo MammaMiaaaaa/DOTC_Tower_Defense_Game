@@ -1,18 +1,20 @@
-package com.mygdx.game;
+package com.mygdx.game.spell;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Arrow;
+import com.mygdx.game.spell.Spell;
 
 import java.util.ArrayList;
 
-public class Arrows extends Spell{
+public class Arrows extends Spell {
 
 
-    float interval = 0.5f;
-    float spawnTime = duration;
-    ArrayList<Arrow> listArrow = new ArrayList<>(); //list of arrow buat spell
-    Arrow arrow;
-    Arrows() {
+    protected float interval = 0.5f;
+    protected float spawnTime = duration;
+    protected ArrayList<Arrow> listArrow = new ArrayList<>(); //list of arrow buat spell
+    protected Arrow arrow;
+    public Arrows() {
         super();
     }
 
@@ -35,6 +37,38 @@ public class Arrows extends Spell{
         }
     }
 
+    public float getInterval() {
+        return interval;
+    }
+
+    public void setInterval(float interval) {
+        this.interval = interval;
+    }
+
+    public float getSpawnTime() {
+        return spawnTime;
+    }
+
+    public void setSpawnTime(float spawnTime) {
+        this.spawnTime = spawnTime;
+    }
+
+    public ArrayList<Arrow> getListArrow() {
+        return listArrow;
+    }
+
+    public void setListArrow(ArrayList<Arrow> listArrow) {
+        this.listArrow = listArrow;
+    }
+
+    public Arrow getArrow() {
+        return arrow;
+    }
+
+    public void setArrow(Arrow arrow) {
+        this.arrow = arrow;
+    }
+
     //function buat mengatur tempat arrow spawn di lane mana dan spawntimenya kapan
     @Override
     public void update() {
@@ -47,18 +81,18 @@ public class Arrows extends Spell{
                 if (duration<= spawnTime){
                     for (int i = 0; i < 4; i++){
                         arrow = new Arrow();
-                        arrow.damage = (int) damage;
+                        arrow.setDamage((int) damage);
                         if (i == 0){
-                            arrow.Y = 540;
+                            arrow.setY(540);
                         }
                         else if (i== 1){
-                            arrow.Y = 390;
+                            arrow.setY(390);
                         }
                         else if (i== 2){
-                            arrow.Y = 240;
+                            arrow.setY(240);
                         }
                         else {
-                            arrow.Y = 90;
+                            arrow.setY(90);
                         }
                         listArrow.add(arrow);
                     }

@@ -4,12 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.sprites.Enemy;
+import com.mygdx.game.util.DataHandling;
 
 public class Castle extends DataHandling {
-    float maxHP;
-    float HP;
-    float maxMana;
-    float mana;
+    protected float maxHP;
+    protected float HP;
+    protected float maxMana;
+    protected float mana;
 
 
     //buat ngasih tanda condition sekarang dari castlenya
@@ -19,8 +21,8 @@ public class Castle extends DataHandling {
         HALF,
         DESTROYED
     }
-    Castle(){
-        maxHP = Float.parseFloat(getdata(19));
+    public Castle(){
+        maxHP = Float.parseFloat(getData(19));
         HP = maxHP;
         mana = 100;
         maxMana = 100;
@@ -34,7 +36,7 @@ public class Castle extends DataHandling {
 
     //hp berkurang jika musuh berhasil menyerang
     public void takeDamage(Enemy e){
-        HP -= e.damage;
+        HP -= e.getDamage();
     }
     //cek castle condition
     public void update(){
@@ -55,6 +57,102 @@ public class Castle extends DataHandling {
     Texture fullCastle = assetManager.get("FullCastle.png",Texture.class);
     Texture halfCastle = assetManager.get("HalfCastle.png",Texture.class);
     Texture destroyedCastle = assetManager.get("DestroyedCastle.png",Texture.class);
+
+    public float getMaxHP() {
+        return maxHP;
+    }
+
+    public void setMaxHP(float maxHP) {
+        this.maxHP = maxHP;
+    }
+
+    public float getHP() {
+        return HP;
+    }
+
+    public void setHP(float HP) {
+        this.HP = HP;
+    }
+
+    public float getMaxMana() {
+        return maxMana;
+    }
+
+    public void setMaxMana(float maxMana) {
+        this.maxMana = maxMana;
+    }
+
+    public float getMana() {
+        return mana;
+    }
+
+    public void setMana(float mana) {
+        this.mana = mana;
+    }
+
+    public float getX() {
+        return X;
+    }
+
+    public void setX(float x) {
+        X = x;
+    }
+
+    public float getY() {
+        return Y;
+    }
+
+    public void setY(float y) {
+        Y = y;
+    }
+
+    public MyGdxGame getParentGame() {
+        return parentGame;
+    }
+
+    public void setParentGame(MyGdxGame parentGame) {
+        this.parentGame = parentGame;
+    }
+
+    public AssetManager getAssetManager() {
+        return assetManager;
+    }
+
+    public void setAssetManager(AssetManager assetManager) {
+        this.assetManager = assetManager;
+    }
+
+    public Condition getCondition() {
+        return condition;
+    }
+
+    public void setCondition(Condition condition) {
+        this.condition = condition;
+    }
+
+    public Texture getFullCastle() {
+        return fullCastle;
+    }
+
+    public void setFullCastle(Texture fullCastle) {
+        this.fullCastle = fullCastle;
+    }
+
+    public Texture getHalfCastle() {
+        return halfCastle;
+    }
+
+    public void setHalfCastle(Texture halfCastle) {
+        this.halfCastle = halfCastle;
+    }
+
+    public Texture getDestroyedCastle() {
+        return destroyedCastle;
+    }
+
+    public void setDestroyedCastle(Texture destroyedCastle) {
+        this.destroyedCastle = destroyedCastle;
+    }
 
     public void draw(SpriteBatch batch)
     {
