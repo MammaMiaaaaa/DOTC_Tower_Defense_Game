@@ -7,13 +7,13 @@ import java.util.ArrayList;
 
 public class Arrows extends Spell{
 
+
     float interval = 0.5f;
     float spawnTime = duration;
-    ArrayList<Arrow> listArrow = new ArrayList<>();
+    ArrayList<Arrow> listArrow = new ArrayList<>(); //list of arrow buat spell
     Arrow arrow;
     Arrows() {
         super();
-
     }
 
     @Override
@@ -24,17 +24,18 @@ public class Arrows extends Spell{
 
     }
 
+    //function buat ngedraw semua arrow yang ada di list
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
         if (state == State.ACTIVE){
             for (Arrow a: listArrow) {
-
                 a.draw(batch);
             }
         }
     }
 
+    //function buat mengatur tempat arrow spawn di lane mana dan spawntimenya kapan
     @Override
     public void update() {
         super.update();

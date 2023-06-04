@@ -85,7 +85,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         stageHighScore.add(String.valueOf(highscore1));
         stageHighScore.add(String.valueOf(highscore1));
         stageHighScore.add(String.valueOf(highscore1));
-        Path path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataHighscore.txt");
+        Path path = Paths.get("data_save/dataHighscore.txt");
         boolean path_exits = Files.notExists(path);
         if (path_exits == true) {
             writeFile(stageHighScore,1);

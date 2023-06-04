@@ -14,10 +14,11 @@ public class DataHandling {
     public static void writeFile(ArrayList<String> data_upgrade,int x) {
         Path path;
         if (x == 1){
-            path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataHighscore.txt");
+            path = Paths.get("data_save/dataHighscore.txt");
         }else {
-            path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataUpgrade.txt");
+            path = Paths.get("data_save/dataUpgrade.txt");
         }
+        System.out.println(path);
 
         boolean path_exits = Files.notExists(path);
         if (path_exits == true) {
@@ -42,12 +43,12 @@ public class DataHandling {
     static void readFile(ArrayList<String> listTulisan, int x) {
         Path path;
         if (x == 1){
-            path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataHighscore.txt");
+            path = Paths.get("data_save/dataHighscore.txt");
         }else {
-            path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataUpgrade.txt");
+            path = Paths.get("data_save/dataUpgrade.txt");
         }
         String line = "";
-//        Path path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataHighscore.txt");
+//        Path path = Paths.get("data_save/dataHighscore.txt");
 
         try {
             BufferedReader fileInput = Files.newBufferedReader(path, Charset.forName("ISO-8859-1"));
@@ -71,12 +72,12 @@ public class DataHandling {
         Path path;
         int i=0;
         if (x == 1){
-            path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataHighscore.txt");
+            path = Paths.get("data_save/dataHighscore.txt");
         }else {
-            path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataUpgrade.txt");
+            path = Paths.get("data_save/dataUpgrade.txt");
         }
         String line = "";
-//        Path path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataHighscore.txt");
+//        Path path = Paths.get("data_save/dataHighscore.txt");
 
         try {
             BufferedReader fileInput = Files.newBufferedReader(path, Charset.forName("ISO-8859-1"));
@@ -104,13 +105,13 @@ public class DataHandling {
     public static void editFile(ArrayList<String> listTulisan,int baris,int data, int i) {
         Path path;
         if (i == 1){
-            path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataHighscore.txt");
+            path = Paths.get("data_save/dataHighscore.txt");
         }else {
-            path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataUpgrade.txt");
+            path = Paths.get("data_save/dataUpgrade.txt");
         }
         String data1=String.valueOf(data);
         listTulisan.set(baris, data1);
-//        Path path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataHighscore.txt");
+//        Path path = Paths.get("data_save/dataHighscore.txt");
         try {
             BufferedWriter bw = Files.newBufferedWriter(path,
                     Charset.forName("ISO-8859-1"),
@@ -130,13 +131,14 @@ public class DataHandling {
     public static void editFile(ArrayList<String> listTulisan,int baris,float data, int i) {
         Path path;
         if (i == 1){
-            path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataHighscore.txt");
+            path = Paths.get("data_save/dataHighscore.txt");
         }else {
-            path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataUpgrade.txt");
+            path = Paths.get("data_save/dataUpgrade.txt");
         }
+        System.out.println(path);
         String data1=String.valueOf(data);
         listTulisan.set(baris, data1);
-//        Path path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataHighscore.txt");
+//        Path path = Paths.get("data_save/dataHighscore.txt");
         try {
             BufferedWriter bw = Files.newBufferedWriter(path,
                     Charset.forName("ISO-8859-1"),

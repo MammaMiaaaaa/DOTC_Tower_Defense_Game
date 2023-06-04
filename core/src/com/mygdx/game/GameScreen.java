@@ -189,7 +189,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         stageHighScore.add(String.valueOf(stages6.highScore));
         stageHighScore.add(String.valueOf(stages7.highScore));
         stageHighScore.add(String.valueOf(stages8.highScore));
-//        Path path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataHighscore.txt");
+//        Path path = Paths.get("data_save/dataHighscore.txt");
 //        boolean path_exits = Files.notExists(path);
 //        if (path_exits == true) {
 //            writeFile(stageHighScore);
