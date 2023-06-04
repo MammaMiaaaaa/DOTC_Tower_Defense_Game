@@ -163,8 +163,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 stage.addOrc(50, Enemy.Lane.THREE);
                 stage.addOrc(55, Enemy.Lane.FOUR);
                 stage.addToArray(listEnemy);
-//                w1 = new WaveEnemy(Enemy.Type.Orc,4,5f,1f);
-//                w1.addToArray(listEnemy);
                 break;
             case 2:
                 stage.addOrc(1, Enemy.Lane.THREE);
@@ -179,9 +177,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 stage.addOgre(45, Enemy.Lane.FOUR);
                 stage.addWave(Enemy.Type.Orc, 4, 50f, 1f,1);
                 stage.addToArray(listEnemy);
-
-//                w1 = new WaveEnemy(Enemy.Type.Orc, 4, 51f, 1f);
-//                w1.addToArray(listEnemy);
                 break;
             case 3:
                 stage.addOrc(1, Enemy.Lane.ONE);
@@ -190,8 +185,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 stage.addOrc(15, Enemy.Lane.TWO);
                 stage.addGoblin(20, Enemy.Lane.THREE);
                 stage.addWave(Enemy.Type.Ogre, 3, 25, 1f,2);
-//                w1 = new WaveEnemy(Enemy.Type.Orc, 4, 26, 1f);
-//                w1.addToArray(listEnemy);
                 stage.addGoblin(30, Enemy.Lane.ONE);
                 stage.addOrc(35, Enemy.Lane.THREE);
                 stage.addOgre(40, Enemy.Lane.FOUR);
@@ -199,8 +192,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 stage.addWave(Enemy.Type.Orc, 3, 50, 1f,1);
                 stage.addGoblin(55, Enemy.Lane.ONE);
                 stage.addWave(Enemy.Type.Goblin, 4, 58, 1f,1);
-//                w1 = new WaveEnemy(Enemy.Type.Orc, 4, 56, 1f);
-//                w1.addToArray(listEnemy);
                 stage.addToArray(listEnemy);
                 break;
             case 4:
@@ -210,18 +201,12 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 stage.addGoblin(15, Enemy.Lane.ONE);
                 stage.addWave(Enemy.Type.Ogre, 2, 17, 1f,3);
                 stage.addWave(Enemy.Type.Ogre, 3, 20, 1f,1);
-//                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 21, 1f);
-//                w1.addToArray(listEnemy);
                 stage.addOrc(25, Enemy.Lane.ONE);
                 stage.addOgre(30, Enemy.Lane.TWO);
                 stage.addWave(Enemy.Type.Orc, 3, 35, 1f,2);
                 stage.addWave(Enemy.Type.Ogre, 4, 42, 1f,1);
                 stage.addOgre(45, Enemy.Lane.FOUR);
                 stage.addGoblin(50, Enemy.Lane.TWO);
-//                w1 = new WaveEnemy(Enemy.Type.Orc, 4, 41, 1f);
-//                w1.addToArray(listEnemy);
-//                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 51, 1f);
-//                w1.addToArray(listEnemy);
                 stage.addToArray(listEnemy);
                 break;
             case 5:
@@ -231,14 +216,10 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 stage.addOrc(15, Enemy.Lane.FOUR);
                 stage.addOgre(17, Enemy.Lane.FOUR);
                 stage.addWave(Enemy.Type.Ogre, 4, 20, 1f,1);
-//                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 21, 1f);
-//                w1.addToArray(listEnemy);
                 stage.addGoblin(29, Enemy.Lane.ONE);
                 stage.addOrc(30, Enemy.Lane.TWO);
                 stage.addOgre(35, Enemy.Lane.THREE);
                 stage.addWave(Enemy.Type.Orc, 4, 40, 1f,1);
-//                w1 = new WaveEnemy(Enemy.Type.Orc, 4, 46, 1f);
-//                w1.addToArray(listEnemy);
                 stage.addGoblin(47, Enemy.Lane.FOUR);
                 stage.addGoblin(50, Enemy.Lane.ONE);
                 stage.addWave(Enemy.Type.Ogre, 2, 52, 1f,3);
@@ -246,26 +227,16 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 stage.addGoblin(62, Enemy.Lane.ONE);
                 stage.addOrc(65, Enemy.Lane.TWO);
                 stage.addOgre(67, Enemy.Lane.THREE);
-//                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 71, 1f);
-//                w1.addToArray(listEnemy);
-//                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 81, 1f);
-//                w1.addToArray(listEnemy);
                 stage.addToArray(listEnemy);
                 break;
             case 6:
                 stage.addWave(Enemy.Type.Orc, 3, 1, 1f,2);
-//                w1 = new WaveEnemy(Enemy.Type.Orc, 4, 1, 1f);
-//                w1.addToArray(listEnemy);
                 stage.addOrc(7, Enemy.Lane.ONE);
                 stage.addOgre(10, Enemy.Lane.THREE);
                 stage.addOrc(15, Enemy.Lane.FOUR);
                 stage.addGoblin(20, Enemy.Lane.TWO);
                 stage.addWave(Enemy.Type.Ogre, 2, 25, 1f,3);
                 stage.addWave(Enemy.Type.Goblin, 3, 30, 1f,1);
-//                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 36, 1f);
-//                w1.addToArray(listEnemy);
-//                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 46, 1f);
-//                w1.addToArray(listEnemy);
                 stage.addGoblin(38, Enemy.Lane.FOUR);
                 stage.addGoblin(40, Enemy.Lane.TWO);
                 stage.addOgre(45, Enemy.Lane.ONE);
@@ -274,10 +245,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 stage.addWave(Enemy.Type.Goblin, 4, 59, 1f,1);
                 stage.addOgre(67, Enemy.Lane.THREE);
                 stage.addOrc(70, Enemy.Lane.ONE);
-//                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 76, 1f);
-//                w1.addToArray(listEnemy);
-//                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 86, 1f);
-//                w1.addToArray(listEnemy);
                 stage.addToArray(listEnemy);
                 break;
             case 7:
@@ -293,10 +260,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 stage.addGoblin(45, Enemy.Lane.TWO);
                 stage.addWave(Enemy.Type.Ogre, 3, 50, 1f,2);
                 stage.addWave(Enemy.Type.Goblin, 3, 55, 1f,2);
-//                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 56, 1f);
-//                w1.addToArray(listEnemy);
-//                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 66, 1f);
-//                w1.addToArray(listEnemy);
                 stage.addGoblin(60, Enemy.Lane.TWO);
                 stage.addGoblin(65, Enemy.Lane.THREE);
                 stage.addOgre(70, Enemy.Lane.ONE);
@@ -306,18 +269,10 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 stage.addWave(Enemy.Type.Goblin, 4, 92, 1f,1);
                 stage.addOrc(98, Enemy.Lane.FOUR);
                 stage.addOgre(101, Enemy.Lane.ONE);
-//                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 91, 1f);
-//                w1.addToArray(listEnemy);
-//                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 101, 1f);
-//                w1.addToArray(listEnemy);
-//                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 111, 1f);
-//                w1.addToArray(listEnemy);
                 stage.addToArray(listEnemy);
                 break;
             case 8:
                 stage.addWave(Enemy.Type.Goblin, 4, 1, 0f,1);
-//                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 1, 1f);
-//                w1.addToArray(listEnemy);
                 stage.addGoblin(10, Enemy.Lane.THREE);
                 stage.addGoblin(15, Enemy.Lane.ONE);
                 stage.addOgre(18, Enemy.Lane.TWO);
@@ -325,12 +280,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 stage.addWave(Enemy.Type.Goblin, 4, 25, 0.5f,1);
                 stage.addWave(Enemy.Type.Ogre, 4, 33, 0.5f,1);
                 stage.addWave(Enemy.Type.Goblin, 3, 39, 0.5f,2);
-//                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 36, 1f);
-//                w1.addToArray(listEnemy);
-//                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 46, 1f);
-//                w1.addToArray(listEnemy);
-//                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 56, 1f);
-//                w1.addToArray(listEnemy);
                 stage.addOrc(45, Enemy.Lane.ONE);
                 stage.addOrc(50, Enemy.Lane.TWO);
                 stage.addOgre(54, Enemy.Lane.THREE);
@@ -347,12 +296,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 stage.addWave(Enemy.Type.Goblin, 3, 100, 0f,1);
                 stage.addWave(Enemy.Type.Orc, 4, 106, 0f,1);
                 stage.addWave(Enemy.Type.Orc, 2, 113, 0f,2);
-//                w1 = new WaveEnemy(Enemy.Type.Orc, 4, 106, 1f);
-//                w1.addToArray(listEnemy);
-//                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 116, 1f);
-//                w1.addToArray(listEnemy);
-//                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 126, 1f);
-//                w1.addToArray(listEnemy);
                 stage.addToArray(listEnemy);
                 break;
         }
@@ -390,7 +333,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         pauseWindow.setVisible(false);
         pauseWindow.getTitleLabel().setAlignment(Align.center);
         stg.addActor(pauseWindow);
-//        stageNumber = 0;
 
         resumeButton = new TextButton("Resume", mySkin);
         resumeButton.setWidth(120);
@@ -639,10 +581,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         for (Arrow a : hero.getListArrow()) {
             a.draw(batch);
         }
-//        arrow.draw(batch);
-
-//        w1.drawWaveEnemy(gameTime);
-
         for (Enemy enemy : listEnemy) {
             if (enemy.getSpawnTime() <= timer.getSecond() + timer.getMinute() * 60) {
                 enemy.setDX(-1);
@@ -834,19 +772,12 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
         if (fireball.getState() != Spell.State.PREPARE) fireball.update();
         if (freeze.getState() != Spell.State.PREPARE) freeze.update();
-//        if (castle.HP <= 0){
-//            hero.state = Hero.State.DYING;
-//        }
-
         timer.update();
 
         arrows.update();
         for (Arrow a: arrows.getListArrow()) {
             a.update();
         }
-//        System.out.println(arrows.listArrow.size());
-
-
 
         this.setStageNumber(stageNumber);
 
@@ -1027,10 +958,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             }
             hero.setY(position.y - 220);
         }
-
-
-//        player.setX(position.x);
-//        player.setY(position.y);
         return true;
     }
 
