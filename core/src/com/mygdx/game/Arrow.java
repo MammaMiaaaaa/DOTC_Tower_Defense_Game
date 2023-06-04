@@ -10,13 +10,16 @@ public class Arrow {
     float X = 0, Y = 500, DX=1, DY=0, Speed=400;
     float stateTime;
 
+    //state dari arrow
     enum State{
         ACTIVE,
         INACTIVE
     }
 
+    //state arrow active saat diinisialisasi
     Arrow.State state = State.ACTIVE;
 
+    //
     Texture currentFrame;
 
     MyGdxGame parentGame = (MyGdxGame) Gdx.app.getApplicationListener();
@@ -25,6 +28,7 @@ public class Arrow {
 
     Texture arrow = assetManager.get("Arrow.png",Texture.class);
 
+    //update arrow biar bisa gerak sama jadi inactive kalo udah diluar map
     public void update()
     {
         float delta = Gdx.graphics.getDeltaTime();
@@ -41,6 +45,7 @@ public class Arrow {
 
     }
 
+    //buat draw arrow ke dalam batch
     public void draw(SpriteBatch batch)
     {
         currentFrame = null;
@@ -50,14 +55,16 @@ public class Arrow {
         }
 
     }
+    //cek arrow apakah mengenai enemy yang ada
     public boolean CanAttack(Enemy e){
         if(e.getState() == Enemy.State.DEATH || e.getState() == Enemy.State.IDLE)
             return false;
-        float radius = 100;
 
+        float radius = 100;
         float dx = (X + 60) - e.getX();
         float dy = (Y - 60) - e.getY();
         float d = dx*dx + dy*dy;
+
         return (Math.sqrt(d) <= radius);
     }
 }

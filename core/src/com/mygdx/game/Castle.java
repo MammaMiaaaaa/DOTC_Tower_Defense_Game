@@ -12,7 +12,7 @@ public class Castle extends DataHandling {
     float mana;
 
 
-
+    //buat ngasih tanda condition sekarang dari castlenya
     enum Condition
     {
         FULL,
@@ -32,9 +32,11 @@ public class Castle extends DataHandling {
     float X = -70, Y = -120;
     Castle.Condition condition = Castle.Condition.FULL;
 
+    //hp berkurang jika musuh berhasil menyerang
     public void takeDamage(Enemy e){
         HP -= e.damage;
     }
+    //cek castle condition
     public void update(){
 //        HP = HP - Gdx.graphics.getDeltaTime()*10;
         float delta = Gdx.graphics.getDeltaTime();

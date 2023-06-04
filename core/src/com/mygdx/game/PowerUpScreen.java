@@ -70,7 +70,7 @@ public class PowerUpScreen extends DataHandling implements Screen, InputProcesso
         if(data_upgrade.size()!=0) {
             data_upgrade.clear();
         }
-        Path path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataUpgrade.txt");
+        Path path = Paths.get("data_save/dataUpgrade.txt");
         boolean path_exits = Files.notExists(path);
         if (path_exits == false) {
             readFile(data_upgrade,2);

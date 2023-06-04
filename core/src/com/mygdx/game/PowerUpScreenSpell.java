@@ -62,7 +62,7 @@ public class PowerUpScreenSpell extends DataHandling  implements Screen, InputPr
         if(data_upgrade3.size()!=0) {
             data_upgrade3.clear();
         }
-        Path path = Paths.get("D:\\libGDX\\DOTC\\Settings\\dataUpgrade.txt");
+        Path path = Paths.get("data_save/dataUpgrade.txt");
         boolean path_exits = Files.notExists(path);
         if (path_exits == false) {
             readFile(data_upgrade3,2);
