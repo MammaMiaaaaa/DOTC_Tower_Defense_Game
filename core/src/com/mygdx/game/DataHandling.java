@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,10 +21,10 @@ public class DataHandling {
         }
 
         boolean path_exits = Files.notExists(path);
-        if (path_exits == true) {
+        if (path_exits) {
             try {
                 BufferedWriter bw = Files.newBufferedWriter(path,
-                        Charset.forName("ISO-8859-1"),
+                        StandardCharsets.ISO_8859_1,
                         StandardOpenOption.CREATE,
                         StandardOpenOption.APPEND);
                 for (int i = 0; i < data_upgrade.size(); i++) {
