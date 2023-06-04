@@ -19,8 +19,6 @@ public class Arrow {
 
     //state arrow active saat diinisialisasi
     Arrow.State state = State.ACTIVE;
-
-    //
     Texture currentFrame;
 
     MyGdxGame parentGame = (MyGdxGame) Gdx.app.getApplicationListener();

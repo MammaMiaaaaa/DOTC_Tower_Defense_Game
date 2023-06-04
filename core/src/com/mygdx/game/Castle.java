@@ -38,7 +38,7 @@ public class Castle extends DataHandling {
     public void takeDamage(Enemy e){
         HP -= e.getDamage();
     }
-    //cek castle condition
+    //cek castle condition dan regen mana
     public void update(){
 //        HP = HP - Gdx.graphics.getDeltaTime()*10;
         float delta = Gdx.graphics.getDeltaTime();
@@ -154,6 +154,7 @@ public class Castle extends DataHandling {
         this.destroyedCastle = destroyedCastle;
     }
 
+    //draw castle sesuai condition
     public void draw(SpriteBatch batch)
     {
         Texture currentFrame = null;

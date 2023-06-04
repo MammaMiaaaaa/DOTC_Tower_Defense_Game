@@ -44,10 +44,8 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     Texture circleAOE;
 
     InputMultiplexer multiInput;
-//    Rectangle healtbar;
 
     Castle castle;
-    Arrow arrow;
     Hero hero;
     Fireball fireball;
     Freeze freeze;
@@ -62,10 +60,9 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     int kill = 0;
     BitmapFontCache fontCache,castleHPNumber,castleManaNumber;
     Random randomizer = new Random();
-    Stages stages1,stages2,stages3,stages4,stages5,stages6,stages7,stages8;
+    Stages stage;
 
     ArrayList<Enemy> listEnemy = new ArrayList<>();
-//    ArrayList<Arrow> listArrow = new ArrayList<>();
     ArrayList<String>stageHighScore = new ArrayList<>();
 
     Timer timer;
@@ -112,58 +109,12 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         arrows =new Arrows();
         arrows.setCooldown(0);
 
-        stages1 = new Stages();
-        stages1.setStage(1);
-        stages1.setScore(this.calculateScore(stages1));
 
-        stages2 = new Stages();
-        stages2.setStage(2);
-        stages2.setScore(this.calculateScore(stages2));
+        stage = new Stages();
+        stage.setStage(stageNumber);
 
-        stages3 = new Stages();
-        stages3.setStage(3);
-        stages3.setScore(this.calculateScore(stages3));
-
-        stages4 = new Stages();
-        stages4.setStage(4);
-        stages4.setScore(this.calculateScore(stages4));
-
-        stages5 = new Stages();
-        stages5.setStage(5);
-        stages5.setScore(this.calculateScore(stages5));
-
-        stages6 = new Stages();
-        stages6.setStage(6);
-        stages6.setScore(this.calculateScore(stages6));
-
-        stages7 = new Stages();
-        stages7.setStage(7);
-        stages7.setScore(this.calculateScore(stages7));
-
-        stages8 = new Stages();
-        stages8.setStage(8);
-        stages8.setScore(this.calculateScore(stages8));
 
         assetManager = ((MyGdxGame) parentGame).getAssetManager();
-
-        stageHighScore.add(String.valueOf(stages1.getHighScore()));
-        stageHighScore.add(String.valueOf(stages2.getHighScore()));
-        stageHighScore.add(String.valueOf(stages3.getHighScore()));
-        stageHighScore.add(String.valueOf(stages4.getHighScore()));
-        stageHighScore.add(String.valueOf(stages5.getHighScore()));
-        stageHighScore.add(String.valueOf(stages6.getHighScore()));
-        stageHighScore.add(String.valueOf(stages7.getHighScore()));
-        stageHighScore.add(String.valueOf(stages8.getHighScore()));
-//        Path path = Paths.get("data_save/dataHighscore.txt");
-//        boolean path_exits = Files.notExists(path);
-//        if (path_exits == true) {
-//            writeFile(stageHighScore);
-//        }
-
-
-
-
-
 
         thisScreen = this;
 
@@ -197,215 +148,212 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         castleManaNumber.setColor(Color.BLUE);
         castleManaNumber.setText("Mana : "+ (int) castle.getMana(),600,50);
 
-//        healtbar = new Rectangle(100, 100, 500, 100);
-
-
         switch (stageNumber) {
             case 1:
-                stages1.addOrc(1, Enemy.Lane.TWO);
-                stages1.addOrc(5, Enemy.Lane.THREE);
-                stages1.addOrc(10, Enemy.Lane.ONE);
-                stages1.addOrc(15, Enemy.Lane.FOUR);
-                stages1.addOrc(20, Enemy.Lane.ONE);
-                stages1.addOrc(25, Enemy.Lane.FOUR);
-                stages1.addOrc(30, Enemy.Lane.THREE);
-                stages1.addOrc(35, Enemy.Lane.TWO);
-                stages1.addOrc(40, Enemy.Lane.FOUR);
-                stages1.addOrc(45, Enemy.Lane.ONE);
-                stages1.addOrc(50, Enemy.Lane.THREE);
-                stages1.addOrc(55, Enemy.Lane.FOUR);
-                stages1.addToArray(listEnemy);
+                stage.addOrc(1, Enemy.Lane.TWO);
+                stage.addOrc(5, Enemy.Lane.THREE);
+                stage.addOrc(10, Enemy.Lane.ONE);
+                stage.addOrc(15, Enemy.Lane.FOUR);
+                stage.addOrc(20, Enemy.Lane.ONE);
+                stage.addOrc(25, Enemy.Lane.FOUR);
+                stage.addOrc(30, Enemy.Lane.THREE);
+                stage.addOrc(35, Enemy.Lane.TWO);
+                stage.addOrc(40, Enemy.Lane.FOUR);
+                stage.addOrc(45, Enemy.Lane.ONE);
+                stage.addOrc(50, Enemy.Lane.THREE);
+                stage.addOrc(55, Enemy.Lane.FOUR);
+                stage.addToArray(listEnemy);
 //                w1 = new WaveEnemy(Enemy.Type.Orc,4,5f,1f);
 //                w1.addToArray(listEnemy);
                 break;
             case 2:
-                stages2.addOrc(1, Enemy.Lane.THREE);
-                stages2.addOgre(5, Enemy.Lane.ONE);
-                stages2.addOgre(10, Enemy.Lane.FOUR);
-                stages2.addOrc(15, Enemy.Lane.TWO);
-                stages2.addWave(Enemy.Type.Orc, 2, 20f, 1f,2);
-                stages2.addOgre(25, Enemy.Lane.FOUR);
-                stages2.addOgre(30, Enemy.Lane.ONE);
-                stages2.addOrc(35, Enemy.Lane.THREE);
-                stages2.addOgre(40, Enemy.Lane.TWO);
-                stages2.addOgre(45, Enemy.Lane.FOUR);
-                stages2.addWave(Enemy.Type.Orc, 4, 50f, 1f,1);
-                stages2.addToArray(listEnemy);
+                stage.addOrc(1, Enemy.Lane.THREE);
+                stage.addOgre(5, Enemy.Lane.ONE);
+                stage.addOgre(10, Enemy.Lane.FOUR);
+                stage.addOrc(15, Enemy.Lane.TWO);
+                stage.addWave(Enemy.Type.Orc, 2, 20f, 1f,2);
+                stage.addOgre(25, Enemy.Lane.FOUR);
+                stage.addOgre(30, Enemy.Lane.ONE);
+                stage.addOrc(35, Enemy.Lane.THREE);
+                stage.addOgre(40, Enemy.Lane.TWO);
+                stage.addOgre(45, Enemy.Lane.FOUR);
+                stage.addWave(Enemy.Type.Orc, 4, 50f, 1f,1);
+                stage.addToArray(listEnemy);
 
 //                w1 = new WaveEnemy(Enemy.Type.Orc, 4, 51f, 1f);
 //                w1.addToArray(listEnemy);
                 break;
             case 3:
-                stages3.addOrc(1, Enemy.Lane.ONE);
-                stages3.addOgre(5, Enemy.Lane.THREE);
-                stages3.addOrc(10, Enemy.Lane.FOUR);
-                stages3.addOrc(15, Enemy.Lane.TWO);
-                stages3.addGoblin(20, Enemy.Lane.THREE);
-                stages3.addWave(Enemy.Type.Ogre, 3, 25, 1f,2);
+                stage.addOrc(1, Enemy.Lane.ONE);
+                stage.addOgre(5, Enemy.Lane.THREE);
+                stage.addOrc(10, Enemy.Lane.FOUR);
+                stage.addOrc(15, Enemy.Lane.TWO);
+                stage.addGoblin(20, Enemy.Lane.THREE);
+                stage.addWave(Enemy.Type.Ogre, 3, 25, 1f,2);
 //                w1 = new WaveEnemy(Enemy.Type.Orc, 4, 26, 1f);
 //                w1.addToArray(listEnemy);
-                stages3.addGoblin(30, Enemy.Lane.ONE);
-                stages3.addOrc(35, Enemy.Lane.THREE);
-                stages3.addOgre(40, Enemy.Lane.FOUR);
-                stages3.addOgre(45, Enemy.Lane.TWO);
-                stages3.addWave(Enemy.Type.Orc, 3, 50, 1f,1);
-                stages3.addGoblin(55, Enemy.Lane.ONE);
-                stages5.addWave(Enemy.Type.Goblin, 4, 58, 1f,1);
+                stage.addGoblin(30, Enemy.Lane.ONE);
+                stage.addOrc(35, Enemy.Lane.THREE);
+                stage.addOgre(40, Enemy.Lane.FOUR);
+                stage.addOgre(45, Enemy.Lane.TWO);
+                stage.addWave(Enemy.Type.Orc, 3, 50, 1f,1);
+                stage.addGoblin(55, Enemy.Lane.ONE);
+                stage.addWave(Enemy.Type.Goblin, 4, 58, 1f,1);
 //                w1 = new WaveEnemy(Enemy.Type.Orc, 4, 56, 1f);
 //                w1.addToArray(listEnemy);
-                stages3.addToArray(listEnemy);
+                stage.addToArray(listEnemy);
                 break;
             case 4:
-                stages4.addOrc(1, Enemy.Lane.FOUR);
-                stages4.addOgre(5, Enemy.Lane.THREE);
-                stages4.addOgre(10, Enemy.Lane.TWO);
-                stages4.addGoblin(15, Enemy.Lane.ONE);
-                stages4.addWave(Enemy.Type.Ogre, 2, 17, 1f,3);
-                stages4.addWave(Enemy.Type.Ogre, 3, 20, 1f,1);
+                stage.addOrc(1, Enemy.Lane.FOUR);
+                stage.addOgre(5, Enemy.Lane.THREE);
+                stage.addOgre(10, Enemy.Lane.TWO);
+                stage.addGoblin(15, Enemy.Lane.ONE);
+                stage.addWave(Enemy.Type.Ogre, 2, 17, 1f,3);
+                stage.addWave(Enemy.Type.Ogre, 3, 20, 1f,1);
 //                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 21, 1f);
 //                w1.addToArray(listEnemy);
-                stages4.addOrc(25, Enemy.Lane.ONE);
-                stages4.addOgre(30, Enemy.Lane.TWO);
-                stages4.addWave(Enemy.Type.Orc, 3, 35, 1f,2);
-                stages4.addWave(Enemy.Type.Ogre, 4, 42, 1f,1);
-                stages4.addOgre(45, Enemy.Lane.FOUR);
-                stages4.addGoblin(50, Enemy.Lane.TWO);
+                stage.addOrc(25, Enemy.Lane.ONE);
+                stage.addOgre(30, Enemy.Lane.TWO);
+                stage.addWave(Enemy.Type.Orc, 3, 35, 1f,2);
+                stage.addWave(Enemy.Type.Ogre, 4, 42, 1f,1);
+                stage.addOgre(45, Enemy.Lane.FOUR);
+                stage.addGoblin(50, Enemy.Lane.TWO);
 //                w1 = new WaveEnemy(Enemy.Type.Orc, 4, 41, 1f);
 //                w1.addToArray(listEnemy);
 //                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 51, 1f);
 //                w1.addToArray(listEnemy);
-                stages4.addToArray(listEnemy);
+                stage.addToArray(listEnemy);
                 break;
             case 5:
-                stages5.addOgre(1, Enemy.Lane.THREE);
-                stages5.addOgre(5, Enemy.Lane.TWO);
-                stages5.addGoblin(10, Enemy.Lane.ONE);
-                stages5.addOrc(15, Enemy.Lane.FOUR);
-                stages5.addOgre(17, Enemy.Lane.FOUR);
-                stages5.addWave(Enemy.Type.Ogre, 4, 20, 1f,1);
+                stage.addOgre(1, Enemy.Lane.THREE);
+                stage.addOgre(5, Enemy.Lane.TWO);
+                stage.addGoblin(10, Enemy.Lane.ONE);
+                stage.addOrc(15, Enemy.Lane.FOUR);
+                stage.addOgre(17, Enemy.Lane.FOUR);
+                stage.addWave(Enemy.Type.Ogre, 4, 20, 1f,1);
 //                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 21, 1f);
 //                w1.addToArray(listEnemy);
-                stages5.addGoblin(29, Enemy.Lane.ONE);
-                stages5.addOrc(30, Enemy.Lane.TWO);
-                stages5.addOgre(35, Enemy.Lane.THREE);
-                stages5.addWave(Enemy.Type.Orc, 4, 40, 1f,1);
+                stage.addGoblin(29, Enemy.Lane.ONE);
+                stage.addOrc(30, Enemy.Lane.TWO);
+                stage.addOgre(35, Enemy.Lane.THREE);
+                stage.addWave(Enemy.Type.Orc, 4, 40, 1f,1);
 //                w1 = new WaveEnemy(Enemy.Type.Orc, 4, 46, 1f);
 //                w1.addToArray(listEnemy);
-                stages5.addGoblin(47, Enemy.Lane.FOUR);
-                stages5.addGoblin(50, Enemy.Lane.ONE);
-                stages5.addWave(Enemy.Type.Ogre, 2, 52, 1f,3);
-                stages5.addWave(Enemy.Type.Goblin, 4, 56, 1f,1);
-                stages5.addGoblin(62, Enemy.Lane.ONE);
-                stages5.addOrc(65, Enemy.Lane.TWO);
-                stages5.addOgre(67, Enemy.Lane.THREE);
+                stage.addGoblin(47, Enemy.Lane.FOUR);
+                stage.addGoblin(50, Enemy.Lane.ONE);
+                stage.addWave(Enemy.Type.Ogre, 2, 52, 1f,3);
+                stage.addWave(Enemy.Type.Goblin, 4, 56, 1f,1);
+                stage.addGoblin(62, Enemy.Lane.ONE);
+                stage.addOrc(65, Enemy.Lane.TWO);
+                stage.addOgre(67, Enemy.Lane.THREE);
 //                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 71, 1f);
 //                w1.addToArray(listEnemy);
 //                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 81, 1f);
 //                w1.addToArray(listEnemy);
-                stages5.addToArray(listEnemy);
+                stage.addToArray(listEnemy);
                 break;
             case 6:
-                stages6.addWave(Enemy.Type.Orc, 3, 1, 1f,2);
+                stage.addWave(Enemy.Type.Orc, 3, 1, 1f,2);
 //                w1 = new WaveEnemy(Enemy.Type.Orc, 4, 1, 1f);
 //                w1.addToArray(listEnemy);
-                stages6.addOrc(7, Enemy.Lane.ONE);
-                stages6.addOgre(10, Enemy.Lane.THREE);
-                stages6.addOrc(15, Enemy.Lane.FOUR);
-                stages6.addGoblin(20, Enemy.Lane.TWO);
-                stages6.addWave(Enemy.Type.Ogre, 2, 25, 1f,3);
-                stages6.addWave(Enemy.Type.Goblin, 3, 30, 1f,1);
+                stage.addOrc(7, Enemy.Lane.ONE);
+                stage.addOgre(10, Enemy.Lane.THREE);
+                stage.addOrc(15, Enemy.Lane.FOUR);
+                stage.addGoblin(20, Enemy.Lane.TWO);
+                stage.addWave(Enemy.Type.Ogre, 2, 25, 1f,3);
+                stage.addWave(Enemy.Type.Goblin, 3, 30, 1f,1);
 //                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 36, 1f);
 //                w1.addToArray(listEnemy);
 //                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 46, 1f);
 //                w1.addToArray(listEnemy);
-                stages6.addGoblin(38, Enemy.Lane.FOUR);
-                stages6.addGoblin(40, Enemy.Lane.TWO);
-                stages6.addOgre(45, Enemy.Lane.ONE);
-                stages6.addOgre(50, Enemy.Lane.THREE);
-                stages6.addWave(Enemy.Type.Ogre, 3, 53, 1f,2);
-                stages6.addWave(Enemy.Type.Goblin, 4, 59, 1f,1);
-                stages6.addOgre(67, Enemy.Lane.THREE);
-                stages6.addOrc(70, Enemy.Lane.ONE);
+                stage.addGoblin(38, Enemy.Lane.FOUR);
+                stage.addGoblin(40, Enemy.Lane.TWO);
+                stage.addOgre(45, Enemy.Lane.ONE);
+                stage.addOgre(50, Enemy.Lane.THREE);
+                stage.addWave(Enemy.Type.Ogre, 3, 53, 1f,2);
+                stage.addWave(Enemy.Type.Goblin, 4, 59, 1f,1);
+                stage.addOgre(67, Enemy.Lane.THREE);
+                stage.addOrc(70, Enemy.Lane.ONE);
 //                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 76, 1f);
 //                w1.addToArray(listEnemy);
 //                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 86, 1f);
 //                w1.addToArray(listEnemy);
-                stages6.addToArray(listEnemy);
+                stage.addToArray(listEnemy);
                 break;
             case 7:
-                stages7.addOrc(1, Enemy.Lane.FOUR);
-                stages7.addOrc(5, Enemy.Lane.TWO);
-                stages7.addOgre(10, Enemy.Lane.ONE);
-                stages7.addWave(Enemy.Type.Goblin, 4, 15, 1f,1);
-                stages7.addGoblin(20, Enemy.Lane.FOUR);
-                stages7.addGoblin(25, Enemy.Lane.TWO);
-                stages7.addOgre(30, Enemy.Lane.THREE);
-                stages7.addOgre(35, Enemy.Lane.ONE);
-                stages7.addGoblin(40, Enemy.Lane.FOUR);
-                stages7.addGoblin(45, Enemy.Lane.TWO);
-                stages7.addWave(Enemy.Type.Ogre, 3, 50, 1f,2);
-                stages7.addWave(Enemy.Type.Goblin, 3, 55, 1f,2);
+                stage.addOrc(1, Enemy.Lane.FOUR);
+                stage.addOrc(5, Enemy.Lane.TWO);
+                stage.addOgre(10, Enemy.Lane.ONE);
+                stage.addWave(Enemy.Type.Goblin, 4, 15, 1f,1);
+                stage.addGoblin(20, Enemy.Lane.FOUR);
+                stage.addGoblin(25, Enemy.Lane.TWO);
+                stage.addOgre(30, Enemy.Lane.THREE);
+                stage.addOgre(35, Enemy.Lane.ONE);
+                stage.addGoblin(40, Enemy.Lane.FOUR);
+                stage.addGoblin(45, Enemy.Lane.TWO);
+                stage.addWave(Enemy.Type.Ogre, 3, 50, 1f,2);
+                stage.addWave(Enemy.Type.Goblin, 3, 55, 1f,2);
 //                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 56, 1f);
 //                w1.addToArray(listEnemy);
 //                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 66, 1f);
 //                w1.addToArray(listEnemy);
-                stages7.addGoblin(60, Enemy.Lane.TWO);
-                stages7.addGoblin(65, Enemy.Lane.THREE);
-                stages7.addOgre(70, Enemy.Lane.ONE);
-                stages7.addOgre(75, Enemy.Lane.FOUR);
-                stages7.addWave(Enemy.Type.Ogre, 2, 80, 1f,3);
-                stages7.addWave(Enemy.Type.Goblin, 3, 85, 1f,2);
-                stages7.addWave(Enemy.Type.Goblin, 4, 92, 1f,1);
-                stages7.addOrc(98, Enemy.Lane.FOUR);
-                stages7.addOgre(101, Enemy.Lane.ONE);
+                stage.addGoblin(60, Enemy.Lane.TWO);
+                stage.addGoblin(65, Enemy.Lane.THREE);
+                stage.addOgre(70, Enemy.Lane.ONE);
+                stage.addOgre(75, Enemy.Lane.FOUR);
+                stage.addWave(Enemy.Type.Ogre, 2, 80, 1f,3);
+                stage.addWave(Enemy.Type.Goblin, 3, 85, 1f,2);
+                stage.addWave(Enemy.Type.Goblin, 4, 92, 1f,1);
+                stage.addOrc(98, Enemy.Lane.FOUR);
+                stage.addOgre(101, Enemy.Lane.ONE);
 //                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 91, 1f);
 //                w1.addToArray(listEnemy);
 //                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 101, 1f);
 //                w1.addToArray(listEnemy);
 //                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 111, 1f);
 //                w1.addToArray(listEnemy);
-                stages7.addToArray(listEnemy);
+                stage.addToArray(listEnemy);
                 break;
             case 8:
-                stages8.addWave(Enemy.Type.Goblin, 4, 1, 0f,1);
+                stage.addWave(Enemy.Type.Goblin, 4, 1, 0f,1);
 //                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 1, 1f);
 //                w1.addToArray(listEnemy);
-                stages8.addGoblin(10, Enemy.Lane.THREE);
-                stages8.addGoblin(15, Enemy.Lane.ONE);
-                stages8.addOgre(18, Enemy.Lane.TWO);
-                stages8.addOgre(20, Enemy.Lane.FOUR);
-                stages8.addWave(Enemy.Type.Goblin, 4, 25, 0.5f,1);
-                stages8.addWave(Enemy.Type.Ogre, 4, 33, 0.5f,1);
-                stages8.addWave(Enemy.Type.Goblin, 3, 39, 0.5f,2);
+                stage.addGoblin(10, Enemy.Lane.THREE);
+                stage.addGoblin(15, Enemy.Lane.ONE);
+                stage.addOgre(18, Enemy.Lane.TWO);
+                stage.addOgre(20, Enemy.Lane.FOUR);
+                stage.addWave(Enemy.Type.Goblin, 4, 25, 0.5f,1);
+                stage.addWave(Enemy.Type.Ogre, 4, 33, 0.5f,1);
+                stage.addWave(Enemy.Type.Goblin, 3, 39, 0.5f,2);
 //                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 36, 1f);
 //                w1.addToArray(listEnemy);
 //                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 46, 1f);
 //                w1.addToArray(listEnemy);
 //                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 56, 1f);
 //                w1.addToArray(listEnemy);
-                stages8.addOrc(45, Enemy.Lane.ONE);
-                stages8.addOrc(50, Enemy.Lane.TWO);
-                stages8.addOgre(54, Enemy.Lane.THREE);
-                stages8.addOgre(57, Enemy.Lane.FOUR);
-                stages8.addGoblin(60, Enemy.Lane.THREE);
-                stages8.addGoblin(65, Enemy.Lane.ONE);
-                stages8.addGoblin(67, Enemy.Lane.TWO);
-                stages8.addGoblin(70, Enemy.Lane.FOUR);
-                stages8.addWave(Enemy.Type.Orc, 4, 73, 0f,1);
-                stages8.addWave(Enemy.Type.Ogre, 4, 81, 0f,1);
-                stages8.addWave(Enemy.Type.Goblin, 4, 91, 0f,1);
-                stages8.addOgre(95, Enemy.Lane.THREE);
-                stages8.addGoblin(98, Enemy.Lane.ONE);
-                stages8.addWave(Enemy.Type.Goblin, 3, 100, 0f,1);
-                stages8.addWave(Enemy.Type.Orc, 4, 106, 0f,1);
-                stages8.addWave(Enemy.Type.Orc, 2, 113, 0f,2);
+                stage.addOrc(45, Enemy.Lane.ONE);
+                stage.addOrc(50, Enemy.Lane.TWO);
+                stage.addOgre(54, Enemy.Lane.THREE);
+                stage.addOgre(57, Enemy.Lane.FOUR);
+                stage.addGoblin(60, Enemy.Lane.THREE);
+                stage.addGoblin(65, Enemy.Lane.ONE);
+                stage.addGoblin(67, Enemy.Lane.TWO);
+                stage.addGoblin(70, Enemy.Lane.FOUR);
+                stage.addWave(Enemy.Type.Orc, 4, 73, 0f,1);
+                stage.addWave(Enemy.Type.Ogre, 4, 81, 0f,1);
+                stage.addWave(Enemy.Type.Goblin, 4, 91, 0f,1);
+                stage.addOgre(95, Enemy.Lane.THREE);
+                stage.addGoblin(98, Enemy.Lane.ONE);
+                stage.addWave(Enemy.Type.Goblin, 3, 100, 0f,1);
+                stage.addWave(Enemy.Type.Orc, 4, 106, 0f,1);
+                stage.addWave(Enemy.Type.Orc, 2, 113, 0f,2);
 //                w1 = new WaveEnemy(Enemy.Type.Orc, 4, 106, 1f);
 //                w1.addToArray(listEnemy);
 //                w1 = new WaveEnemy(Enemy.Type.Ogre, 4, 116, 1f);
 //                w1.addToArray(listEnemy);
 //                w1 = new WaveEnemy(Enemy.Type.Goblin, 4, 126, 1f);
 //                w1.addToArray(listEnemy);
-                stages8.addToArray(listEnemy);
+                stage.addToArray(listEnemy);
                 break;
         }
 
@@ -629,7 +577,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x >= 0 && y >= 0 && x <= event.getTarget().getWidth() && y <= event.getTarget().getHeight()) {
                     thisScreen.dispose();
-                    parentGame.setScreen(new GameScreen(parentGame, stages1.getStage()));
+                    parentGame.setScreen(new GameScreen(parentGame, stage.getStage()));
                 }
             }
 
@@ -672,22 +620,22 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
     @Override
     public void render(float delta) {
-        // init
         ScreenUtils.clear(0, 0, 0, 1);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
-        // background game
         Texture background = assetManager.get("In Game.png", Texture.class);
-        batch.draw(background, 0, 0);
+
 
         gameTime = gameTime + Gdx.graphics.getDeltaTime();
 
+
+        batch.draw(background, 0, 0);
+
+
         castle.draw(batch);
         hero.draw(batch);
-
-        // for arrow
         for (Arrow a : hero.getListArrow()) {
             a.draw(batch);
         }
@@ -695,17 +643,13 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
 //        w1.drawWaveEnemy(gameTime);
 
-        // for drawing enemies
         for (Enemy enemy : listEnemy) {
-            // for deploying enemy on spawntimer
             if (enemy.getSpawnTime() <= timer.getSecond() + timer.getMinute() * 60) {
                 enemy.setDX(-1);
                 enemy.draw(batch);
+
             }
         }
-
-
-        // for drawing spells
         if (fireball.getState() == Spell.State.PREPARE && fireball.getCooldown() <= 0){
             fireball.drawAOE(batch,circleX,circleY);
         }
@@ -756,71 +700,71 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                     kill++;
                 }
             }
-            if (calculateScore(stages1) > stages1.getHighScore() && stageNumber == 1){
+            if (calculateScore(stage) > stage.getHighScore() && stageNumber == 1){
                 stageHighScore.clear();
                 readFile(stageHighScore,1);
-                editFile(stageHighScore,0,calculateScore(stages1),1);
+                editFile(stageHighScore,0,calculateScore(stage),1);
             }
-            if (calculateScore(stages2) > stages2.getHighScore() && stageNumber == 2){
+            if (calculateScore(stage) > stage.getHighScore() && stageNumber == 2){
                 stageHighScore.clear();
                 readFile(stageHighScore,1);
-                editFile(stageHighScore,1,calculateScore(stages2),1);
+                editFile(stageHighScore,1,calculateScore(stage),1);
             }
-            if (calculateScore(stages3) > stages3.getHighScore() && stageNumber == 3){
+            if (calculateScore(stage) > stage.getHighScore() && stageNumber == 3){
                 stageHighScore.clear();
                 readFile(stageHighScore,1);
-                editFile(stageHighScore,2,calculateScore(stages3),1);
+                editFile(stageHighScore,2,calculateScore(stage),1);
             }
-            if (calculateScore(stages4) > stages2.getHighScore() && stageNumber == 4){
+            if (calculateScore(stage) > stage.getHighScore() && stageNumber == 4){
                 stageHighScore.clear();
                 readFile(stageHighScore,1);
-                editFile(stageHighScore,3,calculateScore(stages4),1);
+                editFile(stageHighScore,3,calculateScore(stage),1);
             }
-            if (calculateScore(stages5) > stages2.getHighScore() && stageNumber == 5){
+            if (calculateScore(stage) > stage.getHighScore() && stageNumber == 5){
                 stageHighScore.clear();
                 readFile(stageHighScore,1);
-                editFile(stageHighScore,4,calculateScore(stages5),1);
+                editFile(stageHighScore,4,calculateScore(stage),1);
             }
-            if (calculateScore(stages6) > stages2.getHighScore() && stageNumber == 6){
+            if (calculateScore(stage) > stage.getHighScore() && stageNumber == 6){
                 stageHighScore.clear();
                 readFile(stageHighScore,1);
-                editFile(stageHighScore,5,calculateScore(stages6),1);
+                editFile(stageHighScore,5,calculateScore(stage),1);
             }
-            if (calculateScore(stages7) > stages2.getHighScore() && stageNumber == 7){
+            if (calculateScore(stage) > stage.getHighScore() && stageNumber == 7){
                 stageHighScore.clear();
                 readFile(stageHighScore,1);
-                editFile(stageHighScore,6,calculateScore(stages7),1);
+                editFile(stageHighScore,6,calculateScore(stage),1);
             }
-            if (calculateScore(stages8) > stages2.getHighScore() && stageNumber == 8){
+            if (calculateScore(stage) > stage.getHighScore() && stageNumber == 8){
                 stageHighScore.clear();
                 readFile(stageHighScore,1);
-                editFile(stageHighScore,7,calculateScore(stages8),1);
+                editFile(stageHighScore,7,calculateScore(stage),1);
             }
             thisScreen.dispose();
             ((MyGdxGame) parentGame).StopInGameMusic();
             if (stageNumber == 1){
-                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stages1)));
+                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stage)));
             }
             else if (stageNumber == 2){
-                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stages2)));
+                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stage)));
             }
             else if (stageNumber == 3){
-                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stages3)));
+                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stage)));
             }
             else if (stageNumber == 4){
-                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stages4)));
+                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stage)));
             }
             else if (stageNumber == 5){
-                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stages5)));
+                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stage)));
             }
             else if (stageNumber == 6){
-                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stages6)));
+                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stage)));
             }
             else if (stageNumber == 7){
-                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stages7)));
+                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stage)));
             }
             else if (stageNumber == 8){
-                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stages8)));
+                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stage)));
             }
 
         }
@@ -1094,7 +1038,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     public boolean scrolled(float amountX, float amountY) {
         return false;
     }
-    public Stages getStages1() {
-        return stages1;
+    public Stages getstage() {
+        return stage;
     }
 }
