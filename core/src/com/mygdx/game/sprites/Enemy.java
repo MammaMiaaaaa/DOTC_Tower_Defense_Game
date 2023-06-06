@@ -45,9 +45,14 @@ public abstract class Enemy extends Hero {
     protected float X, DX, DY, Speed;
     protected float Y;
 
+    protected float physicalResistance, magicalResistance;
+    protected float[] dna = new float[5];
+    protected float fitness = 0;
+
     public State state = Enemy.State.RUN;
     Type enemyType = Enemy.Type.Orc;
 
+    protected
 
     Lane enemyLane = Enemy.Lane.ONE;
 
@@ -59,7 +64,31 @@ public abstract class Enemy extends Hero {
         X = 2150;
         DX = 0;
         DY = 0;
-        Speed = 100;
+
+        // initialize default dna
+        // maxHP
+        dna[0] = 100;
+        // speed
+        dna[1] = 100;
+        // damage
+        dna[2] = 7;
+        // physical resistance
+        dna[3] = 1;
+        // magical resistance
+        dna[4] = 1;
+
+        // set according to DNA
+        maxHP = (int)dna[0];
+        Speed = dna[1];
+        damage = (int)dna[2];
+        physicalResistance = dna[3];
+        magicalResistance = dna[4];
+
+    }
+
+    public Enemy(float[] dna){
+        this();
+        this.dna = dna;
     }
 
 
@@ -266,6 +295,38 @@ public abstract class Enemy extends Hero {
 
     public Lane getEnemyLane() {
         return enemyLane;
+    }
+
+    public float getPhysicalResistance() {
+        return physicalResistance;
+    }
+
+    public void setPhysicalResistance(float physicalResistance) {
+        this.physicalResistance = physicalResistance;
+    }
+
+    public float getMagicalResistance() {
+        return magicalResistance;
+    }
+
+    public void setMagicalResistance(float magicalResistance) {
+        this.magicalResistance = magicalResistance;
+    }
+
+    public float getFitness() {
+        return fitness;
+    }
+
+    public void setFitness(float fitness) {
+        this.fitness = fitness;
+    }
+
+    public float[] getDna() {
+        return dna;
+    }
+
+    public void setDna(float[] dna) {
+        this.dna = dna;
     }
 
     public void setEnemyLane(Lane enemyLane) {

@@ -175,6 +175,7 @@ public class Hero  {
     public void Attack(){
         arrow = new Arrow();
         listArrow.add(arrow);
+
         attackCooldown = attackCooldownAwal;
         arrow.setDamage(damage);
 //        Vector2 position = new Vector2(screenX, screenY);

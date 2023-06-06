@@ -48,7 +48,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
     int highscore8 = 0;
     Stage stage;
     Label titleLabel, optionSoundLabel;
-    TextButton backButton,oneButton,twoButton,threeButton,fourButton,fiveButton,sixButton,sevenButton,eightButton;
+    TextButton backButton,oneButton,twoButton,threeButton,fourButton,fiveButton,sixButton,sevenButton,eightButton,survButton;
     Window powerUpWindow,optionWindow;
 
     InputMultiplexer multiInput;
@@ -77,8 +77,10 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
     }
 
     public void Initialize() {
+        // init
         assetManager = ((MyGdxGame) parentGame).getAssetManager();
         thisScreen = this;
+
         stageHighScore.add(String.valueOf(highscore1));
         stageHighScore.add(String.valueOf(highscore1));
         stageHighScore.add(String.valueOf(highscore1));
@@ -87,6 +89,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         stageHighScore.add(String.valueOf(highscore1));
         stageHighScore.add(String.valueOf(highscore1));
         stageHighScore.add(String.valueOf(highscore1));
+
         Path path = Paths.get("data_save/dataHighscore.txt");
         boolean path_exits = Files.notExists(path);
         if (path_exits) {
@@ -108,6 +111,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
 
         stageHighScore.clear();
         readFile(stageHighScore,1);
+
         highscore1 = Integer.parseInt(stageHighScore.get(0));
         highscore2 = Integer.parseInt(stageHighScore.get(1));
         highscore3 = Integer.parseInt(stageHighScore.get(2));
@@ -141,6 +145,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         stage.addActor(titleLabel);
 
 
+        // back button
         backButton = new TextButton("Back", mySkin);
         backButton.setHeight(100);
         backButton.setWidth(200);
@@ -161,6 +166,32 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         });
         stage.addActor(backButton);
 
+        // levels
+        // survival button
+        survButton = new TextButton("Survival", mySkin);
+        survButton.setVisible(true);
+        survButton.setHeight(50);
+        survButton.setWidth(50);
+        survButton.setPosition(300, 500);
+        survButton.setColor(Color.WHITE);
+
+        survButton.addListener(new InputListener(){
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                if( x >= 0 && y >= 0 && x <= event.getTarget().getWidth() && y <= event.getTarget().getHeight()) {
+                    thisScreen.dispose();
+                    ((MyGdxGame) parentGame).StopMenuMusic();
+                    parentGame.setScreen(new GameScreen(parentGame,0));
+                }
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        });
+        stage.addActor(survButton);
+
+        // level 1
         oneButton = new TextButton("1", mySkin);
         oneButton.setHeight(50);
         oneButton.setWidth(50);
@@ -182,6 +213,8 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
             }
         });
         stage.addActor(oneButton);
+
+        // level 2
         twoButton = new TextButton("2", mySkin);
         twoButton.setHeight(50);
         twoButton.setWidth(50);
@@ -204,6 +237,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         });
         stage.addActor(twoButton);
 
+        // level 3
         threeButton = new TextButton("3", mySkin);
         threeButton.setHeight(50);
         threeButton.setWidth(50);
@@ -226,6 +260,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         });
         stage.addActor(threeButton);
 
+        // level 4
         fourButton = new TextButton("4", mySkin);
         fourButton.setHeight(50);
         fourButton.setWidth(50);
@@ -248,6 +283,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         });
         stage.addActor(fourButton);
 
+        // level 5
         fiveButton = new TextButton("5", mySkin);
         fiveButton.setHeight(50);
         fiveButton.setWidth(50);
@@ -270,6 +306,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         });
         stage.addActor(fiveButton);
 
+        // level 6
         sixButton = new TextButton("6", mySkin);
         sixButton.setHeight(50);
         sixButton.setWidth(50);
@@ -292,6 +329,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         });
         stage.addActor(sixButton);
 
+        // level 7
         sevenButton = new TextButton("7", mySkin);
         sevenButton.setHeight(50);
         sevenButton.setWidth(50);
@@ -314,6 +352,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         });
         stage.addActor(sevenButton);
 
+        // level 8
         eightButton = new TextButton("8", mySkin);
         eightButton.setHeight(50);
         eightButton.setWidth(50);
@@ -335,6 +374,10 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
             }
         });
         stage.addActor(eightButton);
+
+
+
+
         parameter.size = 30;
         BitmapFont font2 = generator.generateFont(parameter);
 
@@ -410,6 +453,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
     }
     public void update() {
 
+        // check if highscore is not 0, if not, show the button
         if (highscore1!=0){
             twoButton.setVisible(true);
         }
@@ -432,11 +476,9 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
             eightButton.setVisible(true);
         }
 
-//        for (int i = 1; i<= 8; i++){
-//            if (stages.ge)
-//        }
     }
 
+    // input listener
     @Override
     public boolean keyDown(int keycode) {
         return false;

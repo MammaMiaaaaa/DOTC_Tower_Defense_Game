@@ -16,12 +16,15 @@ public class Ogre extends Orc {
 
     public Ogre() {
         super();
-        Speed = 75;
         HP = 100;
-        maxHP = 120;
         enemyType = Type.Ogre;
 
 
+    }
+
+    public Ogre(float[] dna){
+        this();
+        this.dna = dna;
     }
     Animation<TextureRegion> ogreRunningAnimation,ogreAttackingAnimation,ogreDyingAnimation,ogreIdlingAnimation,ogreFrozenAnimation;
 

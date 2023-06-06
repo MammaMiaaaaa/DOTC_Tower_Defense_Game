@@ -20,8 +20,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.*;
 import com.mygdx.game.spell.*;
-import com.mygdx.game.sprites.Enemy;
-import com.mygdx.game.sprites.Hero;
+import com.mygdx.game.sprites.*;
 import com.mygdx.game.util.DataHandling;
 import com.mygdx.game.util.Timer;
 
@@ -34,8 +33,10 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
     TextButton pauseButton, resumeButton, restartButton, exitButton,playAgainButton,backToMenuButton,fireBallButton,arrowsButton,freezeButton;
     Stage stg;
+    boolean isSurvival = false;
 
     InputListener inputListener;
+    private int roundEnemyCount;
 
     private Viewport viewport;
     private OrthographicCamera camera;
@@ -50,7 +51,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     Fireball fireball;
     Freeze freeze;
     Earthquake earthquake;
-    Arrows arrows;
+    Arrows spellArrows;
 
     Window pauseWindow,gameoverWindow;
 
@@ -59,10 +60,11 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     int stageNumber;
     int kill = 0;
     BitmapFontCache fontCache,castleHPNumber,castleManaNumber;
-    Random randomizer = new Random();
+    Random random = new Random();
     Stages stage;
 
     ArrayList<Enemy> listEnemy = new ArrayList<>();
+    ArrayList<Enemy> tempListRoundEnemy = new ArrayList<>();
     ArrayList<String>stageHighScore = new ArrayList<>();
 
     Timer timer;
@@ -106,8 +108,8 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         freeze = new Freeze();
         freeze.setCooldown(0);
         earthquake = new Earthquake();
-        arrows =new Arrows();
-        arrows.setCooldown(0);
+        spellArrows =new Arrows();
+        spellArrows.setCooldown(0);
 
 
         stage = new Stages();
@@ -148,7 +150,32 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         castleManaNumber.setColor(Color.BLUE);
         castleManaNumber.setText("Mana : "+ (int) castle.getMana(),600,50);
 
+        // init musuh
         switch (stageNumber) {
+            case 0:
+                // case survival
+                isSurvival = true;
+
+                // enemy awal
+                stage.addOrc(1, Enemy.Lane.TWO);
+                stage.addOrc(20, Enemy.Lane.ONE);
+                stage.addOrc(15, Enemy.Lane.FOUR);
+                stage.addOrc(20, Enemy.Lane.ONE);
+                stage.addOrc(25, Enemy.Lane.FOUR);
+                stage.addOrc(30, Enemy.Lane.THREE);
+                stage.addOrc(35, Enemy.Lane.TWO);
+                stage.addOrc(40, Enemy.Lane.FOUR);
+                stage.addOrc(55, Enemy.Lane.FOUR);
+                stage.addToArray(listEnemy);
+
+
+                // set init enemy round
+                roundEnemyCount = 9;
+
+                // set init templistroundenemy
+                tempListRoundEnemy = listEnemy;
+
+                break;
             case 1:
                 stage.addOrc(1, Enemy.Lane.TWO);
                 stage.addOrc(5, Enemy.Lane.THREE);
@@ -301,6 +328,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         }
 
 
+        // pause button
         pauseButton = new TextButton("Pause", mySkin);
         pauseButton.setHeight(100);
         pauseButton.setWidth(200);
@@ -323,6 +351,8 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         });
         stg.addActor(pauseButton);
 
+
+        // pause window
         pauseWindow = new Window("Pause", mySkin);
         pauseWindow.setHeight(320);
         pauseWindow.setWidth(480);
@@ -355,6 +385,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         });
         pauseWindow.addActor(resumeButton);
 
+        // restart button
         restartButton = new TextButton("Restart", mySkin);
         restartButton.setWidth(120);
         restartButton.setHeight(36);
@@ -378,6 +409,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         });
         pauseWindow.addActor(restartButton);
 
+        // exit button
         exitButton = new TextButton("Back to Menu", mySkin);
         exitButton.setWidth(120);
         exitButton.setHeight(36);
@@ -399,6 +431,9 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         });
         pauseWindow.addActor(exitButton);
 
+
+        // spells
+        // fireball button
         fireBallButton = new TextButton("Fireball", mySkin);
         fireBallButton.setHeight(100);
         fireBallButton.setWidth(100);
@@ -435,6 +470,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         });
         stg.addActor(fireBallButton);
 
+        // freeze button
         freezeButton = new TextButton("Freeze", mySkin);
         freezeButton.setHeight(100);
         freezeButton.setWidth(100);
@@ -472,6 +508,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         });
         stg.addActor(freezeButton);
 
+        // arrow spell button
         arrowsButton = new TextButton("Arrows", mySkin);
         arrowsButton.setHeight(100);
         arrowsButton.setWidth(100);
@@ -481,10 +518,10 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x >= 0 && y >= 0 && x <= event.getTarget().getWidth() && y <= event.getTarget().getHeight()) {
-                    if (castle.getMana() >= arrows.getManaCost() && arrows.getCooldown() <= 0){
-                        arrows.setState(Arrows.State.ACTIVE);
-                        castle.setMana(castle.getMana() - arrows.getManaCost());
-                        arrows.setCooldown(arrows.getMaxCooldown());
+                    if (castle.getMana() >= spellArrows.getManaCost() && spellArrows.getCooldown() <= 0){
+                        spellArrows.setState(Arrows.State.ACTIVE);
+                        castle.setMana(castle.getMana() - spellArrows.getManaCost());
+                        spellArrows.setCooldown(spellArrows.getMaxCooldown());
                     }
 
                 }
@@ -498,6 +535,8 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         });
         stg.addActor(arrowsButton);
 
+
+        // game over window
         gameoverWindow = new Window("Game Over", mySkin);
         gameoverWindow.setHeight(320);
         gameoverWindow.setWidth(480);
@@ -510,6 +549,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         stg.addActor(gameoverWindow);
 
 
+        // play again button
         playAgainButton = new TextButton("Play Again", mySkin);
         playAgainButton.setWidth(240);
         playAgainButton.setHeight(72);
@@ -531,6 +571,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         });
         gameoverWindow.addActor(playAgainButton);
 
+        // back to menu button
         backToMenuButton = new TextButton("Back to Menu", mySkin);
         backToMenuButton.setWidth(240);
         backToMenuButton.setHeight(72);
@@ -553,6 +594,19 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         gameoverWindow.addActor(backToMenuButton);
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public void show() {
@@ -594,7 +648,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         if (freeze.getState() == Spell.State.PREPARE && freeze.getCooldown() <= 0){
             freeze.drawAOE(batch,circleX,circleY);
         }
-        arrows.draw(batch);
+        spellArrows.draw(batch);
 
 
         switch (state) {
@@ -605,6 +659,8 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 //don't update
                 break;
         }
+
+
         fontCache.draw(batch);
         castleHPNumber.draw(batch);
         castleManaNumber.draw(batch);
@@ -612,18 +668,19 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         fireball.draw(batch,circleX,circleY);
         fireball.drawStatus(batch,1440,40);
         freeze.drawStatus(batch,1590,40);
-        arrows.drawStatus(batch,1740,40);
+        spellArrows.drawStatus(batch,1740,40);
 
 
         batch.end();
         stg.act();
         stg.draw();
-
     }
 
     public void update() {
-//        System.out.println(stageNumber);
-        boolean end = true;
+        // check for survival
+        boolean end = !isSurvival;
+
+        // set end to false if there is still enemy alive
         for (Enemy e :listEnemy
              ) {
             if (e.state != Enemy.State.DEATH) {
@@ -631,6 +688,9 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 break;
             }
         }
+
+
+        // if end is true, check if player win or lose
         if (end){
             for (Enemy e :listEnemy
             ) {
@@ -638,6 +698,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                     kill++;
                 }
             }
+
             if (calculateScore(stage) > stage.getHighScore() && stageNumber == 1){
                 stageHighScore.clear();
                 readFile(stageHighScore,1);
@@ -678,40 +739,15 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 readFile(stageHighScore,1);
                 editFile(stageHighScore,7,calculateScore(stage),1);
             }
+
+            // dispose and stop music
             thisScreen.dispose();
             ((MyGdxGame) parentGame).StopInGameMusic();
-            if (stageNumber == 1){
-                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stage)));
-            }
-            else if (stageNumber == 2){
-                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stage)));
-            }
-            else if (stageNumber == 3){
-                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stage)));
-            }
-            else if (stageNumber == 4){
-                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stage)));
-            }
-            else if (stageNumber == 5){
-                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stage)));
-            }
-            else if (stageNumber == 6){
-                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stage)));
-            }
-            else if (stageNumber == 7){
-                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stage)));
-            }
-            else if (stageNumber == 8){
-                parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stage)));
-            }
+
+            parentGame.setScreen(new StageSuccess(parentGame,kill,(int) castle.getHP(),calculateScore(stage)));
 
         }
-//        else if (castle.HP <= 0){
-//
-//            thisScreen.dispose();
-//            ((MyGdxGame) parentGame).StopInGameMusic();
-//            parentGame.setScreen(new MenuScreen(parentGame));
-//        }
+
         if (castle.getHP() <= 0){
             castle.setHP(0);
             for (Enemy e :listEnemy
@@ -730,15 +766,19 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 //            gameoverWindow.setVisible(true);
 
         }
+
         for (Enemy e : listEnemy) {
             e.update();
+
             if (e.CanAttack()){
                 castle.takeDamage(e);
                 e.setAttackCooldown(3);
             }
+
             if (fireball.CanAttack(e,circleX,circleY) && fireball.getState() == Spell.State.ACTIVE){
                 e.Attacked(fireball);
             }
+
             if (freeze.CanAttack(e,circleX,circleY) && freeze.getState() == Spell.State.ACTIVE){
                 e.Attacked(freeze);
                 if (e.isFrozen(freeze.getDuration())){
@@ -755,7 +795,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                     a.setState(Arrow.State.INACTIVE);
                 }
             }
-            for (Arrow a : arrows.getListArrow()) {
+            for (Arrow a : spellArrows.getListArrow()) {
                 if (a.CanAttack(e) && a.getState() == Arrow.State.ACTIVE) {
                     e.Attacked(a);
                     a.setState(Arrow.State.INACTIVE);
@@ -767,19 +807,21 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         for (Arrow a : hero.getListArrow()) {
             a.update();
         }
+
         castle.update();
         hero.update();
 
         if (fireball.getState() != Spell.State.PREPARE) fireball.update();
         if (freeze.getState() != Spell.State.PREPARE) freeze.update();
+
         timer.update();
 
-        arrows.update();
-        for (Arrow a: arrows.getListArrow()) {
+        spellArrows.update();
+        for (Arrow a: spellArrows.getListArrow()) {
             a.update();
         }
 
-        this.setStageNumber(stageNumber);
+        this.updateStageNumber(stageNumber);
 
         if (Gdx.input.isTouched()){
             isTouched();
@@ -811,11 +853,68 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         if (freeze.getState() == Spell.State.ACTIVE){
             freeze.duration -= Gdx.graphics.getDeltaTime();
         }
+
+        // update HP and Mana text
         castleHPNumber.setText("HP : "+ (int) castle.getHP(),300,50);
         castleManaNumber.setText("Mana : " + (int) castle.getMana(),600,50);
+
+        // for survival
+        if (isSurvival){
+            boolean allEnemyDied = true;
+
+            for (Enemy e :
+                    listEnemy) {
+                if (e.state != Enemy.State.DEATH){
+                    allEnemyDied = false;
+                    break;
+                }
+            }
+
+            if (allEnemyDied) generateNewRound();
+        }
     }
 
-    public void setStageNumber(int stg) {
+    private void generateNewRound(){
+        roundEnemyCount++;
+
+        listEnemy.clear();
+        float[][] kumpDNALama = extractDNA(tempListRoundEnemy);
+
+        for (int i = 0; i < roundEnemyCount; i++) {
+            int randomNumber = random.nextInt(Enemy.State.values().length);
+            float[] tempDNA = new float[5];
+
+            // Genetic Algorithm kerja di sini
+
+
+            switch (randomNumber){
+                case 0:
+                    listEnemy.add(new Orc(tempDNA));
+                    break;
+                case 1:
+                    listEnemy.add(new Goblin(tempDNA));
+                    break;
+                case 2:
+                    listEnemy.add(new Ogre(tempDNA));
+                    break;
+            }
+        }
+
+        tempListRoundEnemy = listEnemy;
+
+    }
+    private float[][] extractDNA(ArrayList<Enemy> listEnemyYangDiCek){
+        float[][] kumpDNALama = new float[listEnemyYangDiCek.size()][5];
+
+
+        for (int i = 0; i < listEnemyYangDiCek.size(); i++) {
+            kumpDNALama[i] = listEnemyYangDiCek.get(i).getDna();
+        }
+
+        return kumpDNALama;
+    }
+
+    public void updateStageNumber(int stg) {
         stageNumber = stg;
         fontCache.setText(String.format("Stage. %d", stageNumber), 1200, 1025);
     }

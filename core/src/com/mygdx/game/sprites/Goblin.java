@@ -15,12 +15,13 @@ public class Goblin extends Orc {
 
     public Goblin() {
         super();
-        Speed = 125;
         HP = 100;
-        maxHP = 100;
-        damage = 7;
         attackCooldown = 3;
         enemyType = Type.Goblin;
+    }
+    public Goblin(float[] dna){
+        this();
+        this.dna = dna;
     }
 
     @Override

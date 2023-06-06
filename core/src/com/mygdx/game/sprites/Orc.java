@@ -12,12 +12,12 @@ public class Orc extends Enemy {
 
     public Orc() {
         super();
-        Speed = 100;
         HP = 100;
-        maxHP = 100;
-//        enemyLane = Lane.ONE;
-//        state = State.RUN;
         enemyType = Type.Orc;
+    }
+    public Orc(float[] dna){
+        this();
+        this.dna = dna;
     }
 
     Animation<TextureRegion> orcRunningAnimation,orcAttackingAnimation,orcDyingAnimation,orcIdlingAnimation,frozenOrcAnimation;
