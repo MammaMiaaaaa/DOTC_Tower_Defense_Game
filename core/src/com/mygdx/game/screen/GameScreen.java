@@ -43,7 +43,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     private OrthographicCamera camera;
     SpriteBatch batch;
 
-    Texture circleAOE;
+    Texture circleAOE,FireBallIcon,ArrowsIcon,FreezeIcon,FireBallIconCD,ArrowsIconCD,FreezeIconCD;
 
     InputMultiplexer multiInput;
 
@@ -113,6 +113,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         earthquake = new Earthquake();
         spellArrows =new Arrows();
         spellArrows.setCooldown(0);
+        
 
 
         stage = new Stages();
@@ -473,6 +474,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         });
         stg.addActor(fireBallButton);
 
+
         // freeze button
         freezeButton = new TextButton("Freeze", mySkin);
         freezeButton.setHeight(100);
@@ -626,15 +628,40 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
         Texture background = assetManager.get("In Game.png", Texture.class);
 
+        FreezeIcon = assetManager.get("FreezeButton.png", Texture.class);
+        ArrowsIcon = assetManager.get("ArrowsButton.png", Texture.class);
+        FireBallIcon = assetManager.get("FireBallButton.png", Texture.class);
+        FreezeIconCD = assetManager.get("FreezeButtonCD.png", Texture.class);
+        ArrowsIconCD = assetManager.get("ArrowsButtonCD.png", Texture.class);
+        FireBallIconCD = assetManager.get("FireBallButtonCD.png", Texture.class);
+
 
         gameTime = gameTime + Gdx.graphics.getDeltaTime();
 
 
         batch.draw(background, 0, 0);
-
-
         castle.draw(batch);
         hero.draw(batch);
+        //draw spell buttons icon
+        if(fireball.getCooldown() <= 0){
+            batch.draw(FireBallIcon,1400, 50);
+        }
+        else{
+            batch.draw(FireBallIconCD,1400, 50);
+        }
+        if(freeze.getCooldown() <= 0){
+            batch.draw(FreezeIcon,1550, 50);
+        }
+        else{
+            batch.draw(FreezeIconCD,1550, 50);
+        }
+        if(spellArrows.getCooldown() <= 0){
+            batch.draw(ArrowsIcon,1700, 50);
+        }
+        else{
+            batch.draw(ArrowsIconCD,1700, 50);
+        }
+
         for (Arrow a : hero.getListArrow()) {
             a.draw(batch);
         }
@@ -897,7 +924,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             int randomLane = random.nextInt(Enemy.Lane.values().length);
 
             // generate random spawn time
-            float randomSpawnTime = random.nextFloat() * 10 + 1;
+            float randomSpawnTime = random.nextFloat() * 10 + random.nextFloat() + 1;
 
             switch (randomNumber){
                 case 0:
