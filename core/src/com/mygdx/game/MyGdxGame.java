@@ -98,6 +98,12 @@ public class MyGdxGame extends Game implements InputProcessor {
 		assetManager.load("FireBallAnimation.png", Texture.class);
 		assetManager.load("monster2.png", Texture.class);
 		assetManager.load("failed.png", Texture.class);
+		assetManager.load("ArrowsButton.png", Texture.class);
+		assetManager.load("ArrowsButtonCD.png", Texture.class);
+		assetManager.load("FreezeButton.png", Texture.class);
+		assetManager.load("FreezeButtonCD.png", Texture.class);
+		assetManager.load("FireBallButton.png", Texture.class);
+		assetManager.load("FireBallButtonCD.png", Texture.class);
 		
 
 
