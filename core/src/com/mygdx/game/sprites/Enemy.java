@@ -35,8 +35,10 @@ public abstract class Enemy extends Hero {
 
     protected int HP;
     protected int maxHP;
+    
 
     protected int damage;
+    private int damageGiven;
     protected float attackCooldown;
     protected float stateTime;
     protected float spawnTime;
@@ -45,9 +47,17 @@ public abstract class Enemy extends Hero {
     protected float X, DX, DY, Speed;
     protected float Y;
 
+    protected float physicalResistance, magicalResistance;
+    protected float[] dna = new float[5];
+    protected float fitness = 0;
+
+
+    private boolean isFitnessCalculated = false;
+
     public State state = Enemy.State.RUN;
     Type enemyType = Enemy.Type.Orc;
 
+    protected
 
     Lane enemyLane = Enemy.Lane.ONE;
 
@@ -59,7 +69,41 @@ public abstract class Enemy extends Hero {
         X = 2150;
         DX = 0;
         DY = 0;
-        Speed = 100;
+
+        // initialize default dna
+        // maxHP
+        dna[0] = 100;
+        // speed
+        dna[1] = 100;
+        // damage
+        dna[2] = 7;
+        // physical resistance
+        dna[3] = 1;
+        // magical resistance
+        dna[4] = 1;
+
+        // set according to DNA
+        maxHP = (int)dna[0];
+        Speed = dna[1];
+        damage = (int)dna[2];
+        physicalResistance = dna[3];
+        magicalResistance = dna[4];
+
+    }
+
+    public int getDamageGiven() {
+        return damageGiven;
+    }
+
+    public void setDamageGiven(int damageGiven) {
+        this.damageGiven = damageGiven;
+    }
+
+    public Enemy(float[] dna, Lane lane, float spawnTime){
+        this();
+        this.spawnTime = spawnTime;
+        this.enemyLane = lane;
+        this.dna = dna;
     }
 
 
@@ -68,34 +112,52 @@ public abstract class Enemy extends Hero {
     public void update()
     {
         float delta = Gdx.graphics.getDeltaTime();
+
+
         stateTime += delta;
+
+        // check if frozen
         if (state == State.FROZEN){
             DX = 0;
         }
+
+        // speed calculation
         X += DX * Speed * delta;
+
+        // attack cooldown calculation
         attackCooldown -= delta;
+
+        // attack base
         if(X < 350 )
         {
-            X = 350;
+            X = 350; // stop at castle
+
             if (state != State.DEATH){
+                // change state
                 state = Enemy.State.ATTACK;
             }
-
-
+            
         }
+
+        // stop if death
         if (state == State.DEATH){
             DX = 0;
         }
+
+        // change state to death if HP <= 0
         if (HP <= 0){
             state = State.DEATH;
-        }
+            calculateFitness();
 
-//        Y += DY * Speed * delta;
+
+        }
 
         if(state == State.DYING && stateTime > 3f)
         {
             state = State.DEATH;
         }
+
+        // hardcode to set Y according to Lane
         if (enemyLane == Lane.ONE){
             Y = 490;
         }
@@ -109,31 +171,47 @@ public abstract class Enemy extends Hero {
             Y = 40;
         }
 
-//        else if (state == State.RUN){
-//            DX = -1;
-//        }
+
     }
-    public void Attack(Castle c){
-        if (state == State.ATTACK){
-            c.setHP(-damage);
+    private void calculateFitness() {
+        if (isFitnessCalculated){
+            return;
+        }
+        if (!isFitnessCalculated){
+            isFitnessCalculated = true;
+        }
+
+        fitness = (2150 - X)/2 + 10 * getDamageGiven();
+
+        // print sementara fitness
+        System.out.println("--------------------");
+        System.out.println("all death statistics");
+        System.out.println("Fitness: " + fitness);
+        System.out.println("damage given: " + getDamageGiven());
+        System.out.println("DNA:");
+        for (int i = 0; i < dna.length; i++) {
+            System.out.println("dna[" + i + "]: " + dna[i]);
         }
     }
+
     public void Attacked(Arrow a){
         if(state != State.DEATH) {
-            HP -= a.getDamage();
-            if (HP <= 0){
-                state = State.DEATH;
-            }
+            HP -= a.getDamage() - physicalResistance;
+
+            // if (HP <= 0){
+            //     state = State.DEATH;
+            // }
 
 //            sound.play();
         }
     }
     public void Attacked(Spell s){
         if(state != State.DEATH) {
-            HP -= s.getDamage();
-            if (HP <= 0){
-                state = State.DEATH;
-            }
+            HP -= s.getDamage() - magicalResistance;
+
+            // if (HP <= 0){
+            //     state = State.DEATH;
+            // }
 
 //            sound.play();
         }
@@ -266,6 +344,38 @@ public abstract class Enemy extends Hero {
 
     public Lane getEnemyLane() {
         return enemyLane;
+    }
+
+    public float getPhysicalResistance() {
+        return physicalResistance;
+    }
+
+    public void setPhysicalResistance(float physicalResistance) {
+        this.physicalResistance = physicalResistance;
+    }
+
+    public float getMagicalResistance() {
+        return magicalResistance;
+    }
+
+    public void setMagicalResistance(float magicalResistance) {
+        this.magicalResistance = magicalResistance;
+    }
+
+    public float getFitness() {
+        return fitness;
+    }
+
+    public void setFitness(float fitness) {
+        this.fitness = fitness;
+    }
+
+    public float[] getDna() {
+        return dna;
+    }
+
+    public void setDna(float[] dna) {
+        this.dna = dna;
     }
 
     public void setEnemyLane(Lane enemyLane) {
