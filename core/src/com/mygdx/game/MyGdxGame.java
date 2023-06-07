@@ -49,6 +49,18 @@ public class MyGdxGame extends Game implements InputProcessor {
 		assetManager.load("GoblinAttacking.png", Texture.class);
 		assetManager.load("GoblinIdling.png",Texture.class);
 		assetManager.load("GoblinDying.png", Texture.class);
+		assetManager.load("MagicOrcRunning.png", Texture.class);
+		assetManager.load("MagicOrcAttacking.png", Texture.class);
+		assetManager.load("MagicOrcDying.png", Texture.class);
+		assetManager.load("MagicOrcIdling.png",Texture.class);
+		assetManager.load("MagicOgreRunning.png", Texture.class);
+		assetManager.load("MagicOgreAttacking.png", Texture.class);
+		assetManager.load("MagicOgreDying.png", Texture.class);
+		assetManager.load("MagicOgreIdling.png",Texture.class);
+		assetManager.load("MagicGoblinRunning.png", Texture.class);
+		assetManager.load("MagicGoblinAttacking.png", Texture.class);
+		assetManager.load("MagicGoblinIdling.png",Texture.class);
+		assetManager.load("MagicGoblinDying.png", Texture.class);
 		assetManager.load("FullCastle.png", Texture.class);
 		assetManager.load("HalfCastle.png", Texture.class);
 		assetManager.load("DestroyedCastle.png", Texture.class);
@@ -86,6 +98,7 @@ public class MyGdxGame extends Game implements InputProcessor {
 		assetManager.load("FireBallAnimation.png", Texture.class);
 		assetManager.load("monster2.png", Texture.class);
 		assetManager.load("failed.png", Texture.class);
+		
 
 
 

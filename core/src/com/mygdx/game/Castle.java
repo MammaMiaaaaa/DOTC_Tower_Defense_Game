@@ -37,7 +37,9 @@ public class Castle extends DataHandling {
     //hp berkurang jika musuh berhasil menyerang
     public void takeDamage(Enemy e){
         HP -= e.getDamage();
+        e.setDamageGiven(e.getDamageGiven() + e.getDamage());
     }
+
     //cek castle condition dan regen mana
     public void update(){
 //        HP = HP - Gdx.graphics.getDeltaTime()*10;

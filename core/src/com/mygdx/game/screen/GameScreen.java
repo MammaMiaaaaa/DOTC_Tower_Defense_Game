@@ -25,6 +25,7 @@ import com.mygdx.game.util.DataHandling;
 import com.mygdx.game.util.Timer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class GameScreen extends DataHandling implements Screen, InputProcessor {
@@ -74,6 +75,8 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     float circleY;
 
     float gameTime = 0;
+
+    int roundNumber = 0;
 
     public enum State {
         Running, Paused
@@ -158,14 +161,14 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
                 // enemy awal
                 stage.addOrc(1, Enemy.Lane.TWO);
-                stage.addOrc(20, Enemy.Lane.ONE);
-                stage.addOrc(15, Enemy.Lane.FOUR);
-                stage.addOrc(20, Enemy.Lane.ONE);
-                stage.addOrc(25, Enemy.Lane.FOUR);
-                stage.addOrc(30, Enemy.Lane.THREE);
-                stage.addOrc(35, Enemy.Lane.TWO);
-                stage.addOrc(40, Enemy.Lane.FOUR);
-                stage.addOrc(55, Enemy.Lane.FOUR);
+                stage.addOrc(3, Enemy.Lane.ONE);
+                // stage.addOrc(15, Enemy.Lane.FOUR);
+                // stage.addOrc(20, Enemy.Lane.ONE);
+                // stage.addOrc(25, Enemy.Lane.FOUR);
+                // stage.addOrc(30, Enemy.Lane.THREE);
+                // stage.addOrc(35, Enemy.Lane.TWO);
+                // stage.addOrc(40, Enemy.Lane.FOUR);
+                // stage.addOrc(55, Enemy.Lane.FOUR);
                 stage.addToArray(listEnemy);
 
 
@@ -173,7 +176,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 roundEnemyCount = 9;
 
                 // set init templistroundenemy
-                tempListRoundEnemy = listEnemy;
+                tempListRoundEnemy = (ArrayList<Enemy>) listEnemy.clone();
 
                 break;
             case 1:
@@ -682,7 +685,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
         // set end to false if there is still enemy alive
         for (Enemy e :listEnemy
-             ) {
+            ) {
             if (e.state != Enemy.State.DEATH) {
                 end = false;
                 break;
@@ -876,47 +879,170 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
     private void generateNewRound(){
         roundEnemyCount++;
+        roundNumber++;
 
         listEnemy.clear();
-        float[][] kumpDNALama = extractDNA(tempListRoundEnemy);
+        HashMap<Enemy, float[]> kumpDNALama = extractDNA(tempListRoundEnemy);
+        
 
         for (int i = 0; i < roundEnemyCount; i++) {
             int randomNumber = random.nextInt(Enemy.State.values().length);
             float[] tempDNA = new float[5];
 
             // Genetic Algorithm kerja di sini
+            tempDNA = generateDNA(kumpDNALama);
 
+
+            // generate random lane
+            int randomLane = random.nextInt(Enemy.Lane.values().length);
+
+            // generate random spawn time
+            float randomSpawnTime = random.nextFloat() * 10 + 1;
 
             switch (randomNumber){
                 case 0:
-                    listEnemy.add(new Orc(tempDNA));
+                    listEnemy.add(new Orc(tempDNA, randomLane, randomSpawnTime));
                     break;
                 case 1:
-                    listEnemy.add(new Goblin(tempDNA));
+                    listEnemy.add(new Goblin(tempDNA, randomLane, randomSpawnTime));
                     break;
                 case 2:
-                    listEnemy.add(new Ogre(tempDNA));
+                    listEnemy.add(new Ogre(tempDNA, randomLane, randomSpawnTime));
                     break;
             }
         }
 
-        tempListRoundEnemy = listEnemy;
+        tempListRoundEnemy = (ArrayList<Enemy>) listEnemy.clone();
 
     }
-    private float[][] extractDNA(ArrayList<Enemy> listEnemyYangDiCek){
-        float[][] kumpDNALama = new float[listEnemyYangDiCek.size()][5];
+
+    private float[] generateDNA(HashMap<Enemy, float[]> kumpDNALama) {
+        levelUpAllOldDNA(kumpDNALama);
+
+        // calculate all fitness total
+        float fitnessTotal = 0;
+        for (Enemy e :
+                kumpDNALama.keySet()) {
+            fitnessTotal += e.getFitness();
+        }
+
+        // calculate all fitness percentage
+        float[] fitnessPercentage = new float[kumpDNALama.size()];
+        int i = 0;
+        for (Enemy e :
+                kumpDNALama.keySet()) {
+            fitnessPercentage[i] = e.getFitness() / fitnessTotal;
+            i++;
+        }
+
+        // calculate all fitness percentage cumulative
+        float[] fitnessPercentageCumulative = new float[kumpDNALama.size()];
+        fitnessPercentageCumulative[0] = fitnessPercentage[0];
+        for (int j = 1; j < fitnessPercentage.length; j++) {
+            fitnessPercentageCumulative[j] = fitnessPercentageCumulative[j-1] + fitnessPercentage[j];
+        }
+
+        // generate random number
+        float randomNumber = random.nextFloat();
+
+        // find 2 parent based on random number
+        Enemy parent1 = null;
+        Enemy parent2 = null;
+        for (int j = 0; j < fitnessPercentageCumulative.length; j++) {
+            if (randomNumber <= fitnessPercentageCumulative[j]){
+                parent1 = (Enemy) kumpDNALama.keySet().toArray()[j];
+                break;
+            }
+        }
+        randomNumber = random.nextFloat();
+        for (int j = 0; j < fitnessPercentageCumulative.length; j++) {
+            if (randomNumber <= fitnessPercentageCumulative[j]){
+                parent2 = (Enemy) kumpDNALama.keySet().toArray()[j];
+                break;
+            }
+        }
+
+        // generate child DNA, uniform crossover
+        float[] childDNA = new float[5];
+        for (int j = 0; j < childDNA.length; j++) {
+            if (random.nextFloat() <= 0.5){
+                childDNA[j] = parent1.getDna()[j];
+            }else {
+                childDNA[j] = parent2.getDna()[j];
+            }
+        }
+
+        // mutation
+        for (int j = 0; j < childDNA.length; j++) {
+            if (random.nextFloat() <= 0.1){
+                childDNA[j] = random.nextFloat() * childDNA[j];
+            }
+        }
+
+        return childDNA;
+    
+    }
+
+    private void levelUpAllOldDNA(HashMap<Enemy, float[]> kumpDNALama) {
+        // level up all the old MaxHealth in the DNA
+        for (Enemy e :
+                kumpDNALama.keySet()) {
+            e.getDna()[0] = e.getDna()[0] * 1.1f;
+        }
+
+        // level up all old speed in the DNA
+        for (Enemy e :
+                kumpDNALama.keySet()) {
+            e.getDna()[1] = e.getDna()[1] * 1.05f;
+        }
+
+        // level up all old damage in the DNA
+        for (Enemy e :
+                kumpDNALama.keySet()) {
+            e.getDna()[2] = e.getDna()[2] * 1.1f;
+        }
+
+        // level up all old physical resistance in the DNA
+        for (Enemy e :
+                kumpDNALama.keySet()) {
+            e.getDna()[3] = e.getDna()[3] * 1.05f;
+        }
+
+        // level up all old magical resistance in the DNA
+        for (Enemy e :
+                kumpDNALama.keySet()) {
+            e.getDna()[4] = e.getDna()[4] * 1.05f;
+        }
+
+    }
+
+    private HashMap<Enemy, float[]> extractDNA(ArrayList<Enemy> listEnemyYangDiCek){
+        float[][] kumpDNALamaNoParent = new float[listEnemyYangDiCek.size()][5];
 
 
+        // take the old dna
         for (int i = 0; i < listEnemyYangDiCek.size(); i++) {
-            kumpDNALama[i] = listEnemyYangDiCek.get(i).getDna();
+            kumpDNALamaNoParent[i] = listEnemyYangDiCek.get(i).getDna();
+        }
+
+        // map it's parent to them
+        HashMap<Enemy, float[]> kumpDNALama = new HashMap<>();
+        for (int i = 0; i < listEnemyYangDiCek.size(); i++) {
+            kumpDNALama.put(listEnemyYangDiCek.get(i), kumpDNALamaNoParent[i]);
         }
 
         return kumpDNALama;
     }
 
     public void updateStageNumber(int stg) {
-        stageNumber = stg;
-        fontCache.setText(String.format("Stage. %d", stageNumber), 1200, 1025);
+        if(isSurvival){
+            fontCache.setText(String.format("Round. %d", roundNumber), 1200, 1025);
+        }
+        else{
+            stageNumber = stg;
+            fontCache.setText(String.format("Stage. %d", stageNumber), 1200, 1025);
+        }
+        
     }
 
     public boolean isTouched(){
