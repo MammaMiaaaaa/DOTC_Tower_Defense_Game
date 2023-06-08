@@ -149,9 +149,9 @@ public class PowerUpScreenSpell extends DataHandling implements Screen, InputPro
         fontCache8.setText("Power Up", 245, 1050);
 
         optionButton = new TextButton("Back", mySkin);
-        optionButton.setHeight(70);
-        optionButton.setWidth(70);
-        optionButton.setPosition(50 - optionButton.getWidth() / 2, 1000);
+        optionButton.setHeight(42);
+        optionButton.setWidth(42);
+        optionButton.setPosition(78, 1005);
         optionButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -491,11 +491,16 @@ public class PowerUpScreenSpell extends DataHandling implements Screen, InputPro
         fontCache6.draw(batch);
         fontCache7.draw(batch);
         fontCache8.draw(batch);
-        batch.end();
-        update();
 
         stage.act();
         stage.draw();
+
+        Texture BackUpgrade = assetManager.get("bbupgrade.png", Texture.class);
+        batch.draw(BackUpgrade,63, 990);
+        batch.end();
+        update();
+
+
     }
 
     public void update()
