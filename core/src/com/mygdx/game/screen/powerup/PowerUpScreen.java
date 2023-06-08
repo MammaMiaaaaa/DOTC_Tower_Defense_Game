@@ -160,9 +160,9 @@ public class PowerUpScreen extends DataHandling implements Screen, InputProcesso
             fontCache5.setText("Tingkat speed serangan hero maksimal", 750, 240);
         }
         optionButton = new TextButton("Back", mySkin);
-        optionButton.setHeight(70);
-        optionButton.setWidth(70);
-        optionButton.setPosition(50 - optionButton.getWidth() / 2, 1000);
+        optionButton.setHeight(42);
+        optionButton.setWidth(42);
+        optionButton.setPosition(78, 1005);
         optionButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -418,6 +418,7 @@ public class PowerUpScreen extends DataHandling implements Screen, InputProcesso
 
             batch.draw(coba3, 1421, 274);
         }
+
         fontCache.draw(batch);
         fontCache1.draw(batch);
         fontCache2.draw(batch);
@@ -425,11 +426,17 @@ public class PowerUpScreen extends DataHandling implements Screen, InputProcesso
         fontCache4.draw(batch);
         fontCache5.draw(batch);
         fontCache6.draw(batch);
-        batch.end();
-        update();
 
         stage.act();
         stage.draw();
+
+        Texture BackUpgrade = assetManager.get("bbupgrade.png", Texture.class);
+        batch.draw(BackUpgrade,63, 990);
+
+        batch.end();
+        update();
+
+
     }
 
     public void update()

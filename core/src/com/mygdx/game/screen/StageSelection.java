@@ -147,9 +147,9 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
 
         // back button
         backButton = new TextButton("Back", mySkin);
-        backButton.setHeight(100);
-        backButton.setWidth(200);
-        backButton.setPosition(200, 100);
+        backButton.setHeight(60);
+        backButton.setWidth(160);
+        backButton.setPosition(220, 120);
         backButton.setColor(Color.WHITE);
         backButton.addListener(new InputListener(){
             @Override
@@ -444,12 +444,14 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         highScore7.draw(batch);
         highScore8.draw(batch);
 
-        batch.end();
-
         stage.act();
         stage.draw();
 
-        this.update();
+        Texture BackStageSelect = assetManager.get("bbstage.png", Texture.class);
+        batch.draw(BackStageSelect,200 , 100);
+
+        batch.end();
+        update();
     }
     public void update() {
 

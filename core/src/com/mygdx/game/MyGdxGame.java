@@ -85,6 +85,11 @@ public class MyGdxGame extends Game implements InputProcessor {
 		assetManager.load("pausebutton.png", Texture.class);
 		assetManager.load("kotak_atas.png", Texture.class);
 		assetManager.load("newdiamond.png", Texture.class);
+		assetManager.load("exit.png", Texture.class);
+		assetManager.load("startbut.png", Texture.class);
+		assetManager.load("upgradebut.png", Texture.class);
+		assetManager.load("bbstage.png", Texture.class);
+		assetManager.load("bbupgrade.png", Texture.class);
 		assetManager.load("berlian.png", Texture.class);
 		assetManager.load("benteng2.png", Texture.class);
 		assetManager.load("coin.png", Texture.class);
