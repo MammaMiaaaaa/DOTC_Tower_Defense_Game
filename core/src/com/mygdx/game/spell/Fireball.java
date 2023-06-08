@@ -52,16 +52,16 @@ public Fireball() {
     @Override
     public void update() {
         super.update();
-        float delta = Gdx.graphics.getDeltaTime();
-        cooldown -= delta;
-        if (state == State.ACTIVE && duration > 0){
-            duration -= delta;
-//            System.out.println(duration);
-        }
-        else {
-            state = State.INACTIVE;
-            duration = 0.5f;
-        }
+//        float delta = Gdx.graphics.getDeltaTime();
+////        cooldown -= delta;
+//        if (state == State.ACTIVE && duration > 0){
+//            duration -= delta;
+////            System.out.println(duration);
+//        }
+//        else {
+//            state = State.INACTIVE;
+//            duration = 0.5f;
+//        }
     }
     public boolean CanAttack(Enemy e, float X, float Y){
         if(e.state == Enemy.State.DEATH)

@@ -11,7 +11,8 @@ import com.mygdx.game.spell.Spell;
 import com.mygdx.game.sprites.Enemy;
 
 public class Freeze extends Spell {
-    Animation<TextureRegion> fireballAnimation;
+    protected float maxDuration;
+    public float duration;
 //    Texture circleAOE;
 
     public Freeze() {
@@ -57,7 +58,7 @@ public class Freeze extends Spell {
     public void update() {
         super.update();
         float delta = Gdx.graphics.getDeltaTime();
-        cooldown -= delta;
+//        cooldown -= delta;
         if (state == State.ACTIVE && duration > 0){
             duration -= delta;
 //            System.out.println(duration);
@@ -71,5 +72,13 @@ public class Freeze extends Spell {
     @Override
     public void drawStatus(SpriteBatch batch, int x, int y) {
         super.drawStatus(batch, x, y);
+    }
+
+    public float getDuration() {
+        return duration;
+    }
+
+    public void setDuration(float duration) {
+        this.duration = duration;
     }
 }

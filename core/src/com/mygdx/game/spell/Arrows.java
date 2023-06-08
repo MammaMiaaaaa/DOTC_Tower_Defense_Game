@@ -11,7 +11,7 @@ public class Arrows extends Spell {
 
 
     protected float interval = 0.5f;
-    protected float spawnTime = duration;
+    protected float spawnTime = 0;
     protected ArrayList<Arrow> listArrow = new ArrayList<>(); //list of arrow buat spell
     protected Arrow arrow;
     public Arrows() {
@@ -20,8 +20,6 @@ public class Arrows extends Spell {
 
     @Override
     public void InitializeAnimation() {
-        duration = 1;
-        maxDuration = 3;
         super.InitializeAnimation();
 
     }
@@ -73,12 +71,12 @@ public class Arrows extends Spell {
     @Override
     public void update() {
         super.update();
+
         if (state == State.ACTIVE){
-
-            while (duration > 0){
-
-                duration -= Gdx.graphics.getDeltaTime();
-                if (duration<= spawnTime){
+            int j = 0;
+            while(j < 4){
+                interval -= Gdx.graphics.getDeltaTime();
+                if(interval < 0){
                     for (int i = 0; i < 4; i++){
                         arrow = new Arrow();
                         arrow.setDamage((int) damage);
@@ -96,17 +94,42 @@ public class Arrows extends Spell {
                         }
                         listArrow.add(arrow);
                     }
-                    spawnTime = spawnTime -  interval;
+                    j++;
+                    interval = 1;
                 }
+                System.out.println(interval);
             }
+            state = Arrows.State.INACTIVE;
 
-//            Enemy e = new Goblin();
-//            listEnemyWave.add(e);
-//            e.spawnTime = spawnTime;
-//            spawnTime += spawnInterval;
+
+
+//            while (duration > 0){
+//
+//                duration -= Gdx.graphics.getDeltaTime();
+//                if (duration<= spawnTime){
+//                    for (int i = 0; i < 4; i++){
+//                        arrow = new Arrow();
+//                        arrow.setDamage((int) damage);
+//                        if (i == 0){
+//                            arrow.setY(540);
+//                        }
+//                        else if (i== 1){
+//                            arrow.setY(390);
+//                        }
+//                        else if (i== 2){
+//                            arrow.setY(240);
+//                        }
+//                        else {
+//                            arrow.setY(90);
+//                        }
+//                        listArrow.add(arrow);
+//                    }
+//                    spawnTime = spawnTime -  interval;
+//                }
+//            }
         }
         else if (state == State.INACTIVE){
-            duration = maxDuration;
+//            duration = maxDuration;
         }
 
 

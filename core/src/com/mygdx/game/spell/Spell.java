@@ -11,8 +11,7 @@ import com.mygdx.game.MyGdxGame;
 public class Spell extends DataHandling {
     protected float manaCost = Float.parseFloat(getData(17));
     protected float damage = Float.parseFloat(getData(16));
-    protected float maxDuration;
-    public float duration;
+
     protected Texture circleAOE;
     protected float stateTime;
     protected float maxCooldown = Float.parseFloat(getData(18));
@@ -43,6 +42,7 @@ public class Spell extends DataHandling {
     public void update(){
         float delta = Gdx.graphics.getDeltaTime();
         stateTime += delta;
+        cooldown -= delta;
     }
 
     public float getManaCost() {
@@ -61,21 +61,6 @@ public class Spell extends DataHandling {
         this.damage = damage;
     }
 
-    public float getMaxDuration() {
-        return maxDuration;
-    }
-
-    public void setMaxDuration(float maxDuration) {
-        this.maxDuration = maxDuration;
-    }
-
-    public float getDuration() {
-        return duration;
-    }
-
-    public void setDuration(float duration) {
-        this.duration = duration;
-    }
 
     public Texture getCircleAOE() {
         return circleAOE;
@@ -126,24 +111,24 @@ public class Spell extends DataHandling {
     }
 
     public void drawStatus(SpriteBatch batch, int x, int y){
-        if (cooldown<=0){
-            font.setText("R", x,y);
-            font.setColor(Color.BLUE);
-
-        }
-        else {
-            font.setText("CD",x-12,y);
-            font.setColor(Color.RED);
-        }
 //        if (cooldown<=0){
-//            font.setText(String.valueOf(cooldown), x,y);
+//            font.setText("R", x,y);
 //            font.setColor(Color.BLUE);
 //
 //        }
 //        else {
-//            font.setText(String.valueOf(cooldown),x-12,y);
+//            font.setText("CD",x-12,y);
 //            font.setColor(Color.RED);
 //        }
+        if (cooldown<=0){
+            font.setText(String.valueOf(cooldown), x,y);
+            font.setColor(Color.BLUE);
+
+        }
+        else {
+            font.setText(String.valueOf(cooldown),x-12,y);
+            font.setColor(Color.RED);
+        }
         font.draw(batch);
     }
 
