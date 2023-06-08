@@ -82,6 +82,7 @@ public class MyGdxGame extends Game implements InputProcessor {
 		assetManager.load("circleAOE.png", Texture.class);
 		assetManager.load("newcoin.png", Texture.class);
 		assetManager.load("castle.png", Texture.class);
+		assetManager.load("pausebutton.png", Texture.class);
 		assetManager.load("kotak_atas.png", Texture.class);
 		assetManager.load("newdiamond.png", Texture.class);
 		assetManager.load("berlian.png", Texture.class);

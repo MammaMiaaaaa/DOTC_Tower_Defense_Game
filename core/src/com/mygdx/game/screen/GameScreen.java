@@ -359,11 +359,10 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         }
 
         // pause button
-        pauseButton = new TextButton("Pause", mySkin);
-        pauseButton.setHeight(75);
-        pauseButton.setWidth(100);
-        pauseButton.setPosition(1750, 975);
-        pauseButton.setColor(Color.RED);
+        pauseButton = new TextButton("", mySkin);
+        pauseButton.setHeight(35);
+        pauseButton.setWidth(35);
+        pauseButton.setPosition(1780, 1005);
         pauseButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -796,6 +795,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         Texture Mana = assetManager.get("mana.png", Texture.class);
         Texture Heart = assetManager.get("heart.png", Texture.class);
         Texture Castle = assetManager.get("castle.png", Texture.class);
+        Texture Pause = assetManager.get("pausebutton.png", Texture.class);
 
         batch.draw(background, 0, 0);
         castle.draw(batch);
@@ -862,6 +862,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         } else {
             batch.draw(ArrowsIconCD, 1675, 25);
         }
+        batch.draw(Pause, 1750, 975);
         batch.draw(Castle, 1225, 25);
         batch.draw(Coin, 850, 5);
         batch.draw(Mana, 540, 5);
@@ -1305,10 +1306,10 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
     public void updateStageNumber(int stg) {
         if (isSurvival) {
-            fontCache.setText(String.format("Round. %d", roundNumber), 1200, 1025);
+            fontCache.setText(String.format("Round = %d", roundNumber), 1200, 1025);
         } else {
             stageNumber = stg;
-            fontCache.setText(String.format("Stage. %d", stageNumber), 1200, 1025);
+            fontCache.setText(String.format("Stage = %d", stageNumber), 1200, 1025);
         }
 
     }
