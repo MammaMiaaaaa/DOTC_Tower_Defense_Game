@@ -43,9 +43,10 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     private OrthographicCamera camera;
     SpriteBatch batch;
 
-    Texture circleAOE,FireBallIcon,ArrowsIcon,FreezeIcon,FireBallIconCD,ArrowsIconCD,FreezeIconCD;
+    Texture FireBallIcon,ArrowsIcon,FreezeIcon,FireBallIconCD,ArrowsIconCD,FreezeIconCD;
 
     InputMultiplexer multiInput;
+    Enemy enemyParent1, enemyParent2;
 
     Castle castle;
     Hero hero;
@@ -77,8 +78,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     float circleX;
     float circleY;
 
-    float gameTime = 0;
-
     int roundNumber = 0;
 
     public enum State {
@@ -106,6 +105,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
 
     public void Initialize() {
+        // instantiate all class
         castle = new Castle();
         hero = new Hero();
         hero.setAttackCooldown(0);
@@ -116,6 +116,8 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         earthquake = new Earthquake();
         spellArrows = new Arrows();
         spellArrows.setCooldown(0);
+
+        // init money and costs
         survGold = 0;
         freezeUpgradeCost = 500;
         fireballUpgradeCost = 500;
@@ -123,17 +125,16 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         heroDamageUpgradeCost = 500;
         
 
-
+        // init stages
         stage = new Stages();
         stage.setStage(stageNumber);
 
 
         assetManager = ((MyGdxGame) parentGame).getAssetManager();
-
         thisScreen = this;
-
         timer = new Timer();
 
+        // init camera and viewport
         camera = new OrthographicCamera(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         camera.setToOrtho(false, MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         viewport = new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, camera);
@@ -143,13 +144,13 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         stageCamera.setToOrtho(false, MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT);
         stg = new Stage(new FitViewport(MyGdxGame.WORLD_WIDTH, MyGdxGame.WORLD_HEIGHT, stageCamera));
 
+        // init multiplexer
         multiInput = new InputMultiplexer();
         multiInput.addProcessor(this);
         multiInput.addProcessor(stg);
 
         Skin mySkin = assetManager.get("uiskin.json", Skin.class);
 
-        circleAOE = assetManager.get("circleAOE.png",Texture.class);
 
         fontCache = new BitmapFontCache(MyGdxGame.font);
         fontCache.setColor(Color.BLACK);
@@ -174,13 +175,18 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 // enemy awal
                 stage.addOrc(1, Enemy.Lane.TWO);
                 stage.addOrc(3, Enemy.Lane.ONE);
-                // stage.addOrc(15, Enemy.Lane.FOUR);
-                // stage.addOrc(20, Enemy.Lane.ONE);
-                // stage.addOrc(25, Enemy.Lane.FOUR);
-                // stage.addOrc(30, Enemy.Lane.THREE);
-                // stage.addOrc(35, Enemy.Lane.TWO);
-                // stage.addOrc(40, Enemy.Lane.FOUR);
-                // stage.addOrc(55, Enemy.Lane.FOUR);
+                stage.addOgre(10, Enemy.Lane.FOUR);
+                stage.addOgre(8.5f, Enemy.Lane.FOUR);
+                stage.addGoblin(30, Enemy.Lane.ONE);
+                stage.addGoblin(12, Enemy.Lane.THREE);
+
+                stage.addOrc(8, Enemy.Lane.TWO);
+                stage.addOrc(9, Enemy.Lane.ONE);
+                stage.addOgre(12, Enemy.Lane.THREE);
+                stage.addOgre(9.5f, Enemy.Lane.FOUR);
+                stage.addGoblin(20, Enemy.Lane.ONE);
+                stage.addGoblin(22, Enemy.Lane.THREE);
+
                 stage.addToArray(listEnemy);
 
 
@@ -726,22 +732,22 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
     @Override
     public void render(float delta) {
+        // init
         ScreenUtils.clear(0, 0, 0, 1);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
+        // background
         Texture background = assetManager.get("In Game.png", Texture.class);
 
+        // spell icons / textures
         FreezeIcon = assetManager.get("FreezeButton.png", Texture.class);
         ArrowsIcon = assetManager.get("ArrowsButton.png", Texture.class);
         FireBallIcon = assetManager.get("FireBallButton.png", Texture.class);
         FreezeIconCD = assetManager.get("FreezeButtonCD.png", Texture.class);
         ArrowsIconCD = assetManager.get("ArrowsButtonCD.png", Texture.class);
         FireBallIconCD = assetManager.get("FireBallButtonCD.png", Texture.class);
-
-
-        gameTime = gameTime + Gdx.graphics.getDeltaTime();
 
 
         batch.draw(background, 0, 0);
@@ -907,18 +913,23 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
         }
 
+        // main loop for all enemy
         for (Enemy e : listEnemy) {
+            // call the enemy's update
             e.update();
 
+            // check if enemy is in range of castle
             if (e.CanAttack()){
                 castle.takeDamage(e);
                 e.setAttackCooldown(3);
             }
 
+            // check if enemy is in range of fireball
             if (fireball.CanAttack(e,circleX,circleY) && fireball.getState() == Spell.State.ACTIVE){
                 e.Attacked(fireball);
             }
 
+            // check if enemy is in range of freeze
             if (freeze.CanAttack(e,circleX,circleY) && freeze.getState() == Spell.State.ACTIVE){
                 e.Attacked(freeze);
                 if (e.isFrozen(freeze.getDuration())){
@@ -929,12 +940,16 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 }
 
             }
+
+            // check if enemy is in range of arrows (from player)
             for (Arrow a : hero.getListArrow()) {
                 if (a.CanAttack(e) && a.getState() == Arrow.State.ACTIVE) {
                     e.Attacked(a);
                     a.setState(Arrow.State.INACTIVE);
                 }
             }
+
+            // check if enemy is in range of arrows (from spell)
             for (Arrow a : spellArrows.getListArrow()) {
                 if (a.CanAttack(e) && a.getState() == Arrow.State.ACTIVE) {
                     e.Attacked(a);
@@ -944,22 +959,27 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
 
         }
+
+        // update the arrow
         for (Arrow a : hero.getListArrow()) {
             a.update();
         }
 
+        // call update
         castle.update();
         hero.update();
 
-        //update spell upgrade cost
+        // update spell upgrade cost
         fireballUpgradeButton.setText(String.valueOf(fireballUpgradeCost));
         freezeUpgradeButton.setText(String.valueOf(freezeUpgradeCost));
         arrowsUpgradeButton.setText(String.valueOf(arrowsUpgradeCost));
         heroDamageUpgradeButton.setText(String.valueOf(heroDamageUpgradeCost));
 
+        // update spell cooldown
         if (fireball.getState() != Spell.State.PREPARE) fireball.update();
         if (freeze.getState() != Spell.State.PREPARE) freeze.update();
 
+        // update timer
         timer.update();
 
         spellArrows.update();
@@ -970,7 +990,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         this.updateStageNumber(stageNumber);
 
         if (Gdx.input.isTouched()){
-            isTouched();
+//            isTouched();
             if (fireball.getState() == Spell.State.PREPARE){
                 circleX = Gdx.input.getX()-150;
                 circleY = 928-Gdx.input.getY();
@@ -1021,8 +1041,14 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             for (Enemy e:
                  listEnemy) {
                 if (e.state == Enemy.State.DEATH && !e.isGoldDroped()){
+                    // add gold to player
                     survGold += e.getGoldDrop();
+
+                    // set gold droped to true
+                    // this is to prevent gold drop more than once
                     e.setGoldDroped(true);
+
+                    // add mana to player
                     castle.setMana(castle.getMana()+5);
                 }
             }
@@ -1040,7 +1066,8 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         
 
         for (int i = 0; i < roundEnemyCount; i++) {
-            int randomNumber = random.nextInt(Enemy.State.values().length);
+            float randomTypeGenerator = random.nextFloat();
+
             float[] tempDNA = new float[5];
 
             // Genetic Algorithm kerja di sini
@@ -1053,17 +1080,52 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             // generate random spawn time
             float randomSpawnTime = random.nextFloat() * 15 + 2;
 
-            switch (randomNumber){
-                case 0:
-                    listEnemy.add(new Orc(tempDNA, randomLane, randomSpawnTime));
-                    break;
-                case 1:
-                    listEnemy.add(new Goblin(tempDNA, randomLane, randomSpawnTime));
-                    break;
-                case 2:
-                    listEnemy.add(new Ogre(tempDNA, randomLane, randomSpawnTime));
-                    break;
+            // randomly pick from the enemyParent
+            if (randomTypeGenerator < 0.475){
+                // get the enemyParent1 classname
+                String enemyParent1ClassName = enemyParent1.getClass().getSimpleName();
+                switch (enemyParent1ClassName){
+                    case "Orc":
+                        listEnemy.add(new Orc(tempDNA, randomLane, randomSpawnTime));
+                        break;
+                    case "Goblin":
+                        listEnemy.add(new Goblin(tempDNA, randomLane, randomSpawnTime));
+                        break;
+                    case "Ogre":
+                        listEnemy.add(new Ogre(tempDNA, randomLane, randomSpawnTime));
+                        break;
+                }
+
+            } else if (randomTypeGenerator < 0.95) {
+                // get the enemyParent2 classname
+                String enemyParent2ClassName = enemyParent2.getClass().getSimpleName();
+                switch (enemyParent2ClassName){
+                    case "Orc":
+                        listEnemy.add(new Orc(tempDNA, randomLane, randomSpawnTime));
+                        break;
+                    case "Goblin":
+                        listEnemy.add(new Goblin(tempDNA, randomLane, randomSpawnTime));
+                        break;
+                    case "Ogre":
+                        listEnemy.add(new Ogre(tempDNA, randomLane, randomSpawnTime));
+                        break;
+                }
+            } else {
+                // randomly pick from all enemy type
+                int randomTypeGeneratorFromAllEnemyType = random.nextInt(3);
+                switch (randomTypeGeneratorFromAllEnemyType){
+                    case 0:
+                        listEnemy.add(new Orc(tempDNA, randomLane, randomSpawnTime));
+                        break;
+                    case 1:
+                        listEnemy.add(new Goblin(tempDNA, randomLane, randomSpawnTime));
+                        break;
+                    case 2:
+                        listEnemy.add(new Ogre(tempDNA, randomLane, randomSpawnTime));
+                        break;
+                }
             }
+
         }
 
         tempListRoundEnemy = (ArrayList<Enemy>) listEnemy.clone();
@@ -1100,18 +1162,18 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         float randomNumber = random.nextFloat();
 
         // find 2 parent based on random number
-        Enemy parent1 = null;
-        Enemy parent2 = null;
+        enemyParent1 = null;
+        enemyParent2 = null;
         for (int j = 0; j < fitnessPercentageCumulative.length; j++) {
             if (randomNumber <= fitnessPercentageCumulative[j]){
-                parent1 = (Enemy) kumpDNALama.keySet().toArray()[j];
+                enemyParent1 = (Enemy) kumpDNALama.keySet().toArray()[j];
                 break;
             }
         }
         randomNumber = random.nextFloat();
         for (int j = 0; j < fitnessPercentageCumulative.length; j++) {
             if (randomNumber <= fitnessPercentageCumulative[j]){
-                parent2 = (Enemy) kumpDNALama.keySet().toArray()[j];
+                enemyParent2 = (Enemy) kumpDNALama.keySet().toArray()[j];
                 break;
             }
         }
@@ -1120,9 +1182,9 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         float[] childDNA = new float[5];
         for (int j = 0; j < childDNA.length; j++) {
             if (random.nextFloat() <= 0.5){
-                childDNA[j] = parent1.getDna()[j];
+                childDNA[j] = enemyParent1.getDna()[j];
             }else {
-                childDNA[j] = parent2.getDna()[j];
+                childDNA[j] = enemyParent2.getDna()[j];
             }
         }
 

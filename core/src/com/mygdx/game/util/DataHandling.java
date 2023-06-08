@@ -72,7 +72,6 @@ public class DataHandling {
         int i=0;
         path = Paths.get("data_save/dataUpgrade.txt");
         String line;
-//        Path path = Paths.get("data_save/dataHighscore.txt");
 
         try {
             BufferedReader fileInput = Files.newBufferedReader(path, StandardCharsets.ISO_8859_1);
@@ -106,7 +105,7 @@ public class DataHandling {
         }
         String data1=String.valueOf(data);
         listTulisan.set(baris, data1);
-//        Path path = Paths.get("data_save/dataHighscore.txt");
+
         try {
             BufferedWriter bw = Files.newBufferedWriter(path,
                     StandardCharsets.ISO_8859_1,
@@ -133,7 +132,7 @@ public class DataHandling {
         System.out.println(path);
         String data1=String.valueOf(data);
         listTulisan.set(baris, data1);
-//        Path path = Paths.get("data_save/dataHighscore.txt");
+
         try {
             BufferedWriter bw = Files.newBufferedWriter(path,
                     StandardCharsets.ISO_8859_1,
