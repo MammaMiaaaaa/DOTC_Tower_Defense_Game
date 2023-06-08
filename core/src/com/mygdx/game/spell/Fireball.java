@@ -12,6 +12,7 @@ import com.mygdx.game.sprites.Enemy;
 
 public class Fireball extends Spell {
     Animation<TextureRegion> fireballAnimation;
+    private float totalDamage;
     
 //    Texture circleAOE;
 public Fireball() {
@@ -32,6 +33,7 @@ public Fireball() {
 
         TextureRegion[] frames = MyGdxGame.CreateAnimationFrames(fireBall, 300, 300, 10, true, false);
         fireballAnimation = new Animation<>(0.05f, frames);
+        totalDamage = 0;
     }
 
     public void draw(SpriteBatch batch,float x,float y) {
@@ -79,5 +81,13 @@ public Fireball() {
     @Override
     public void drawStatus(SpriteBatch batch, int x, int y) {
         super.drawStatus(batch, x, y);
+    }
+
+    public float getTotalDamage() {
+        return totalDamage;
+    }
+
+    public void setTotalDamage(float totalDamage) {
+        this.totalDamage = totalDamage;
     }
 }

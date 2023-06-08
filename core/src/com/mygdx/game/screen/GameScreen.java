@@ -851,6 +851,14 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         // fireball.drawStatus(batch,1440,40);
         // freeze.drawStatus(batch,1590,40);
         // spellArrows.drawStatus(batch,1740,40);
+        for (Enemy e: listEnemy
+             ) {
+            if (e.state!= Enemy.State.DEATH){
+                e.drawHP(batch,(int)e.getX()+90,(int)e.getY()+50);
+                e.drawDamageTaken(batch);
+            }
+
+        }
 
 
         stg.act();
@@ -985,11 +993,14 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             // check if enemy is in range of fireball
             if (fireball.CanAttack(e, circleX, circleY) && fireball.getState() == Spell.State.ACTIVE) {
                 e.Attacked(fireball);
+                fireball.setTotalDamage(fireball.getDamage());
+                e.drawDamageTaken(batch,fireball);
             }
 
             // check if enemy is in range of freeze
             if (freeze.CanAttack(e, circleX, circleY) && freeze.getState() == Spell.State.ACTIVE) {
                 e.Attacked(freeze);
+                e.drawDamageTaken(batch,freeze);
                 if (e.isFrozen(freeze.getDuration())) {
                     e.state = Enemy.State.FROZEN;
                 } else {
@@ -1002,6 +1013,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             for (Arrow a : hero.getListArrow()) {
                 if (a.CanAttack(e) && a.getState() == Arrow.State.ACTIVE) {
                     e.Attacked(a);
+                    e.drawDamageTaken(batch,a);
                     a.setState(Arrow.State.INACTIVE);
                 }
             }
@@ -1010,6 +1022,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             for (Arrow a : spellArrows.getListArrow()) {
                 if (a.CanAttack(e) && a.getState() == Arrow.State.ACTIVE) {
                     e.Attacked(a);
+                    e.drawDamageTaken(batch,a);
                     a.setState(Arrow.State.INACTIVE);
                 }
             }
