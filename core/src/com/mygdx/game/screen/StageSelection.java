@@ -123,9 +123,9 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
 
         Skin mySkin = assetManager.get("uiskin.json", Skin.class);
 
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ARCADE_N.TTF"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 90;
+        parameter.size = 50;
         parameter.color = Color.WHITE;
         parameter.flip = false;
         BitmapFont font = generator.generateFont(parameter);

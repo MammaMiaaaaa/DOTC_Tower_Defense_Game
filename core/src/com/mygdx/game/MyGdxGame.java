@@ -69,6 +69,8 @@ public class MyGdxGame extends Game implements InputProcessor {
 		assetManager.load("FullCastle.png", Texture.class);
 		assetManager.load("HalfCastle.png", Texture.class);
 		assetManager.load("DestroyedCastle.png", Texture.class);
+		assetManager.load("mana.png", Texture.class);
+		assetManager.load("heart.png", Texture.class);
 		assetManager.load("background.png",Texture.class);
 		assetManager.load("StageSelectionBackground.png",Texture.class);
 		assetManager.load("HeroIdling.png",Texture.class);
@@ -78,9 +80,10 @@ public class MyGdxGame extends Game implements InputProcessor {
 		assetManager.load("InGameMusic.mp3", Music.class);
 		assetManager.load("Arrow.png",Texture.class);
 		assetManager.load("circleAOE.png", Texture.class);
-		assetManager.load("koin.png", Texture.class);
+		assetManager.load("newcoin.png", Texture.class);
+		assetManager.load("castle.png", Texture.class);
 		assetManager.load("kotak_atas.png", Texture.class);
-		assetManager.load("diamond.png", Texture.class);
+		assetManager.load("newdiamond.png", Texture.class);
 		assetManager.load("berlian.png", Texture.class);
 		assetManager.load("benteng2.png", Texture.class);
 		assetManager.load("coin.png", Texture.class);
@@ -109,26 +112,26 @@ public class MyGdxGame extends Game implements InputProcessor {
 		assetManager.load("FreezeButtonCD.png", Texture.class);
 		assetManager.load("FireBallButton.png", Texture.class);
 		assetManager.load("FireBallButtonCD.png", Texture.class);
-		
+
 
 
 
 //		assetManager.load("Roboto.ttf", BitmapFont.class);
 
 
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Roboto.ttf"));
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ARCADE_N.TTF"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = 50;
+		parameter.size = 25;
 		parameter.color = Color.WHITE;
 		parameter.flip = false;
 		font = generator.generateFont(parameter); // font size 12 pixels
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter1 = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter1.size = 45;
+		parameter1.size = 20;
 		parameter1.color = Color.WHITE;
 		parameter1.flip = false;
 		font2 = generator.generateFont(parameter1);
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter2.size = 100;
+		parameter2.size = 50;
 		parameter2.color = Color.WHITE;
 		parameter2.flip = false;
 		font3 = generator.generateFont(parameter2);
@@ -141,14 +144,14 @@ public class MyGdxGame extends Game implements InputProcessor {
 
 		// First, let's define the params and then load our smaller font
 		FreetypeFontLoader.FreeTypeFontLoaderParameter mySmallFont = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-		mySmallFont.fontFileName = "font.ttf";
-		mySmallFont.fontParameters.size = 32;
+		mySmallFont.fontFileName = "ARCADE_N.TTF";
+		mySmallFont.fontParameters.size = 16;
 		mySmallFont.fontParameters.flip = true;
 		assetManager.load("smallfont.ttf", BitmapFont.class, mySmallFont);
 
 		FreetypeFontLoader.FreeTypeFontLoaderParameter bigFontUI = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-		bigFontUI.fontFileName = "font.ttf";
-		bigFontUI.fontParameters.size = 64;
+		bigFontUI.fontFileName = "ARCADE_N.TTF";
+		bigFontUI.fontParameters.size = 32;
 		bigFontUI.fontParameters.flip = false;
 		assetManager.load("bigfontui.ttf", BitmapFont.class, bigFontUI);
 

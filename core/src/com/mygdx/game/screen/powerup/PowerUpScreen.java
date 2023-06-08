@@ -335,11 +335,11 @@ public class PowerUpScreen extends DataHandling implements Screen, InputProcesso
         Texture hero_screen = assetManager.get("hero_screen.png", Texture.class);
 
         batch.draw(hero_screen, 250, 20);
-        Texture koin = assetManager.get("koin.png", Texture.class);
+        Texture koin = assetManager.get("newcoin.png", Texture.class);
 
-        batch.draw(koin, 1600, 1000);
-        Texture diamond = assetManager.get("diamond.png", Texture.class);
-        batch.draw(diamond, 1800, 993);
+        batch.draw(koin, 1350, 1010);
+        Texture diamond = assetManager.get("newdiamond.png", Texture.class);
+        batch.draw(diamond, 1600, 1003);
         if(game_awal==30) {
             Texture coba = assetManager.get("kotak.png", Texture.class);
 

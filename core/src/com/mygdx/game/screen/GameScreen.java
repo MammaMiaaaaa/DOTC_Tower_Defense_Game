@@ -45,7 +45,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     private OrthographicCamera camera;
     SpriteBatch batch;
 
-    Texture FireBallIcon, ArrowsIcon, FreezeIcon, FireBallIconCD, ArrowsIconCD, FreezeIconCD;
+    Texture FireBallIcon, ArrowsIcon, FreezeIcon, FireBallIconCD, ArrowsIconCD, FreezeIconCD, Coin;
 
     InputMultiplexer multiInput;
     Enemy enemyParent1, enemyParent2;
@@ -175,7 +175,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         castleManaNumber.setText("Mana : " + (int) castle.getMana(), 600, 50);
         survGoldText = new BitmapFontCache(MyGdxGame.font);
         survGoldText.setColor(Color.GOLD);
-        survGoldText.setText("Gold : " + survGold, 600, 50);
 
         // init musuh
         switch (stageNumber) {
@@ -665,7 +664,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         heroDamageUpgradeButton = new TextButton(String.valueOf(heroDamageUpgradeCost), mySkin);
         heroDamageUpgradeButton.setHeight(50);
         heroDamageUpgradeButton.setWidth(100);
-        heroDamageUpgradeButton.setPosition(200, 1000);
+        heroDamageUpgradeButton.setPosition(1250, 200);
         heroDamageUpgradeButton.setColor(Color.WHITE);
         heroDamageUpgradeButton.addListener(new InputListener() {
             @Override
@@ -793,7 +792,10 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         FreezeIconCD = assetManager.get("FreezeButtonCD.png", Texture.class);
         ArrowsIconCD = assetManager.get("ArrowsButtonCD.png", Texture.class);
         FireBallIconCD = assetManager.get("FireBallButtonCD.png", Texture.class);
-
+        Coin = assetManager.get("newcoin.png", Texture.class);
+        Texture Mana = assetManager.get("mana.png", Texture.class);
+        Texture Heart = assetManager.get("heart.png", Texture.class);
+        Texture Castle = assetManager.get("castle.png", Texture.class);
 
         batch.draw(background, 0, 0);
         castle.draw(batch);
@@ -860,6 +862,10 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         } else {
             batch.draw(ArrowsIconCD, 1675, 25);
         }
+        batch.draw(Castle, 1225, 25);
+        batch.draw(Coin, 850, 5);
+        batch.draw(Mana, 540, 5);
+        batch.draw(Heart, 230, 5);
         batch.end();
     }
 
@@ -1070,9 +1076,9 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         }
 
         // update HP and Mana text
-        castleHPNumber.setText("HP : " + (int) castle.getHP(), 300, 50);
-        castleManaNumber.setText("Mana : " + (int) castle.getMana(), 600, 50);
-        survGoldText.setText("Gold: " + survGold, 900, 50);
+        castleHPNumber.setText(" : " + (int) castle.getHP(), 300, 50);
+        castleManaNumber.setText(" : " + (int) castle.getMana(), 600, 50);
+        survGoldText.setText(" : " + survGold, 900, 50);
 
         // for survival
         if (isSurvival) {

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -30,7 +31,14 @@ public class MenuScreen extends DataHandling implements Screen, InputProcessor {
 
     private Viewport viewport;
     private OrthographicCamera camera;
-    SpriteBatch batch;
+
+    private SpriteBatch batch;
+
+    private FreeTypeFontGenerator fontGenerator;
+    private FreeTypeFontGenerator.FreeTypeFontParameter fontParameter;
+    private BitmapFont font;
+
+    private int taps = 0;
 
     int game_awal=20;
     int game_awal2=20;
@@ -112,9 +120,8 @@ public class MenuScreen extends DataHandling implements Screen, InputProcessor {
         data_upgrade.add(String.valueOf(max_hp_castle));
         writeFile(data_upgrade,2);
 
+
         Skin mySkin = assetManager.get("uiskin.json", Skin.class);
-
-
 
         titleLabel = new Label("", mySkin);//Defend Of The Castle
         Label.LabelStyle style = new Label.LabelStyle(titleLabel.getStyle());
@@ -234,6 +241,7 @@ public class MenuScreen extends DataHandling implements Screen, InputProcessor {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+
 
         Texture background = assetManager.get("MenuScreen.png", Texture.class);
 
