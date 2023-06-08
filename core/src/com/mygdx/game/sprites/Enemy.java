@@ -184,14 +184,14 @@ public abstract class Enemy extends Hero {
         fitness = (2150 - X)/2 + 10 * getDamageGiven();
 
         // print sementara fitness
-        System.out.println("--------------------");
-        System.out.println("all death statistics");
-        System.out.println("Fitness: " + fitness);
-        System.out.println("damage given: " + getDamageGiven());
-        System.out.println("DNA:");
-        for (int i = 0; i < dna.length; i++) {
-            System.out.println("dna[" + i + "]: " + dna[i]);
-        }
+//        System.out.println("--------------------");
+//        System.out.println("all death statistics");
+//        System.out.println("Fitness: " + fitness);
+//        System.out.println("damage given: " + getDamageGiven());
+//        System.out.println("DNA:");
+//        for (int i = 0; i < dna.length; i++) {
+//            System.out.println("dna[" + i + "]: " + dna[i]);
+//        }
     }
 
     public void Attacked(Arrow a){

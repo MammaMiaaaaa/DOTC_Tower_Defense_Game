@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.MyGdxGame;
 
 public class Timer {
+
     protected float second;
     protected float minute;
     protected BitmapFontCache fontCache;
@@ -49,6 +51,7 @@ public class Timer {
 
     public void update(){
         float delta = Gdx.graphics.getDeltaTime();
+        System.out.println(second);
         second += delta;
         if (second >= 60){
             minute += 1;

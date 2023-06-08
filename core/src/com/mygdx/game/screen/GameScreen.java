@@ -443,6 +443,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         fireBallButton.setWidth(100);
         fireBallButton.setPosition(1400, 50);
         fireBallButton.setColor(Color.WHITE);
+
         fireBallButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -481,6 +482,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         freezeButton.setWidth(100);
         freezeButton.setPosition(1550, 50);
         freezeButton.setColor(Color.WHITE);
+
         freezeButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -519,6 +521,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         arrowsButton.setWidth(100);
         arrowsButton.setPosition(1700, 50);
         arrowsButton.setColor(Color.WHITE);
+
         arrowsButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -642,25 +645,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         batch.draw(background, 0, 0);
         castle.draw(batch);
         hero.draw(batch);
-        //draw spell buttons icon
-        if(fireball.getCooldown() <= 0){
-            batch.draw(FireBallIcon,1400, 50);
-        }
-        else{
-            batch.draw(FireBallIconCD,1400, 50);
-        }
-        if(freeze.getCooldown() <= 0){
-            batch.draw(FreezeIcon,1550, 50);
-        }
-        else{
-            batch.draw(FreezeIconCD,1550, 50);
-        }
-        if(spellArrows.getCooldown() <= 0){
-            batch.draw(ArrowsIcon,1700, 50);
-        }
-        else{
-            batch.draw(ArrowsIconCD,1700, 50);
-        }
+
 
         for (Arrow a : hero.getListArrow()) {
             a.draw(batch);
@@ -695,15 +680,35 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         castleHPNumber.draw(batch);
         castleManaNumber.draw(batch);
         timer.draw(batch);
-        fireball.draw(batch,circleX,circleY);
-        fireball.drawStatus(batch,1440,40);
-        freeze.drawStatus(batch,1590,40);
-        spellArrows.drawStatus(batch,1740,40);
+//        fireball.draw(batch,circleX,circleY);
+//        fireball.drawStatus(batch,1440,40);
+//        freeze.drawStatus(batch,1590,40);
+//        spellArrows.drawStatus(batch,1740,40);
 
 
-        batch.end();
+
         stg.act();
         stg.draw();
+        //draw spell buttons icon
+        if(fireball.getCooldown() <= 0){
+            batch.draw(FireBallIcon,1375, 25);
+        }
+        else{
+            batch.draw(FireBallIconCD,1375, 25);
+        }
+        if(freeze.getCooldown() <= 0){
+            batch.draw(FreezeIcon,1525, 25);
+        }
+        else{
+            batch.draw(FreezeIconCD,1525, 25);
+        }
+        if(spellArrows.getCooldown() <= 0){
+            batch.draw(ArrowsIcon,1675, 25);
+        }
+        else{
+            batch.draw(ArrowsIconCD,1675, 25);
+        }
+        batch.end();
     }
 
     public void update() {
@@ -924,7 +929,8 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             int randomLane = random.nextInt(Enemy.Lane.values().length);
 
             // generate random spawn time
-            float randomSpawnTime = random.nextFloat() * 10 + random.nextFloat() + 1;
+            float randomSpawnTime = random.nextFloat() * 10 + 1;
+            System.out.println(randomSpawnTime);
 
             switch (randomNumber){
                 case 0:
@@ -1143,10 +1149,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (state != State.Paused && hero.getAttackCooldown() <= 0) {
-//            arrow = new Arrow();
-//            listArrow.add(arrow);
-//
-//            hero.attackCooldown = 0.5f;
             hero.Attack();
             Vector2 position = new Vector2(screenX, screenY);
             position = viewport.unproject(position);
@@ -1156,7 +1158,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 position.y = 200;
             }
             hero.getArrow().setY(position.y - 80);
-//            hero.attackCooldown = 1;
         }
 
         return false;
@@ -1181,9 +1182,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             hero.setY(position.y - 220);
         }
         if (state != State.Paused && hero.getAttackCooldown() <= 0) {
-//            arrow = new Arrow();
-//            listArrow.add(arrow);
-//            hero.attackCooldown = 1f;
             hero.Attack();
             Vector2 position = new Vector2(screenX, screenY);
             position = viewport.unproject(position);
@@ -1193,7 +1191,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 position.y = 200;
             }
             hero.getArrow().setY(position.y - 80);
-//            hero.attackCooldown = 1;
         }
         return false;
     }
