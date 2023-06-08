@@ -361,10 +361,10 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
         // pause button
         pauseButton = new TextButton("Pause", mySkin);
-        pauseButton.setHeight(100);
-        pauseButton.setWidth(200);
-        pauseButton.setPosition(100, 900);
-        pauseButton.setColor(Color.WHITE);
+        pauseButton.setHeight(75);
+        pauseButton.setWidth(100);
+        pauseButton.setPosition(1750, 975);
+        pauseButton.setColor(Color.RED);
         pauseButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {

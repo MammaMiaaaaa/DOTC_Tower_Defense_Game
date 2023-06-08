@@ -130,7 +130,7 @@ public class MenuScreen extends DataHandling implements Screen, InputProcessor {
         playButton = new TextButton("Play", mySkin);
         playButton.setHeight(120);
         playButton.setWidth(380);
-        playButton.setPosition(1450, 650);
+        playButton.setPosition(1150, 650);
         playButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
@@ -149,7 +149,7 @@ public class MenuScreen extends DataHandling implements Screen, InputProcessor {
         powerUpButton = new TextButton("Power Up", mySkin);
         powerUpButton.setHeight(120);
         powerUpButton.setWidth(380);
-        powerUpButton.setPosition(1450, 400);
+        powerUpButton.setPosition(1150, 400);
         powerUpButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
@@ -169,7 +169,7 @@ public class MenuScreen extends DataHandling implements Screen, InputProcessor {
         exitButton = new TextButton("Exit", mySkin);
         exitButton.setHeight(120);
         exitButton.setWidth(380);
-        exitButton.setPosition(1450, 150);
+        exitButton.setPosition(1150, 150);
         exitButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {

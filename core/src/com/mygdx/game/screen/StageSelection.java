@@ -149,7 +149,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         backButton = new TextButton("Back", mySkin);
         backButton.setHeight(100);
         backButton.setWidth(200);
-        backButton.setPosition(1500, 100);
+        backButton.setPosition(200, 100);
         backButton.setColor(Color.WHITE);
         backButton.addListener(new InputListener(){
             @Override
@@ -170,9 +170,9 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         // survival button
         survButton = new TextButton("Survival", mySkin);
         survButton.setVisible(true);
-        survButton.setHeight(50);
-        survButton.setWidth(50);
-        survButton.setPosition(300, 500);
+        survButton.setHeight(100);
+        survButton.setWidth(100);
+        survButton.setPosition(1125, 300);
         survButton.setColor(Color.WHITE);
 
         survButton.addListener(new InputListener(){
@@ -193,9 +193,9 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
 
         // level 1
         oneButton = new TextButton("1", mySkin);
-        oneButton.setHeight(50);
-        oneButton.setWidth(50);
-        oneButton.setPosition(200, 100);
+        oneButton.setHeight(100);
+        oneButton.setWidth(100);
+        oneButton.setPosition(725, 700);
         oneButton.setColor(Color.WHITE);
 
         oneButton.addListener(new InputListener(){
@@ -216,9 +216,9 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
 
         // level 2
         twoButton = new TextButton("2", mySkin);
-        twoButton.setHeight(50);
-        twoButton.setWidth(50);
-        twoButton.setPosition(300, 150);
+        twoButton.setHeight(100);
+        twoButton.setWidth(100);
+        twoButton.setPosition(925, 700);
         twoButton.setColor(Color.WHITE);
         twoButton.setVisible(false);
         twoButton.addListener(new InputListener(){
@@ -239,9 +239,9 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
 
         // level 3
         threeButton = new TextButton("3", mySkin);
-        threeButton.setHeight(50);
-        threeButton.setWidth(50);
-        threeButton.setPosition(400, 200);
+        threeButton.setHeight(100);
+        threeButton.setWidth(100);
+        threeButton.setPosition(1125, 700);
         threeButton.setColor(Color.WHITE);
         threeButton.setVisible(false);
         threeButton.addListener(new InputListener(){
@@ -262,9 +262,9 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
 
         // level 4
         fourButton = new TextButton("4", mySkin);
-        fourButton.setHeight(50);
-        fourButton.setWidth(50);
-        fourButton.setPosition(500, 250);
+        fourButton.setHeight(100);
+        fourButton.setWidth(100);
+        fourButton.setPosition(725, 500);
         fourButton.setColor(Color.WHITE);
         fourButton.setVisible(false);
         fourButton.addListener(new InputListener(){
@@ -285,9 +285,9 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
 
         // level 5
         fiveButton = new TextButton("5", mySkin);
-        fiveButton.setHeight(50);
-        fiveButton.setWidth(50);
-        fiveButton.setPosition(600, 300);
+        fiveButton.setHeight(100);
+        fiveButton.setWidth(100);
+        fiveButton.setPosition(925, 500);
         fiveButton.setColor(Color.WHITE);
         fiveButton.setVisible(false);
         fiveButton.addListener(new InputListener(){
@@ -308,9 +308,9 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
 
         // level 6
         sixButton = new TextButton("6", mySkin);
-        sixButton.setHeight(50);
-        sixButton.setWidth(50);
-        sixButton.setPosition(700, 350);
+        sixButton.setHeight(100);
+        sixButton.setWidth(100);
+        sixButton.setPosition(1125, 500);
         sixButton.setColor(Color.WHITE);
         sixButton.setVisible(false);
         sixButton.addListener(new InputListener(){
@@ -331,9 +331,9 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
 
         // level 7
         sevenButton = new TextButton("7", mySkin);
-        sevenButton.setHeight(50);
-        sevenButton.setWidth(50);
-        sevenButton.setPosition(800, 400);
+        sevenButton.setHeight(100);
+        sevenButton.setWidth(100);
+        sevenButton.setPosition(725, 300);
         sevenButton.setColor(Color.WHITE);
         sevenButton.setVisible(false);
         sevenButton.addListener(new InputListener(){
@@ -354,9 +354,9 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
 
         // level 8
         eightButton = new TextButton("8", mySkin);
-        eightButton.setHeight(50);
-        eightButton.setWidth(50);
-        eightButton.setPosition(900, 450);
+        eightButton.setHeight(100);
+        eightButton.setWidth(100);
+        eightButton.setPosition(925, 300);
         eightButton.setColor(Color.WHITE);
         eightButton.setVisible(false);
         eightButton.addListener(new InputListener(){

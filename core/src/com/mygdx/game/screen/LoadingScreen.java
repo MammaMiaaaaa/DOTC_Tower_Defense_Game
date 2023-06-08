@@ -93,10 +93,10 @@ public class LoadingScreen implements Screen, InputProcessor{
             loading.setText("", 590, 220);
         }
         else {
-            title.setText("Defend Of The Castle", 640, 950);
+            title.setText("Defend Of The Castle", 750, 950);
             float progress = assetManager.getProgress() * 100;
             String loadtext = String.format("Loading %.2f%%", progress);
-            text.setText(loadtext, 700, 220);
+            text.setText(loadtext, 800, 220);
         }
     }
 
