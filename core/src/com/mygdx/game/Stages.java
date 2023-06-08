@@ -18,21 +18,25 @@ public class Stages {
     protected int bonusGold;
     protected int bonusDiamond;
     protected ArrayList<Enemy> listStageEnemy = new ArrayList<>();
-    public static final List<Float> initialDNA = new ArrayList<Float>() {{
-        add(100f);
-        add(100f);
-        add(10f);
-        add(1f);
-        add(1f);
-    }};
+    public static List<Float> initialDNA;
 
     protected WaveEnemy w1;
 
     public Stages() {
 
     }
+    public static void refreshInitialDNA(){
+        initialDNA = new ArrayList<>();
+        initialDNA.add(100.0f);
+        initialDNA.add(100.0f);
+        initialDNA.add(10.0f);
+        initialDNA.add(1.0f);
+        initialDNA.add(1.0f);
+    }
 
     public void addOrc(float spawnTime, Enemy.Lane lane) {
+        refreshInitialDNA();
+
         Enemy e = new Orc(initialDNA, lane.ordinal(), spawnTime);
         e.setSpawnTime(spawnTime);
         e.setEnemyLane(lane);
@@ -40,6 +44,8 @@ public class Stages {
     }
 
     public void addOgre(float spawnTime, Enemy.Lane lane) {
+        refreshInitialDNA();
+
         Enemy e = new Ogre(initialDNA, lane.ordinal(), spawnTime);
         e.setSpawnTime(spawnTime);
         e.setEnemyLane(lane);
@@ -47,6 +53,8 @@ public class Stages {
     }
 
     public void addGoblin(float spawnTime, Enemy.Lane lane) {
+        refreshInitialDNA();
+
         Enemy e = new Goblin(initialDNA, lane.ordinal(), spawnTime);
         e.setSpawnTime(spawnTime);
         e.setEnemyLane(lane);

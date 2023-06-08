@@ -51,7 +51,7 @@ public abstract class Enemy extends Hero {
     protected int goldDrop;
 
     protected float physicalResistance, magicalResistance;
-    protected List<Float> dna = null;
+    protected List<Float> dna;
     protected float fitness = 0;
 
 
@@ -140,7 +140,6 @@ public abstract class Enemy extends Hero {
             state = State.DEATH;
             calculateFitness();
 
-
         }
 
         if(state == State.DYING && stateTime > 3f)
@@ -164,6 +163,8 @@ public abstract class Enemy extends Hero {
 
 
     }
+
+
     private void calculateFitness() {
         if (isFitnessCalculated){
             return;

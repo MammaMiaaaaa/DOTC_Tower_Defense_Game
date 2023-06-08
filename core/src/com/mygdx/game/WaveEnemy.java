@@ -16,8 +16,10 @@ public class WaveEnemy {
 
     }
     WaveEnemy(Enemy.Type type, int jumlah,float spawnTime, float spawnInterval, int lane){
+
         if (type == Enemy.Type.Orc){
             for (int i = 0; i< jumlah; i++){
+                Stages.refreshInitialDNA();
                 Orc e = new Orc(Stages.initialDNA, lane, spawnTime);
                 listEnemyWave.add(e);
                 e.setSpawnTime(spawnTime);
@@ -25,6 +27,7 @@ public class WaveEnemy {
             }
         } else if (type == Enemy.Type.Ogre) {
             for (int i = 0; i< jumlah; i++){
+                Stages.refreshInitialDNA();
                 Ogre e = new Ogre(Stages.initialDNA, lane, spawnTime);
                 listEnemyWave.add(e);
                 e.setSpawnTime(spawnTime);
@@ -32,6 +35,7 @@ public class WaveEnemy {
             }
         }else if (type == Enemy.Type.Goblin) {
             for (int i = 0; i< jumlah; i++){
+                Stages.refreshInitialDNA();
                 Enemy e = new Goblin(Stages.initialDNA, lane, spawnTime);
                 listEnemyWave.add(e);
                 e.setSpawnTime(spawnTime);

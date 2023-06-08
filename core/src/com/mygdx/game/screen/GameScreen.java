@@ -1259,12 +1259,12 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         }
 
         // print child dna
-//        System.out.println("------------------");
-//        System.out.println("New Enemy");
-//        System.out.println("Child DNA : ");
-//        for (float v : childDNA) System.out.print(v + " ");
-//        System.out.println();
-//        System.out.println("------------------");
+        System.out.println("------------------");
+        System.out.println("New Enemy");
+        System.out.println("Child DNA : ");
+        for (float v : childDNA) System.out.print(v + " ");
+        System.out.println();
+        System.out.println("------------------");
 
         return childDNA;
 
@@ -1274,6 +1274,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         for (Enemy e :
                 listRoundEnemy){
 
+            // masih belum tau kenapa ini 5 kali lipat dijankannya
             // level up all the old MaxHealth in the DNA
             e.getDna().set(0, e.getDna().get(0) * 1.05f);
 
@@ -1289,28 +1290,12 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             // level up all old magical resistance in the DNA
             e.getDna().set(4, e.getDna().get(4) * 1.05f);
 
-            System.out.println("Leveled up " + e.getClass().getSimpleName() + " DNA");
+
+
+
         }
-        System.out.println("Level up done");
     }
 
-//    private List<Enemy> extractDNA(ArrayList<Enemy> listEnemyYangDiCek) {
-//        float[][] kumpDNALamaNoParent = new float[listEnemyYangDiCek.size()][5];
-//
-//
-//        // take the old dna
-//        for (int i = 0; i < listEnemyYangDiCek.size(); i++) {
-//            kumpDNALamaNoParent[i] = listEnemyYangDiCek.get(i).getDna();
-//        }
-//
-//        // map it's parent to them
-//        HashMap<Enemy, float[]> kumpDNALama = new HashMap<>();
-//        for (int i = 0; i < listEnemyYangDiCek.size(); i++) {
-//            kumpDNALama.put(listEnemyYangDiCek.get(i), kumpDNALamaNoParent[i]);
-//        }
-//
-//        return kumpDNALama;
-//    }
 
     public void updateStageNumber(int stg) {
         if (isSurvival) {
