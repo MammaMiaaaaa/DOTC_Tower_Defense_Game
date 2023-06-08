@@ -180,9 +180,9 @@ public class PowerUpScreen extends DataHandling implements Screen, InputProcesso
         stage.addActor(optionButton);
 
         playButton = new TextButton("Hero", mySkin);
-        playButton.setHeight(150);
-        playButton.setWidth(150);
-        playButton.setPosition(100 - playButton.getWidth() / 2, 750);
+        playButton.setHeight(90);
+        playButton.setWidth(90);
+        playButton.setPosition(65, 740);
         playButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -277,9 +277,9 @@ public class PowerUpScreen extends DataHandling implements Screen, InputProcesso
         stage.addActor(optionButton);
 
         optionButton = new TextButton("Spell", mySkin);
-        optionButton.setHeight(150);
-        optionButton.setWidth(150);
-        optionButton.setPosition(100 - optionButton.getWidth() / 2, 425);
+        optionButton.setHeight(70);
+        optionButton.setWidth(100);
+        optionButton.setPosition(110 - optionButton.getWidth() / 2, 435);
         optionButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -297,9 +297,9 @@ public class PowerUpScreen extends DataHandling implements Screen, InputProcesso
         stage.addActor(optionButton);
 
         optionButton = new TextButton("Castle", mySkin);
-        optionButton.setHeight(150);
-        optionButton.setWidth(150);
-        optionButton.setPosition(100 - optionButton.getWidth() / 2, 100);
+        optionButton.setHeight(85);
+        optionButton.setWidth(100);
+        optionButton.setPosition(110 - optionButton.getWidth() / 2, 100);
         optionButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -431,7 +431,16 @@ public class PowerUpScreen extends DataHandling implements Screen, InputProcesso
         stage.draw();
 
         Texture BackUpgrade = assetManager.get("bbupgrade.png", Texture.class);
+        Texture Hero = assetManager.get("hero.png", Texture.class);
+        Texture Castle = assetManager.get("castleupgrade.png", Texture.class);
+        Texture Spell = assetManager.get("spell.png", Texture.class);
+
+
+
         batch.draw(BackUpgrade,63, 990);
+        batch.draw(Hero,-50, 700);
+        batch.draw(Castle,15, 90);
+        batch.draw(Spell,-10, 380);
 
         batch.end();
         update();

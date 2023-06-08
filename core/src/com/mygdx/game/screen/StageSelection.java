@@ -173,7 +173,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         survButton.setHeight(100);
         survButton.setWidth(100);
         survButton.setPosition(1125, 300);
-        survButton.setColor(Color.WHITE);
+        survButton.setColor(Color.ROYAL);
 
         survButton.addListener(new InputListener(){
             @Override
@@ -196,7 +196,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         oneButton.setHeight(100);
         oneButton.setWidth(100);
         oneButton.setPosition(725, 700);
-        oneButton.setColor(Color.WHITE);
+        oneButton.setColor(Color.CYAN);
 
         oneButton.addListener(new InputListener(){
             @Override
@@ -219,7 +219,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         twoButton.setHeight(100);
         twoButton.setWidth(100);
         twoButton.setPosition(925, 700);
-        twoButton.setColor(Color.WHITE);
+        twoButton.setColor(Color.CYAN);
         twoButton.setVisible(false);
         twoButton.addListener(new InputListener(){
             @Override
@@ -242,7 +242,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         threeButton.setHeight(100);
         threeButton.setWidth(100);
         threeButton.setPosition(1125, 700);
-        threeButton.setColor(Color.WHITE);
+        threeButton.setColor(Color.CYAN);
         threeButton.setVisible(false);
         threeButton.addListener(new InputListener(){
             @Override
@@ -265,7 +265,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         fourButton.setHeight(100);
         fourButton.setWidth(100);
         fourButton.setPosition(725, 500);
-        fourButton.setColor(Color.WHITE);
+        fourButton.setColor(Color.CYAN);
         fourButton.setVisible(false);
         fourButton.addListener(new InputListener(){
             @Override
@@ -288,7 +288,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         fiveButton.setHeight(100);
         fiveButton.setWidth(100);
         fiveButton.setPosition(925, 500);
-        fiveButton.setColor(Color.WHITE);
+        fiveButton.setColor(Color.CYAN);
         fiveButton.setVisible(false);
         fiveButton.addListener(new InputListener(){
             @Override
@@ -311,7 +311,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         sixButton.setHeight(100);
         sixButton.setWidth(100);
         sixButton.setPosition(1125, 500);
-        sixButton.setColor(Color.WHITE);
+        sixButton.setColor(Color.CYAN);
         sixButton.setVisible(false);
         sixButton.addListener(new InputListener(){
             @Override
@@ -334,7 +334,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         sevenButton.setHeight(100);
         sevenButton.setWidth(100);
         sevenButton.setPosition(725, 300);
-        sevenButton.setColor(Color.WHITE);
+        sevenButton.setColor(Color.CYAN);
         sevenButton.setVisible(false);
         sevenButton.addListener(new InputListener(){
             @Override
@@ -357,7 +357,7 @@ public class StageSelection extends DataHandling implements Screen, InputProcess
         eightButton.setHeight(100);
         eightButton.setWidth(100);
         eightButton.setPosition(925, 300);
-        eightButton.setColor(Color.WHITE);
+        eightButton.setColor(Color.CYAN);
         eightButton.setVisible(false);
         eightButton.addListener(new InputListener(){
             @Override
