@@ -993,7 +993,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             // check if enemy is in range of fireball
             if (fireball.CanAttack(e, circleX, circleY) && fireball.getState() == Spell.State.ACTIVE) {
                 e.Attacked(fireball);
-                fireball.setTotalDamage(fireball.getDamage());
+                fireball.setTotalDamage(fireball.getTotalDamage() + fireball.getDamage());
                 e.drawDamageTaken(batch,fireball);
             }
 
@@ -1028,6 +1028,9 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             }
 
 
+        }
+        if (fireball.getState() == Spell.State.ACTIVE){
+            fireball.drawTotalDamageGiven(batch, circleX,circleY+400);
         }
 
         // update the arrow (from player, not spell)

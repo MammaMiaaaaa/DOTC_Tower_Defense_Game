@@ -2,8 +2,10 @@ package com.mygdx.game.spell;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.MyGdxGame;
@@ -13,12 +15,15 @@ import com.mygdx.game.sprites.Enemy;
 public class Fireball extends Spell {
     Animation<TextureRegion> fireballAnimation;
     private float totalDamage;
+    protected BitmapFontCache fontTotalDamageGiven;
     
 //    Texture circleAOE;
 public Fireball() {
         super();
         state = State.INACTIVE;
         duration = 0.35f;
+        totalDamage = 0;
+        fontTotalDamageGiven = new BitmapFontCache(MyGdxGame.font2);
     }
 
     @Override
@@ -33,7 +38,7 @@ public Fireball() {
 
         TextureRegion[] frames = MyGdxGame.CreateAnimationFrames(fireBall, 300, 300, 10, true, false);
         fireballAnimation = new Animation<>(0.05f, frames);
-        totalDamage = 0;
+
     }
 
     public void draw(SpriteBatch batch,float x,float y) {
@@ -81,6 +86,15 @@ public Fireball() {
     @Override
     public void drawStatus(SpriteBatch batch, int x, int y) {
         super.drawStatus(batch, x, y);
+    }
+    public void drawTotalDamageGiven(SpriteBatch batch,float x, float y){
+
+
+        fontTotalDamageGiven.setText("TOTAL DAMAGE : "+String.valueOf(totalDamage), x,y);
+        fontTotalDamageGiven.setColor(Color.GOLD);
+
+
+        fontTotalDamageGiven.draw(batch);
     }
 
     public float getTotalDamage() {
