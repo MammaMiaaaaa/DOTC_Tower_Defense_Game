@@ -7,6 +7,7 @@ import com.mygdx.game.Castle;
 import com.mygdx.game.screen.GameScreen;
 import com.mygdx.game.spell.Spell;
 
+import java.util.List;
 import java.util.Random;
 
 
@@ -50,7 +51,7 @@ public abstract class Enemy extends Hero {
     protected int goldDrop;
 
     protected float physicalResistance, magicalResistance;
-    protected float[] dna = new float[5];
+    protected List<Float> dna = null;
     protected float fitness = 0;
 
 
@@ -62,37 +63,6 @@ public abstract class Enemy extends Hero {
 
     protected Lane enemyLane = Enemy.Lane.ONE;
 
-    public Enemy()
-    {
-        this.InitializeAnimation();
-
-        // initialize default value
-        X = 2150;
-        DX = 0;
-        DY = 0;
-        goldDrop = 10000;
-
-        // initialize default dna
-        // maxHP
-        dna[0] = 100;
-        // speed
-        dna[1] = 100;
-        // damage
-        dna[2] = 7;
-        // physical resistance
-        dna[3] = 1;
-        // magical resistance
-        dna[4] = 1;
-
-        // set according to DNA
-        maxHP = dna[0];
-        Speed = dna[1];
-        damage =  dna[2];
-        physicalResistance = dna[3];
-        magicalResistance = dna[4];
-
-    }
-
     public float getDamageGiven() {
         return damageGiven;
     }
@@ -101,11 +71,30 @@ public abstract class Enemy extends Hero {
         this.damageGiven = damageGiven;
     }
 
-    public Enemy(float[] dna, Lane lane, float spawnTime){
-        this();
+    public Enemy(List<Float> dna, Lane lane, float spawnTime){
+        this.InitializeAnimation();
+
+        // initialize default value
+        X = 2150;
+        DX = 0;
+        DY = 0;
+        goldDrop = 10000;
+
+
+        // init from parameter
         this.spawnTime = spawnTime;
         this.enemyLane = lane;
         this.dna = dna;
+
+
+        // set according to DNA
+        maxHP = this.dna.get(0);
+        Speed = this.dna.get(1);
+        damage = this.dna.get(2);
+        physicalResistance = this.dna.get(3);
+        magicalResistance = this.dna.get(4);
+
+        this.HP = maxHP;
     }
 
 
@@ -350,11 +339,11 @@ public abstract class Enemy extends Hero {
         this.fitness = fitness;
     }
 
-    public float[] getDna() {
+    public List<Float> getDna() {
         return dna;
     }
 
-    public void setDna(float[] dna) {
+    public void setDna(List<Float> dna) {
         this.dna = dna;
     }
 

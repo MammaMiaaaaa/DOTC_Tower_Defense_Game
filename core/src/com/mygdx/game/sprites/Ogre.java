@@ -8,25 +8,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.MyGdxGame;
 
+import java.util.List;
+
 public class Ogre extends Orc {
 
     int HP_Regen = 10;
     float regenCD = 5;
 
 
-    public Ogre() {
-        super();
-        HP = 100;
+
+    public Ogre(List<Float> dna, int lane, float spawnTime) {
+        super(dna, lane, spawnTime);
         enemyType = Type.Ogre;
-
-
-    }
-
-    public Ogre(float[] dna, int lane, float spawnTime) {
-        this();
-        this.spawnTime = spawnTime;
-        this.enemyLane = Enemy.Lane.values()[lane];
-        this.dna = dna;
     }
     Animation<TextureRegion> ogreRunningAnimation,ogreAttackingAnimation,ogreDyingAnimation,ogreIdlingAnimation,ogreFrozenAnimation,magicOgreRunningAnimation,magicOgreDyingAnimation,magicOgreIdlingAnimation,magicOgreAttackingAnimation;
 
@@ -82,7 +75,7 @@ public class Ogre extends Orc {
     public void draw(SpriteBatch batch) {
         TextureRegion currentFrame = null;
         // select ogre type
-        if(dna[3] >= dna[4]){
+        if(dna.get(3) >= dna.get(4)){
             if(state == Enemy.State.RUN)// select frame from each state
                 currentFrame = ogreRunningAnimation.getKeyFrame(stateTime, true);
             else if(state == Enemy.State.ATTACK)

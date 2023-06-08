@@ -8,22 +8,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.MyGdxGame;
 
+import java.util.List;
+
 public class Goblin extends Orc {
     int bonusSpeed = 100;
     int maxSpeed = 175;
     Animation<TextureRegion> goblinRunningAnimation,goblinAtttackingAnimation,goblinDyingAnimation,goblinIdlingAnimation,frozenGoblinAnimation,magicGoblinRunningAnimation,magicGoblinAtttackingAnimation,magicGoblinDyingAnimation,magicGoblinIdlingAnimation;
 
-    public Goblin() {
-        super();
-        HP = 100;
+    public Goblin(List<Float> dna, int lane, float spawnTime){
+        super(dna, lane, spawnTime);
         attackCooldown = 3;
         enemyType = Type.Goblin;
-    }
-    public Goblin(float[] dna, int lane, float spawnTime){
-        this();
-        this.spawnTime = spawnTime;
-        this.enemyLane = Enemy.Lane.values()[lane];
-        this.dna = dna;
+
     }
 
     @Override
@@ -76,7 +72,7 @@ public class Goblin extends Orc {
     public void draw(SpriteBatch batch) {
         TextureRegion currentFrame = null;
         // select goblin type
-        if(dna[3] >= dna[4]){
+        if(dna.get(3) >= dna.get(4)){
             if(state == Enemy.State.RUN)// select frame from each state
                 currentFrame = goblinRunningAnimation.getKeyFrame(stateTime, true);
             else if(state == Enemy.State.ATTACK)

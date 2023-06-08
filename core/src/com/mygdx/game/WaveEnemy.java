@@ -18,21 +18,21 @@ public class WaveEnemy {
     WaveEnemy(Enemy.Type type, int jumlah,float spawnTime, float spawnInterval, int lane){
         if (type == Enemy.Type.Orc){
             for (int i = 0; i< jumlah; i++){
-                Orc e = new Orc();
+                Orc e = new Orc(Stages.initialDNA, lane, spawnTime);
                 listEnemyWave.add(e);
                 e.setSpawnTime(spawnTime);
                 spawnTime += spawnInterval;
             }
         } else if (type == Enemy.Type.Ogre) {
             for (int i = 0; i< jumlah; i++){
-                Ogre e = new Ogre();
+                Ogre e = new Ogre(Stages.initialDNA, lane, spawnTime);
                 listEnemyWave.add(e);
                 e.setSpawnTime(spawnTime);
                 spawnTime += spawnInterval;
             }
         }else if (type == Enemy.Type.Goblin) {
             for (int i = 0; i< jumlah; i++){
-                Enemy e = new Goblin();
+                Enemy e = new Goblin(Stages.initialDNA, lane, spawnTime);
                 listEnemyWave.add(e);
                 e.setSpawnTime(spawnTime);
                 spawnTime += spawnInterval;

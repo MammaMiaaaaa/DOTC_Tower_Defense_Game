@@ -66,8 +66,6 @@ public class Freeze extends Spell {
             state = State.INACTIVE;
             duration = maxDuration;
         }
-        System.out.println("Max duration: " + maxDuration);
-        System.out.println("Duration: " + duration);
     }
 
     @Override

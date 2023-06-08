@@ -51,7 +51,6 @@ public class Timer {
 
     public void update(){
         float delta = Gdx.graphics.getDeltaTime();
-        System.out.println(second);
         second += delta;
         if (second >= 60){
             minute += 1;

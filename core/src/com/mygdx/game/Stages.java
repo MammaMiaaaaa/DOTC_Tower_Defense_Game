@@ -6,6 +6,7 @@ import com.mygdx.game.sprites.Ogre;
 import com.mygdx.game.sprites.Orc;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Stages {
     protected boolean stageSuccesses;
@@ -17,59 +18,65 @@ public class Stages {
     protected int bonusGold;
     protected int bonusDiamond;
     protected ArrayList<Enemy> listStageEnemy = new ArrayList<>();
+    public static final List<Float> initialDNA = new ArrayList<Float>() {{
+        add(100f);
+        add(100f);
+        add(10f);
+        add(1f);
+        add(1f);
+    }};
 
     protected WaveEnemy w1;
 
-    public Stages(){
+    public Stages() {
 
     }
-//    public void addEnemy(int jumlah, Enemy.Lane lane){
-//
-//        for (int i = 0; i < jumlah; i++){
-//            Enemy e = new Enemy();
-//            listStageEnemy.add(e);
-//        }
-//    }
-    public void addOrc(float spawnTime,Enemy.Lane lane){
-            Enemy e = new Orc();
-            e.setSpawnTime(spawnTime);
-            e.setEnemyLane(lane);
-            listStageEnemy.add(e);
-    }
-    public void addOgre(float spawnTime,Enemy.Lane lane){
-        Enemy e = new Ogre();
+
+    public void addOrc(float spawnTime, Enemy.Lane lane) {
+        Enemy e = new Orc(initialDNA, lane.ordinal(), spawnTime);
         e.setSpawnTime(spawnTime);
         e.setEnemyLane(lane);
         listStageEnemy.add(e);
     }
-    public void addGoblin(float spawnTime,Enemy.Lane lane){
-        Enemy e = new Goblin();
+
+    public void addOgre(float spawnTime, Enemy.Lane lane) {
+        Enemy e = new Ogre(initialDNA, lane.ordinal(), spawnTime);
         e.setSpawnTime(spawnTime);
         e.setEnemyLane(lane);
         listStageEnemy.add(e);
     }
-    public void setEnemyType(Enemy e, Enemy.Type enemyType){
+
+    public void addGoblin(float spawnTime, Enemy.Lane lane) {
+        Enemy e = new Goblin(initialDNA, lane.ordinal(), spawnTime);
+        e.setSpawnTime(spawnTime);
+        e.setEnemyLane(lane);
+        listStageEnemy.add(e);
+    }
+
+    public void setEnemyType(Enemy e, Enemy.Type enemyType) {
         e.setEnemyType(enemyType);
     }
 
-    public void addToArray(ArrayList<Enemy> listEnemy){
+    public void addToArray(ArrayList<Enemy> listEnemy) {
         listEnemy.addAll(listStageEnemy);
     }
 
-    public void addWave(Enemy.Type type, int jumlah, float spawnTime, float spawnInterval,int lane){
-        w1 = new WaveEnemy(type,jumlah,spawnTime,spawnInterval,lane);
+    public void addWave(Enemy.Type type, int jumlah, float spawnTime, float spawnInterval, int lane) {
+        w1 = new WaveEnemy(type, jumlah, spawnTime, spawnInterval, lane);
         w1.addToArray(listStageEnemy);
     }
-    public int calculateKill(ArrayList<Enemy> enemies){
+
+    public int calculateKill(ArrayList<Enemy> enemies) {
         int hasil = 0;
-        for (Enemy e:enemies
-             ) {
-            if (e.state == Enemy.State.DEATH){
+        for (Enemy e : enemies
+        ) {
+            if (e.state == Enemy.State.DEATH) {
                 hasil++;
             }
         }
         return hasil;
     }
+
     public int getLife() {
         return life;
     }
