@@ -6,17 +6,27 @@ import com.mygdx.game.Arrow;
 import com.mygdx.game.spell.Spell;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Arrows extends Spell {
 
 
     protected float interval = 0.5f;
-    protected float spawnTime = 0;
     protected ArrayList<Arrow> listArrow = new ArrayList<>(); //list of arrow buat spell
     protected Arrow arrow;
+    protected int arrowCount;
+    protected int spellArrowCount = 5;
+    protected float arrowSpellSpeed = 300;
+    Random random;
+    protected boolean durationStarted = false;
+
     public Arrows() {
         super();
-        duration = 3f;
+
+        maxDuration = getMaxCooldown();
+        duration = maxDuration;
+
+        random = new Random();
     }
 
     @Override
@@ -29,32 +39,20 @@ public class Arrows extends Spell {
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        
-        if (state == State.ACTIVE){
-            float delta = Gdx.graphics.getDeltaTime();
-            for (Arrow a: listArrow) {
-                // if(a.getSpawnTime() > delta){
 
-                // }
+        if (state == State.ACTIVE) {
+            for (Arrow a : listArrow) {
                 a.draw(batch);
             }
         }
     }
 
-    public float getInterval() {
-        return interval;
+    public float getArrowSpellSpeed() {
+        return arrowSpellSpeed;
     }
 
-    public void setInterval(float interval) {
-        this.interval = interval;
-    }
-
-    public float getSpawnTime() {
-        return spawnTime;
-    }
-
-    public void setSpawnTime(float spawnTime) {
-        this.spawnTime = spawnTime;
+    public void setArrowSpellSpeed(float arrowSpellSpeed) {
+        this.arrowSpellSpeed = arrowSpellSpeed;
     }
 
     public ArrayList<Arrow> getListArrow() {
@@ -63,6 +61,14 @@ public class Arrows extends Spell {
 
     public void setListArrow(ArrayList<Arrow> listArrow) {
         this.listArrow = listArrow;
+    }
+
+    public boolean isDurationStarted() {
+        return durationStarted;
+    }
+
+    public void setDurationStarted(boolean durationStarted) {
+        this.durationStarted = durationStarted;
     }
 
     public Arrow getArrow() {
@@ -78,31 +84,58 @@ public class Arrows extends Spell {
     public void update() {
         super.update();
 
-        if (state == State.ACTIVE){
-            while (duration > 0){
-                duration -= Gdx.graphics.getDeltaTime();
-                if (duration<= spawnTime){
-                    for (int i = 0; i < 4; i++){
-                        arrow = new Arrow();
-                        arrow.setDamage((int) damage);
-                        if (i == 0){
-                            arrow.setY(540);
-                        }
-                        else if (i== 1){
-                            arrow.setY(390);
-                        }
-                        else if (i== 2){
-                            arrow.setY(240);
-                        }
-                        else {
-                            arrow.setY(90);
-                        }
-                        listArrow.add(arrow);
-                    }
-                    spawnTime = spawnTime -  interval;
-                }
+        if (state == State.INACTIVE) return;
+        maxDuration = getMaxCooldown();
+
+        stateTime += Gdx.graphics.getDeltaTime();
+
+        if (stateTime >= interval) {
+            if (arrowCount > 0) {
+                arrow = new Arrow();
+                arrow.setDamage(damage);
+                arrow.setSpeed(arrowSpellSpeed);
+
+                // shoot arrow in Y range of 90 - 540
+                arrow.setY(random.nextInt(450) + 90);
+
+                listArrow.add(arrow);
+                arrowCount--;
+                stateTime = 0;
             }
         }
+
+        if (durationStarted){
+            duration -= Gdx.graphics.getDeltaTime();
+        } else {
+            duration = maxDuration;
+        }
+
+        if (duration <= 0){
+            state = State.INACTIVE;
+            durationStarted = false;
+            duration = maxDuration;
+        }
+
+
+
+
+    }
+
+
+    public int getArrowCount() {
+        return arrowCount;
+    }
+
+    public int getSpellArrowCount() {
+        return spellArrowCount;
+    }
+
+    public void setSpellArrowCount(int spellArrowCount) {
+        this.spellArrowCount = spellArrowCount;
+    }
+
+    public void setArrowCount(int arrowCount) {
+        this.arrowCount = arrowCount;
     }
 
     @Override

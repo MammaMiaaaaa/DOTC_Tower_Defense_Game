@@ -546,7 +546,12 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x >= 0 && y >= 0 && x <= event.getTarget().getWidth() && y <= event.getTarget().getHeight()) {
                     if (castle.getMana() >= spellArrows.getManaCost() && spellArrows.getCooldown() <= 0) {
-                        spellArrows.setState(Arrows.State.ACTIVE);
+
+                        spellArrows.setArrowCount(spellArrows.getSpellArrowCount());
+                        spellArrows.setState(Spell.State.ACTIVE);
+
+                        spellArrows.setDurationStarted(true);
+
                         castle.setMana(castle.getMana() - spellArrows.getManaCost());
                         spellArrows.setCooldown(spellArrows.getMaxCooldown());
 
@@ -640,7 +645,8 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                     if (arrowsUpgradeCost <= survGold) {
                         spellArrows.setDamage((float) (spellArrows.getDamage() * 1.1));
                         spellArrows.setManaCost((float) (spellArrows.getManaCost() * 1.02));
-                        spellArrows.setMaxCooldown((float) (spellArrows.getMaxCooldown() * 0.95));
+                        spellArrows.setSpellArrowCount(spellArrows.getSpellArrowCount() + 1);
+                        spellArrows.setArrowSpellSpeed((float) (spellArrows.getArrowSpellSpeed() * 1.02));
 
 
                         survGold -= arrowsUpgradeCost;
@@ -1289,7 +1295,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             childDNA.set(randomIndex2, temp);
             System.out.println("Swap Mutation");
         }
-        else if (mutationType == 3) {
+        else {
             // shuffle mutation
             Collections.shuffle(childDNA);
             System.out.println("Shuffle Mutation");
