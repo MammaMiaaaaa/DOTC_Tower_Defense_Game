@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Arrow;
 import com.mygdx.game.Castle;
+import com.mygdx.game.screen.GameScreen;
 import com.mygdx.game.spell.Spell;
 
 import java.util.Random;
@@ -46,6 +47,7 @@ public abstract class Enemy extends Hero {
     protected int x = rdm.nextInt(3);
     protected float X, DX, DY, Speed;
     protected float Y;
+    protected int goldDrop;
 
     protected float physicalResistance, magicalResistance;
     protected float[] dna = new float[5];
@@ -53,6 +55,7 @@ public abstract class Enemy extends Hero {
 
 
     private boolean isFitnessCalculated = false;
+    private boolean isGoldDroped = false;
 
     public State state = Enemy.State.RUN;
     Type enemyType = Enemy.Type.Orc;
@@ -69,6 +72,7 @@ public abstract class Enemy extends Hero {
         X = 2150;
         DX = 0;
         DY = 0;
+        goldDrop = 100;
 
         // initialize default dna
         // maxHP
@@ -380,5 +384,17 @@ public abstract class Enemy extends Hero {
 
     public void setEnemyLane(Lane enemyLane) {
         this.enemyLane = enemyLane;
+    }
+
+    public int getGoldDrop() {
+        return goldDrop;
+    }
+
+    public boolean isGoldDroped() {
+        return isGoldDroped;
+    }
+
+    public void setGoldDroped(boolean goldDroped) {
+        isGoldDroped = goldDroped;
     }
 }

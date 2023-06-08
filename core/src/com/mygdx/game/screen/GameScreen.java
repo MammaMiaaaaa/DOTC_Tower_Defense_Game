@@ -32,7 +32,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     Game parentGame;
     AssetManager assetManager;
 
-    TextButton pauseButton, resumeButton, restartButton, exitButton,playAgainButton,backToMenuButton,fireBallButton,arrowsButton,freezeButton;
+    TextButton pauseButton, resumeButton, restartButton, exitButton,playAgainButton,backToMenuButton,fireBallButton,arrowsButton,freezeButton,arrowsUpgradeButton,fireballUpgradeButton,freezeUpgradeButton;
     Stage stg;
     boolean isSurvival = false;
 
@@ -60,7 +60,11 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
     int stageNumber;
     int kill = 0;
-    BitmapFontCache fontCache,castleHPNumber,castleManaNumber;
+    int survGold;
+    int freezeUpgradeCost,fireballUpgradeCost,arrowsUpgradeCost;
+
+
+    BitmapFontCache fontCache,castleHPNumber,castleManaNumber,survGoldText;
     Random random = new Random();
     Stages stage;
 
@@ -69,7 +73,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     ArrayList<String>stageHighScore = new ArrayList<>();
 
     Timer timer;
-    WaveEnemy w1;
 
     float circleX;
     float circleY;
@@ -111,8 +114,12 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         freeze = new Freeze();
         freeze.setCooldown(0);
         earthquake = new Earthquake();
-        spellArrows =new Arrows();
+        spellArrows = new Arrows();
         spellArrows.setCooldown(0);
+        survGold = 0;
+        freezeUpgradeCost = 500;
+        fireballUpgradeCost = 500;
+        arrowsUpgradeCost = 500;
         
 
 
@@ -153,6 +160,9 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         castleManaNumber = new BitmapFontCache(MyGdxGame.font);
         castleManaNumber.setColor(Color.BLUE);
         castleManaNumber.setText("Mana : "+ (int) castle.getMana(),600,50);
+        survGoldText = new BitmapFontCache(MyGdxGame.font);
+        survGoldText.setColor(Color.GOLD);
+        survGoldText.setText("Gold : "+ survGold, 600,50);
 
         // init musuh
         switch (stageNumber) {
@@ -330,7 +340,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 stage.addToArray(listEnemy);
                 break;
         }
-
 
         // pause button
         pauseButton = new TextButton("Pause", mySkin);
@@ -543,6 +552,30 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         });
         stg.addActor(arrowsButton);
 
+        // fireball upgrade button
+        fireballUpgradeButton = new TextButton(String.valueOf(fireballUpgradeCost), mySkin);
+        fireballUpgradeButton.setHeight(50);
+        fireballUpgradeButton.setWidth(100);
+        fireballUpgradeButton.setPosition(1400, 75);
+        fireballUpgradeButton.setColor(Color.WHITE);
+        stg.addActor(fireballUpgradeButton);
+
+        // freeze upgrade button
+        freezeUpgradeButton = new TextButton(String.valueOf(freezeUpgradeCost), mySkin);
+        freezeUpgradeButton.setHeight(50);
+        freezeUpgradeButton.setWidth(100);
+        freezeUpgradeButton.setPosition(1550, 75);
+        freezeUpgradeButton.setColor(Color.WHITE);
+        stg.addActor(freezeUpgradeButton);
+
+        // spell arrows upgrade button
+        arrowsUpgradeButton = new TextButton(String.valueOf(arrowsUpgradeCost), mySkin);
+        arrowsUpgradeButton.setHeight(50);
+        arrowsUpgradeButton.setWidth(100);
+        arrowsUpgradeButton.setPosition(1700, 75);
+        arrowsUpgradeButton.setColor(Color.WHITE);
+        stg.addActor(arrowsUpgradeButton);
+
 
         // game over window
         gameoverWindow = new Window("Game Over", mySkin);
@@ -679,6 +712,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         fontCache.draw(batch);
         castleHPNumber.draw(batch);
         castleManaNumber.draw(batch);
+        survGoldText.draw(batch);
         timer.draw(batch);
 //        fireball.draw(batch,circleX,circleY);
 //        fireball.drawStatus(batch,1440,40);
@@ -892,6 +926,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         // update HP and Mana text
         castleHPNumber.setText("HP : "+ (int) castle.getHP(),300,50);
         castleManaNumber.setText("Mana : " + (int) castle.getMana(),600,50);
+        survGoldText.setText("Gold: " + survGold, 900,50);
 
         // for survival
         if (isSurvival){
@@ -902,6 +937,14 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 if (e.state != Enemy.State.DEATH){
                     allEnemyDied = false;
                     break;
+                }
+            }
+            for (Enemy e:
+                 listEnemy) {
+                if (e.state == Enemy.State.DEATH && !e.isGoldDroped()){
+                    survGold += e.getGoldDrop();
+                    e.setGoldDroped(true);
+                    castle.setMana(castle.getMana()+5);
                 }
             }
 
