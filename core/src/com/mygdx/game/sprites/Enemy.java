@@ -1,9 +1,12 @@
 package com.mygdx.game.sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Arrow;
 import com.mygdx.game.Castle;
+import com.mygdx.game.MyGdxGame;
 import com.mygdx.game.screen.GameScreen;
 import com.mygdx.game.spell.Spell;
 
@@ -45,10 +48,10 @@ public abstract class Enemy extends Hero {
     protected float minimumSpeed = 100;
     protected float stateTime;
     protected float spawnTime;
+    protected float damageTaken;
     protected Random rdm = new Random();
     protected int x = rdm.nextInt(3);
-    protected float X, DX, DY, Speed;
-    protected float Y;
+    protected float X,Y, DX, DY, Speed;
     protected int goldDrop;
 
     protected float physicalResistance, magicalResistance;
@@ -63,6 +66,7 @@ public abstract class Enemy extends Hero {
     Type enemyType = Enemy.Type.Orc;
 
     protected Lane enemyLane = Enemy.Lane.ONE;
+    protected BitmapFontCache fontHP,fontDamageTaken;
 
     public float getDamageGiven() {
         return damageGiven;
@@ -79,6 +83,8 @@ public abstract class Enemy extends Hero {
         X = 2150;
         DX = 0;
         DY = 0;
+
+        damageTaken = 0;
         goldDrop = 1000;
 
 
@@ -96,6 +102,10 @@ public abstract class Enemy extends Hero {
         magicalResistance = this.dna.get(4);
 
         this.HP = maxHP;
+
+        fontHP = new BitmapFontCache(MyGdxGame.font2);
+        fontDamageTaken = new BitmapFontCache(MyGdxGame.font2);
+        fontDamageTaken.setText("",X,Y+200);
     }
 
 
@@ -178,8 +188,15 @@ public abstract class Enemy extends Hero {
     public void Attacked(Arrow a){
         if(state != State.DEATH) {
             HP -= a.getDamage() - physicalResistance;
+
+
+
 //            sound.play();
         }
+//        fontDamageTaken.setText(String.valueOf(HP), X,Y+200);
+//        fontDamageTaken.setColor(Color.BLUE);
+//
+//        fontDamageTaken.draw(batch);
     }
     public void Attacked(Spell s){
         if(state != State.DEATH) {
@@ -192,12 +209,33 @@ public abstract class Enemy extends Hero {
         return attackCooldown <= 0 && state == State.ATTACK;
     }
 
+    public void drawHP(SpriteBatch batch, int x, int y){
+        fontHP.setColor(Color.RED);
+        fontHP.setText(String.valueOf(HP), x,y);
 
-    void Stop()
-    {
-        DX = 0;
-        DY = 0;
+
+        fontHP.draw(batch);
     }
+    public void drawDamageTaken(SpriteBatch batch){
+        fontDamageTaken.draw(batch);
+
+    }
+    public void drawDamageTaken(SpriteBatch batch,Arrow a){
+        fontDamageTaken.setColor(Color.BLUE);
+        fontDamageTaken.setText(String.valueOf(a.getDamage()-physicalResistance), X,Y+200);
+
+
+        fontDamageTaken.draw(batch);
+    }
+    public void drawDamageTaken(SpriteBatch batch,Spell s){
+        damageTaken+=s.getDamage()-magicalResistance;
+        fontDamageTaken.setColor(Color.BLACK);
+        fontDamageTaken.setText(String.valueOf(damageTaken), X,Y+200);
+
+
+        fontDamageTaken.draw(batch);
+    }
+
     public boolean isFrozen(float duration){
         return duration >= 0;
     }

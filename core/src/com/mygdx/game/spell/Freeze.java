@@ -18,7 +18,7 @@ public class Freeze extends Spell {
         state = State.INACTIVE;
         duration = 3f;
         maxDuration = 3f;
-        damage = 0f;
+        damage = 3f;
     }
 
     @Override
