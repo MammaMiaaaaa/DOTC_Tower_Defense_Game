@@ -972,8 +972,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             int randomLane = random.nextInt(Enemy.Lane.values().length);
 
             // generate random spawn time
-            float randomSpawnTime = random.nextFloat() * 10 + 1;
-            System.out.println(randomSpawnTime);
+            float randomSpawnTime = random.nextFloat() * 15 + 2;
 
             switch (randomNumber){
                 case 0:
