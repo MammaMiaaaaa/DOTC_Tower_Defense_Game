@@ -42,6 +42,7 @@ public abstract class Enemy extends Hero {
     protected float damage;
     private float damageGiven;
     protected float attackCooldown;
+    protected float minimumSpeed = 100;
     protected float stateTime;
     protected float spawnTime;
     protected Random rdm = new Random();
@@ -78,7 +79,7 @@ public abstract class Enemy extends Hero {
         X = 2150;
         DX = 0;
         DY = 0;
-        goldDrop = 10000;
+        goldDrop = 1000;
 
 
         // init from parameter
@@ -89,7 +90,7 @@ public abstract class Enemy extends Hero {
 
         // set according to DNA
         maxHP = this.dna.get(0);
-        Speed = this.dna.get(1);
+        Speed = Math.max(minimumSpeed, this.dna.get(1));
         damage = this.dna.get(2);
         physicalResistance = this.dna.get(3);
         magicalResistance = this.dna.get(4);
