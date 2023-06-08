@@ -72,7 +72,7 @@ public abstract class Enemy extends Hero {
         X = 2150;
         DX = 0;
         DY = 0;
-        goldDrop = 100;
+        goldDrop = 10000;
 
         // initialize default dna
         // maxHP
@@ -231,7 +231,6 @@ public abstract class Enemy extends Hero {
         DY = 0;
     }
     public boolean isFrozen(float duration){
-
         return duration >= 0;
     }
 

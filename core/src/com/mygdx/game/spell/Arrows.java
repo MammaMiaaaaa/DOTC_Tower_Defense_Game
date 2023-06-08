@@ -16,6 +16,7 @@ public class Arrows extends Spell {
     protected Arrow arrow;
     public Arrows() {
         super();
+        duration = 3f;
     }
 
     @Override
@@ -28,8 +29,13 @@ public class Arrows extends Spell {
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
+        
         if (state == State.ACTIVE){
+            float delta = Gdx.graphics.getDeltaTime();
             for (Arrow a: listArrow) {
+                // if(a.getSpawnTime() > delta){
+
+                // }
                 a.draw(batch);
             }
         }
@@ -73,10 +79,33 @@ public class Arrows extends Spell {
         super.update();
 
         if (state == State.ACTIVE){
-            int j = 0;
-            while(j < 4){
-                interval -= Gdx.graphics.getDeltaTime();
-                if(interval < 0){
+        //     int j = 0;
+        //     while(j < 4){
+        //         if(interval < 0){
+        //             for (int i = 0; i < 4; i++){
+        //                 arrow = new Arrow();
+        //                 arrow.setDamage((int) damage);
+        //                 if (i == 0){
+        //                     arrow.setY(540);
+        //                 }
+        //                 else if (i== 1){
+        //                     arrow.setY(390);
+        //                 }
+        //                 else if (i== 2){
+        //                     arrow.setY(240);
+        //                 }
+        //                 else {
+        //                     arrow.setY(90);
+        //                 }
+        //                 arrow.setSpawnTime(j);
+        //                 listArrow.add(arrow);
+        //             }
+        //             j++;
+        //         }
+            while (duration > 0){
+
+                duration -= Gdx.graphics.getDeltaTime();
+                if (duration<= spawnTime){
                     for (int i = 0; i < 4; i++){
                         arrow = new Arrow();
                         arrow.setDamage((int) damage);
@@ -94,45 +123,14 @@ public class Arrows extends Spell {
                         }
                         listArrow.add(arrow);
                     }
-                    j++;
-                    interval = 1;
+                    spawnTime = spawnTime -  interval;
                 }
-                System.out.println(interval);
             }
-            state = Arrows.State.INACTIVE;
-
-
-
-//            while (duration > 0){
-//
-//                duration -= Gdx.graphics.getDeltaTime();
-//                if (duration<= spawnTime){
-//                    for (int i = 0; i < 4; i++){
-//                        arrow = new Arrow();
-//                        arrow.setDamage((int) damage);
-//                        if (i == 0){
-//                            arrow.setY(540);
-//                        }
-//                        else if (i== 1){
-//                            arrow.setY(390);
-//                        }
-//                        else if (i== 2){
-//                            arrow.setY(240);
-//                        }
-//                        else {
-//                            arrow.setY(90);
-//                        }
-//                        listArrow.add(arrow);
-//                    }
-//                    spawnTime = spawnTime -  interval;
-//                }
-//            }
         }
+        //     state = Arrows.State.INACTIVE;
         else if (state == State.INACTIVE){
 //            duration = maxDuration;
         }
-
-
     }
 
     @Override

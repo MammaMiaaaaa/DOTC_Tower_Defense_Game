@@ -79,7 +79,6 @@ public class StageFailed extends DataHandling implements Screen, InputProcessor 
         fontCache1 = new BitmapFontCache(MyGdxGame.font);
         fontCache1.setColor(Color.BLACK);
         fontCache1.setText(String.valueOf(kill), 720, 730);
-        System.out.println(kill);
 
         fontCache2 = new BitmapFontCache(MyGdxGame.font);
         fontCache2.setColor(Color.BLACK);

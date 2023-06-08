@@ -11,14 +11,13 @@ import com.mygdx.game.spell.Spell;
 import com.mygdx.game.sprites.Enemy;
 
 public class Freeze extends Spell {
-    protected float maxDuration;
-    public float duration;
 //    Texture circleAOE;
 
     public Freeze() {
         super();
         state = State.INACTIVE;
         duration = 3f;
+        maxDuration = 3f;
         damage = 0f;
     }
 
@@ -65,8 +64,10 @@ public class Freeze extends Spell {
         }
         else {
             state = State.INACTIVE;
-            duration = 3f;
+            duration = maxDuration;
         }
+        System.out.println("Max duration: " + maxDuration);
+        System.out.println("Duration: " + duration);
     }
 
     @Override
@@ -80,5 +81,12 @@ public class Freeze extends Spell {
 
     public void setDuration(float duration) {
         this.duration = duration;
+    }
+    public float getMaxDuration() {
+        return maxDuration;
+    }
+
+    public void setMaxDuration(float maxDuration) {
+        this.maxDuration = maxDuration;
     }
 }

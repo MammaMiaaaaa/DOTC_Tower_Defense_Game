@@ -17,6 +17,8 @@ public class Spell extends DataHandling {
     protected float maxCooldown = Float.parseFloat(getData(18));
     protected float cooldown = maxCooldown;
     protected BitmapFontCache font;
+    protected float maxDuration;
+    public float duration;
 
     public enum State{
         ACTIVE,

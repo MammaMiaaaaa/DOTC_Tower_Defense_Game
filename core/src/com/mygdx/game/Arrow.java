@@ -10,6 +10,7 @@ public class Arrow {
     protected int damage = 100;
     protected float X = 0, Y = 500, DX=1, DY=0, Speed=400;
     protected float stateTime;
+    protected float spawnTime;
 
     //state dari arrow
     public enum State{
@@ -129,5 +130,11 @@ public class Arrow {
 
     public void setState(State state) {
         this.state = state;
+    }
+    public void setSpawnTime(float spawnTime) {
+        this.spawnTime = spawnTime;
+    }
+    public float getSpawnTime() {
+        return spawnTime;
     }
 }

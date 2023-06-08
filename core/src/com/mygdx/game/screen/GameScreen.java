@@ -32,7 +32,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     Game parentGame;
     AssetManager assetManager;
 
-    TextButton pauseButton, resumeButton, restartButton, exitButton,playAgainButton,backToMenuButton,fireBallButton,arrowsButton,freezeButton,arrowsUpgradeButton,fireballUpgradeButton,freezeUpgradeButton;
+    TextButton pauseButton, resumeButton, restartButton, exitButton,playAgainButton,backToMenuButton,fireBallButton,arrowsButton,freezeButton,arrowsUpgradeButton,fireballUpgradeButton,freezeUpgradeButton,heroDamageUpgradeButton;
     Stage stg;
     boolean isSurvival = false;
 
@@ -61,7 +61,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     int stageNumber;
     int kill = 0;
     int survGold;
-    int freezeUpgradeCost,fireballUpgradeCost,arrowsUpgradeCost;
+    int freezeUpgradeCost,fireballUpgradeCost,arrowsUpgradeCost,heroDamageUpgradeCost;
 
 
     BitmapFontCache fontCache,castleHPNumber,castleManaNumber,survGoldText;
@@ -120,6 +120,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         freezeUpgradeCost = 500;
         fireballUpgradeCost = 500;
         arrowsUpgradeCost = 500;
+        heroDamageUpgradeCost = 500;
         
 
 
@@ -589,7 +590,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x >= 0 && y >= 0 && x <= event.getTarget().getWidth() && y <= event.getTarget().getHeight()) {
                     if(freezeUpgradeCost<=survGold){
-                        freeze.setDuration(freeze.getDuration()+freeze.getDuration()/10);
+                        freeze.setMaxDuration(freeze.getMaxDuration()+freeze.getMaxDuration()/10);
                         survGold-=freezeUpgradeCost;
                         freezeUpgradeCost+=100;
                     }
@@ -615,7 +616,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x >= 0 && y >= 0 && x <= event.getTarget().getWidth() && y <= event.getTarget().getHeight()) {
                     if(arrowsUpgradeCost<=survGold){
-//                        spellArrows.setDamage(spellArrows.getDamage()+10);
+                       spellArrows.setDamage(spellArrows.getDamage()+10);
                         survGold-=arrowsUpgradeCost;
                         arrowsUpgradeCost+=100;
                     }
@@ -629,6 +630,32 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
         });
         stg.addActor(arrowsUpgradeButton);
+
+        // hero arrow damage upgrade button
+        heroDamageUpgradeButton = new TextButton(String.valueOf(heroDamageUpgradeCost), mySkin);
+        heroDamageUpgradeButton.setHeight(50);
+        heroDamageUpgradeButton.setWidth(100);
+        heroDamageUpgradeButton.setPosition(200, 1000);
+        heroDamageUpgradeButton.setColor(Color.WHITE);
+        heroDamageUpgradeButton.addListener(new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (x >= 0 && y >= 0 && x <= event.getTarget().getWidth() && y <= event.getTarget().getHeight()) {
+                    if(heroDamageUpgradeCost<=survGold){
+                       hero.setDamage((int)hero.getDamage()+10);
+                        survGold-=heroDamageUpgradeCost;
+                        heroDamageUpgradeCost+=100;
+                    }
+                }
+            }
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+        });
+        stg.addActor(heroDamageUpgradeButton);
 
 
         // game over window
@@ -689,18 +716,6 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         gameoverWindow.addActor(backToMenuButton);
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @Override
@@ -768,12 +783,12 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         castleManaNumber.draw(batch);
         survGoldText.draw(batch);
         timer.draw(batch);
-//        fireball.draw(batch,circleX,circleY);
+        fireball.draw(batch,circleX,circleY);
 
         //draw spell text status
-        fireball.drawStatus(batch,1440,40);
-        freeze.drawStatus(batch,1590,40);
-        spellArrows.drawStatus(batch,1740,40);
+        // fireball.drawStatus(batch,1440,40);
+        // freeze.drawStatus(batch,1590,40);
+        // spellArrows.drawStatus(batch,1740,40);
 
 
 
@@ -940,6 +955,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         fireballUpgradeButton.setText(String.valueOf(fireballUpgradeCost));
         freezeUpgradeButton.setText(String.valueOf(freezeUpgradeCost));
         arrowsUpgradeButton.setText(String.valueOf(arrowsUpgradeCost));
+        heroDamageUpgradeButton.setText(String.valueOf(heroDamageUpgradeCost));
 
         if (fireball.getState() != Spell.State.PREPARE) fireball.update();
         if (freeze.getState() != Spell.State.PREPARE) freeze.update();
@@ -967,10 +983,12 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 fireball.setState(Fireball.State.ACTIVE);
                 fireball.setCooldown(fireball.getMaxCooldown());
                 castle.setMana(castle.getMana() - fireball.getManaCost());
-            }else {
+            }
+            else {
                 fireball.setState(Spell.State.INACTIVE);
             }
         }
+        
         if (!Gdx.input.isTouched() && freeze.getState() == Freeze.State.PREPARE){
             if (castle.getMana() >= freeze.getManaCost() && freeze.getCooldown() <= 0){
                 freeze.setState(Freeze.State.ACTIVE);
