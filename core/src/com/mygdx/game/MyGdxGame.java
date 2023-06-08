@@ -8,6 +8,7 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -48,6 +49,10 @@ public class MyGdxGame extends Game implements InputProcessor {
 		assetManager.load("GoblinRunning.png", Texture.class);
 		assetManager.load("GoblinAttacking.png", Texture.class);
 		assetManager.load("GoblinIdling.png",Texture.class);
+		assetManager.load("sfx/arrowSFX.mp3", Sound.class);
+		assetManager.load("sfx/arrowsSFX.mp3", Sound.class);
+		assetManager.load("sfx/fireballSFX.mp3", Sound.class);
+		assetManager.load("sfx/freezeSFX.mp3", Sound.class);
 		assetManager.load("GoblinDying.png", Texture.class);
 		assetManager.load("MagicOrcRunning.png", Texture.class);
 		assetManager.load("MagicOrcAttacking.png", Texture.class);

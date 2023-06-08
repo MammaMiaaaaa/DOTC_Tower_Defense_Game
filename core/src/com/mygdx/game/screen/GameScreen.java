@@ -2,6 +2,8 @@ package com.mygdx.game.screen;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -58,6 +60,8 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     Window pauseWindow, gameoverWindow;
 
     GameScreen thisScreen;
+
+    Sound arrowSFX, arrowSpellSFX, fireballSpellSFX, freezeSpellSFX;
 
     int stageNumber;
     int kill = 0;
@@ -151,11 +155,18 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
         Skin mySkin = assetManager.get("uiskin.json", Skin.class);
 
+        // init sfx
+        arrowSFX = assetManager.get("sfx/arrowSFX.mp3", Sound.class);
+        arrowSpellSFX = assetManager.get("sfx/arrowsSFX.mp3", Sound.class);
+        fireballSpellSFX = assetManager.get("sfx/fireballSFX.mp3", Sound.class);
+        freezeSpellSFX = assetManager.get("sfx/freezeSFX.mp3", Sound.class);
 
+        // init fontcache
         fontCache = new BitmapFontCache(MyGdxGame.font);
         fontCache.setColor(Color.BLACK);
         fontCache.setText("Stage. 1", 1200, 1025);
 
+        // init bitmap font
         castleHPNumber = new BitmapFontCache(MyGdxGame.font);
         castleHPNumber.setColor(Color.RED);
         castleHPNumber.setText("HP : " + (int) castle.getHP(), 300, 50);
@@ -191,7 +202,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
 
                 // set init enemy round
-                roundEnemyCount = 9;
+                roundEnemyCount = 12;
 
                 // set init templistroundenemy
                 tempListRoundEnemy = (ArrayList<Enemy>) listEnemy.clone();
@@ -358,9 +369,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x >= 0 && y >= 0 && x <= event.getTarget().getWidth() && y <= event.getTarget().getHeight()) {
-                    pauseWindow.setVisible(true);
-                    state = State.Paused;
-                    ((MyGdxGame) parentGame).PauseInGameMusic();
+                    gamePause();
                 }
             }
 
@@ -392,9 +401,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 if (x >= 0 && y >= 0 && x <= event.getTarget().getWidth() && y <= event.getTarget().getHeight()) {
-                    state = State.Running;
-                    ((MyGdxGame) parentGame).PlayInGameMusic();
-                    pauseWindow.setVisible(false);
+                    gameResume();
                 }
             }
 
@@ -546,6 +553,10 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                         spellArrows.setState(Arrows.State.ACTIVE);
                         castle.setMana(castle.getMana() - spellArrows.getManaCost());
                         spellArrows.setCooldown(spellArrows.getMaxCooldown());
+
+                        // play sound
+                        arrowSpellSFX.stop();
+                        arrowSpellSFX.play();
                     }
 
                 }
@@ -743,6 +754,18 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         });
         gameoverWindow.addActor(backToMenuButton);
 
+    }
+
+    private void gameResume() {
+        state = State.Running;
+        ((MyGdxGame) parentGame).PlayInGameMusic();
+        pauseWindow.setVisible(false);
+    }
+
+    private void gamePause() {
+        pauseWindow.setVisible(true);
+        state = State.Paused;
+        ((MyGdxGame) parentGame).PauseInGameMusic();
     }
 
 
@@ -977,7 +1000,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
         }
 
-        // update the arrow
+        // update the arrow (from player, not spell)
         for (Arrow a : hero.getListArrow()) {
             a.update();
         }
@@ -1020,6 +1043,10 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 fireball.setState(Fireball.State.ACTIVE);
                 fireball.setCooldown(fireball.getMaxCooldown());
                 castle.setMana(castle.getMana() - fireball.getManaCost());
+
+                // play sound
+                fireballSpellSFX.stop();
+                fireballSpellSFX.play();
             } else {
                 fireball.setState(Spell.State.INACTIVE);
             }
@@ -1030,6 +1057,10 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 freeze.setState(Freeze.State.ACTIVE);
                 freeze.setCooldown(freeze.getMaxCooldown());
                 castle.setMana(castle.getMana() - freeze.getManaCost());
+
+                // play sound
+                freezeSpellSFX.stop();
+                freezeSpellSFX.play();
             } else if (freeze.getDuration() <= 0) {
                 freeze.setState(Spell.State.INACTIVE);
             }
@@ -1327,7 +1358,16 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     // handle input
     @Override
     public boolean keyDown(int keycode) {
-
+        // escape key calls the pause menu
+        if (keycode == Input.Keys.ESCAPE) {
+            if (state == State.Paused) {
+                state = State.Running;
+                gameResume();
+            } else {
+                state = State.Paused;
+                gamePause();
+            }
+        }
 
         return true;
     }
@@ -1349,6 +1389,12 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if (state != State.Paused && hero.getAttackCooldown() <= 0) {
             hero.Attack();
+
+            // play sfx
+            arrowSFX.stop();
+            arrowSFX.play();
+
+
             Vector2 position = new Vector2(screenX, screenY);
             position = viewport.unproject(position);
             if (position.y >= 700) {
