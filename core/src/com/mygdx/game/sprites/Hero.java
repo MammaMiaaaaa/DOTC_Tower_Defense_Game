@@ -22,7 +22,7 @@ public class Hero  {
         DEATH
     }
 
-    protected int damage = Integer.parseInt(getData(14));
+    protected float damage = Float.parseFloat(getData(14));
     protected float attackCooldownAwal = Float.parseFloat(getData(15));
     protected float attackCooldown = attackCooldownAwal;
 
@@ -76,11 +76,11 @@ public class Hero  {
 
     }
 
-    public int getDamage() {
+    public float getDamage() {
         return damage;
     }
 
-    public void setDamage(int damage) {
+    public void setDamage(float damage) {
         this.damage = damage;
     }
 

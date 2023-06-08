@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.sprites.Enemy;
 
 public class Arrow {
-    protected int damage = 100;
+    protected float damage = 100;
     protected float X = 0, Y = 500, DX=1, DY=0, Speed=400;
     protected float stateTime;
     protected float spawnTime;
@@ -68,11 +68,11 @@ public class Arrow {
         return (Math.sqrt(d) <= radius);
     }
 
-    public int getDamage() {
+    public float getDamage() {
         return damage;
     }
 
-    public void setDamage(int damage) {
+    public void setDamage(float damage) {
         this.damage = damage;
     }
 

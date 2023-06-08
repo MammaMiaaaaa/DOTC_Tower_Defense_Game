@@ -34,12 +34,12 @@ public abstract class Enemy extends Hero {
         FOUR
     }
 
-    protected int HP;
-    protected int maxHP;
+    protected float HP;
+    protected float maxHP;
     
 
-    protected int damage;
-    private int damageGiven;
+    protected float damage;
+    private float damageGiven;
     protected float attackCooldown;
     protected float stateTime;
     protected float spawnTime;
@@ -60,9 +60,7 @@ public abstract class Enemy extends Hero {
     public State state = Enemy.State.RUN;
     Type enemyType = Enemy.Type.Orc;
 
-    protected
-
-    Lane enemyLane = Enemy.Lane.ONE;
+    protected Lane enemyLane = Enemy.Lane.ONE;
 
     public Enemy()
     {
@@ -87,19 +85,19 @@ public abstract class Enemy extends Hero {
         dna[4] = 1;
 
         // set according to DNA
-        maxHP = (int)dna[0];
+        maxHP = dna[0];
         Speed = dna[1];
-        damage = (int)dna[2];
+        damage =  dna[2];
         physicalResistance = dna[3];
         magicalResistance = dna[4];
 
     }
 
-    public int getDamageGiven() {
+    public float getDamageGiven() {
         return damageGiven;
     }
 
-    public void setDamageGiven(int damageGiven) {
+    public void setDamageGiven(float damageGiven) {
         this.damageGiven = damageGiven;
     }
 
@@ -181,41 +179,20 @@ public abstract class Enemy extends Hero {
         if (isFitnessCalculated){
             return;
         }
-        if (!isFitnessCalculated){
-            isFitnessCalculated = true;
-        }
+        isFitnessCalculated = true;
 
         fitness = (2150 - X)/2 + 10 * getDamageGiven();
-
-        // print sementara fitness
-//        System.out.println("--------------------");
-//        System.out.println("all death statistics");
-//        System.out.println("Fitness: " + fitness);
-//        System.out.println("damage given: " + getDamageGiven());
-//        System.out.println("DNA:");
-//        for (int i = 0; i < dna.length; i++) {
-//            System.out.println("dna[" + i + "]: " + dna[i]);
-//        }
     }
 
     public void Attacked(Arrow a){
         if(state != State.DEATH) {
             HP -= a.getDamage() - physicalResistance;
-
-            // if (HP <= 0){
-            //     state = State.DEATH;
-            // }
-
 //            sound.play();
         }
     }
     public void Attacked(Spell s){
         if(state != State.DEATH) {
             HP -= s.getDamage() - magicalResistance;
-
-            // if (HP <= 0){
-            //     state = State.DEATH;
-            // }
 
 //            sound.play();
         }
@@ -251,27 +228,27 @@ public abstract class Enemy extends Hero {
         Y = y;
     }
 
-    public int getHP() {
+    public float getHP() {
         return HP;
     }
 
-    public void setHP(int HP) {
+    public void setHP(float HP) {
         this.HP = HP;
     }
 
-    public int getMaxHP() {
+    public float getMaxHP() {
         return maxHP;
     }
 
-    public void setMaxHP(int maxHP) {
+    public void setMaxHP(float maxHP) {
         this.maxHP = maxHP;
     }
 
-    public int getDamage() {
+    public float getDamage() {
         return damage;
     }
 
-    public void setDamage(int damage) {
+    public void setDamage(float damage) {
         this.damage = damage;
     }
 
