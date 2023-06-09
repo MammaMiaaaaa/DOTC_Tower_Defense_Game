@@ -8,6 +8,8 @@ import com.mygdx.game.sprites.Orc;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.badlogic.gdx.math.MathUtils.random;
+
 public class Stages {
     protected boolean stageSuccesses;
     protected int highScore;
@@ -27,11 +29,11 @@ public class Stages {
     }
     public static void refreshInitialDNA(){
         initialDNA = new ArrayList<>();
-        initialDNA.add(100.0f);
-        initialDNA.add(100.0f);
-        initialDNA.add(10.0f);
-        initialDNA.add(1.0f);
-        initialDNA.add(1.0f);
+        initialDNA.add((float) (100.0f * (random.nextFloat() * 0.4 + 0.8)));
+        initialDNA.add((float) (100.0f * (random.nextFloat() * 0.4 + 0.8)));
+        initialDNA.add((float) (10.0f * (random.nextFloat() * 0.4 + 0.8)));
+        initialDNA.add((float) (1.0f * (random.nextFloat() * 0.4 + 0.8)));
+        initialDNA.add((float) (1.0f * (random.nextFloat() * 0.4 + 0.8)));
     }
 
     public void addOrc(float spawnTime, Enemy.Lane lane) {
