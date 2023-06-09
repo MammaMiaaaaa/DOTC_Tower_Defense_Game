@@ -133,5 +133,12 @@ public class Spell extends DataHandling {
         }
         font.draw(batch);
     }
+    public float getMaxDuration() {
+        return maxDuration;
+    }
+
+    public void setMaxDuration(float maxDuration) {
+        this.maxDuration = maxDuration;
+    }
 
 }

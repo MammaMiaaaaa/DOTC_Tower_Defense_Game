@@ -22,8 +22,9 @@ public Fireball() {
         super();
         state = State.INACTIVE;
         duration = 0.35f;
+        maxDuration = 0.35f;
         totalDamage = 0;
-        fontTotalDamageGiven = new BitmapFontCache(MyGdxGame.font2);
+        fontTotalDamageGiven = new BitmapFontCache(MyGdxGame.font30px);
     }
 
     @Override
@@ -69,7 +70,7 @@ public Fireball() {
        }
        else {
            state = State.INACTIVE;
-           duration = 0.5f;
+           duration = maxDuration;
        }
     }
     public boolean CanAttack(Enemy e, float X, float Y){
@@ -104,4 +105,6 @@ public Fireball() {
     public void setTotalDamage(float totalDamage) {
         this.totalDamage = totalDamage;
     }
+
+
 }

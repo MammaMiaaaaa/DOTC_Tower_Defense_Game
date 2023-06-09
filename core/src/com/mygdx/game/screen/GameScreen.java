@@ -586,6 +586,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                         fireball.setDamage((float) (fireball.getDamage() * 1.1));
                         fireball.setManaCost((float) (fireball.getManaCost() * 1.02));
                         fireball.setMaxCooldown((float) (fireball.getMaxCooldown() * 0.95));
+                        fireball.setMaxDuration((float) (fireball.getMaxDuration() * 1.1));
 
 
                         survGold -= fireballUpgradeCost;
@@ -1030,7 +1031,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
 
         }
         if (fireball.getState() == Spell.State.ACTIVE){
-            fireball.drawTotalDamageGiven(batch, circleX,circleY+400);
+            fireball.drawTotalDamageGiven(batch, circleX-100,circleY+400);
         }
 
         // update the arrow (from player, not spell)

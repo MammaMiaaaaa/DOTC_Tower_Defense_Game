@@ -80,11 +80,5 @@ public class Freeze extends Spell {
     public void setDuration(float duration) {
         this.duration = duration;
     }
-    public float getMaxDuration() {
-        return maxDuration;
-    }
 
-    public void setMaxDuration(float maxDuration) {
-        this.maxDuration = maxDuration;
-    }
 }

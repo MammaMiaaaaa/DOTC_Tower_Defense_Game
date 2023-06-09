@@ -22,7 +22,7 @@ public class MyGdxGame extends Game implements InputProcessor {
 	public static final int WORLD_WIDTH = 1920;
 	public static final int WORLD_HEIGHT = 1080;
 
-	public static BitmapFont font,font2,font3;
+	public static BitmapFont font,font2,font3,font30px;
 	BitmapFontCache fontCache;
 
 	AssetManager assetManager;
@@ -144,6 +144,11 @@ public class MyGdxGame extends Game implements InputProcessor {
 		parameter2.color = Color.WHITE;
 		parameter2.flip = false;
 		font3 = generator.generateFont(parameter2);
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter3.size = 30;
+		parameter3.color = Color.WHITE;
+		parameter3.flip = false;
+		font30px =generator.generateFont(parameter3);
 		generator.dispose();
 
 
