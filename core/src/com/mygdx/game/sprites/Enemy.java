@@ -187,7 +187,7 @@ public abstract class Enemy extends Hero {
 
     public void Attacked(Arrow a){
         if(state != State.DEATH) {
-            HP -= a.getDamage() - physicalResistance;
+            HP -= Math.max(a.getDamage()*0.01,a.getDamage() - physicalResistance);
 
 
 
@@ -200,7 +200,7 @@ public abstract class Enemy extends Hero {
     }
     public void Attacked(Spell s){
         if(state != State.DEATH) {
-            HP -= s.getDamage() - magicalResistance;
+            HP -= Math.max(s.getDamage()*0.01,s.getDamage() - magicalResistance);
 
 //            sound.play();
         }

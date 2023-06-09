@@ -1278,11 +1278,12 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
         if (mutationChance < 0.1) {
             // mutation options
             // 1. single-point Mutation
-            // 2. Inversion Mutation
+            // 2. Modified Single-point mutation
             // 3. Swap Mutations
             // 4. Shuffle Mutations
+            // 5. Inversion Mutation
             // choose randomly between four mutations
-            int mutationType = random.nextInt(4);
+            int mutationType = random.nextInt(5);
 
             if (mutationType == 0) {
                 // single-point mutation
@@ -1290,7 +1291,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 childDNA.set(randomIndex, (float) (childDNA.get(randomIndex) * (random.nextFloat() * 0.4 + 0.8)));
                 System.out.println("Single-point Mutation");
             } else if (mutationType == 1) {
-                // inversion mutation
+                // modifies single-mutation
                 int randomIndex1 = random.nextInt(childDNA.size());
                 int randomIndex2 = random.nextInt(childDNA.size());
                 if (randomIndex1 > randomIndex2) {
@@ -1301,7 +1302,7 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 for (int j = randomIndex1; j <= randomIndex2; j++) {
                     childDNA.set(j, (float) (childDNA.get(j) * (random.nextFloat() * 0.4 + 0.8)));
                 }
-                System.out.println("Inversion Mutation");
+                System.out.println("Modified Single-Point Mutation");
             } else if (mutationType == 2) {
                 // swap mutation
                 int randomIndex1 = random.nextInt(childDNA.size());
@@ -1310,10 +1311,25 @@ public class GameScreen extends DataHandling implements Screen, InputProcessor {
                 childDNA.set(randomIndex1, childDNA.get(randomIndex2));
                 childDNA.set(randomIndex2, temp);
                 System.out.println("Swap Mutation");
-            } else {
+            } else if(mutationType == 3) {
                 // shuffle mutation
                 Collections.shuffle(childDNA);
                 System.out.println("Shuffle Mutation");
+            } else {
+                // Inversion Mutations
+                int randomIndex1 = random.nextInt(childDNA.size());
+                int randomIndex2 = random.nextInt(childDNA.size());
+                if (randomIndex1 > randomIndex2) {
+                    int temp = randomIndex1;
+                    randomIndex1 = randomIndex2;
+                    randomIndex2 = temp;
+                }
+                for (int j = 0; j <= (randomIndex1-randomIndex2)/2; j++) {
+                    float temp=childDNA.get(randomIndex1+j);
+                    childDNA.set(randomIndex1+j, childDNA.get(randomIndex2-j));
+                    childDNA.set(randomIndex2-j, temp);
+                }
+                System.out.println("Inverse Mutation");
             }
         }
 
